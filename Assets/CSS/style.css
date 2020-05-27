@@ -1,0 +1,48 @@
+/*-- Main Construction Dimensions --*/
+header{
+    height:125px;
+}
+footer{
+    height:75px;
+}
+#game-screen{
+    width:80%;
+    min-height:600px;
+}
+/*-- General Styling Rules --*/
+.brdr-full{
+    border:1px solid #000;
+}
+.brdr-top{
+    border-top: 1px solid #000;
+}
+.brdr-btm{
+    border-bottom: 1px solid #000;
+}
+.inline-block{
+    display:inline-block;
+}
+/*-- Game Screen Dimensions --*/
+#button-row{
+    height:50px;
+    line-height:25px;
+}
+#game-board{
+    margin:50px auto;
+    height:520px;
+    width:520px;
+}
+#battlefield{
+    height:500px;
+    width:500px;
+}
+/*-- Battlefield Table Dimesions --*/
+#x-axis{
+    height:20px;
+    width:100%;
+}
+#y-axis{
+    height:500px;
+    width:20px;
+    float:left;
+}
