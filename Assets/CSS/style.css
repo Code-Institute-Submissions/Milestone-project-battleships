@@ -27,22 +27,43 @@ footer{
     height:50px;
     line-height:25px;
 }
-#game-board{
-    margin:50px auto;
-    height:520px;
-    width:520px;
+#game-module{
+    width:1550px;
+    height:620px;
+    margin:auto;
 }
-#battlefield{
-    height:500px;
-    width:500px;
+[id$="game-board"]{
+    height:525px;
+    width:525px;
+}
+/*-- Arsenal Dimensions --*/
+#arsenal{
+    width:200px;
+}
+#arsenal tr td:first-child{
+    width:125px;
+}
+#arsenal tr td:last-child{
+    width:75px;
 }
 /*-- Battlefield Table Dimesions --*/
-#x-axis{
-    height:20px;
-    width:100%;
+table, td{
+    border:1px solid #000;
+    border-collapse: collapse;
 }
-#y-axis{
-    height:500px;
-    width:20px;
-    float:left;
+.game-square{
+    height:50px;
+    width:50px;
+    background-color: #ccc;
+}
+[class^="y-axis"]{
+    width:25px;
+}
+.row-x-axis{
+    text-align: center;
+    line-height:13px;
+    height:25px;
+}
+.occupied{
+    background-color:#ff453a;
 }

@@ -1,69 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css"
+      type="text/css"
+    />
+    <!-- Load Jasmine Framework -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/jasmine.js"
+      integrity="sha256-PePX8Jc4TIxzzVz0Qe4NsH3OUU8+Y49DBWvYgggNqkY="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/jasmine-html.js"
+      integrity="sha256-qazAASTTgUrq9SOYkPSB3oEuqbhn+2j4kxGkVZ0GKjY="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/boot.js"
+      integrity="sha256-HG8TKl0T65NyELmbUoo0H7/a1e++smYdXXtuuEsyKok="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/jasmine.min.css"
+      integrity="sha256-US46s8iE//XjSFdoo70XyCnsGALF7ggrHbPCHqvoRn4="
+      crossorigin="anonymous"
+    />
+    <!-- Load Scripts -->
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-		type="text/css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css"
-		type="text/css" />
-	<!-- Load Jasmine Framework -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/jasmine.js"
-		integrity="sha256-PePX8Jc4TIxzzVz0Qe4NsH3OUU8+Y49DBWvYgggNqkY=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/jasmine-html.js"
-		integrity="sha256-qazAASTTgUrq9SOYkPSB3oEuqbhn+2j4kxGkVZ0GKjY=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/boot.js"
-		integrity="sha256-HG8TKl0T65NyELmbUoo0H7/a1e++smYdXXtuuEsyKok=" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.5.0/jasmine.min.css"
-		integrity="sha256-US46s8iE//XjSFdoo70XyCnsGALF7ggrHbPCHqvoRn4=" crossorigin="anonymous" />
-	<!-- Load Scripts -->
+    <!-- Load Tests -->
+    <script type="text/javascript" src="Assets/Specs/functionsSpec.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <link href="Assets/CSS/style.css" rel="stylesheet" type="text/css" />
+    <title>Battleships</title>
+  </head>
 
-	<!-- Load Tests -->
-	<script type="text/javascript" src="Assets/Specs/functionsSpec.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-	<link href="Assets/CSS/style.css" rel="stylesheet" type="text/css" />
-	<title>Battleships</title>
-</head>
-
-<body>
-	<header class="text-center brdr-btm">
-		Header
-	</header>
-	<div id="main-content">
-		<div id="game-screen" class="mx-auto brdr-full">
-			<div id="button-row" class="brdr-btm">
-				<ul class="list-inline">
-					<li class="list-inline-item text-center" id="home-tab">
-						Play
-					</li>
-					<li class="list-inline-item text-center" id="instr-tab">
-						Instructions
-					</li>
-					<li class="list-inline-item text-center" id="prof-tab">
-						Profile
-					</li>
-					<li class="list-inline-item text-center" id="scores-tab">
-						Scores
-					</li>
-				</ul>
-			</div>
-            <div id="game-board">
-                <div id="x-axis" class="brdr-full inline-block">X Axis</div>
-                <div id="y-axis" class="brdr-full inline-block">Y Axis</div>
-                <div id="battlefield" class="brdr-full inline-block">
-                
-                </div>
-            </div>    
-		</div>
-	</div>
-	<footer class="text-center brdr-top">
-		Footer
-	</footer>
-</body>
-
+  <body>
+    <header class="text-center brdr-btm">
+      Header
+    </header>
+    <div id="main-content">
+      <div id="game-screen" class="mx-auto brdr-full">
+        <div id="button-row" class="brdr-btm">
+          <ul class="list-inline">
+            <li class="list-inline-item text-center" id="home-tab">
+              Play
+            </li>
+            <li class="list-inline-item text-center" id="instr-tab">
+              Instructions
+            </li>
+            <li class="list-inline-item text-center" id="prof-tab">
+              Profile
+            </li>
+            <li class="list-inline-item text-center" id="scores-tab">
+              Scores
+            </li>
+          </ul>
+        </div>
+        <div id="game-module">
+          <button id="placement-btn" onclick="placeShips()">Place your ships</button>
+          <div id="arsenal" class="inline-block text-center">
+            <table>
+                <tr>
+                    <th colspan="2">Arsenal</th>
+                </tr>
+                <tr>
+                    <td>Aircraft Carrier</td>
+                    <td>5 Spaces</td>
+                </tr>
+                <tr>
+                    <td>Battleship</td>
+                    <td>4 Spaces</td>
+                </tr>
+                <tr>
+                    <td>Submarine</td>
+                    <td>3 Spaces</td>
+                </tr>
+                <tr>
+                    <td>Destroyer</td>
+                    <td>3 Spaces</td>
+                </tr>
+                <tr>
+                    <td>Patrol Boat</td>
+                    <td>2 Spaces</td>
+                </tr>
+            </table>
+          </div>
+          <div id="user-game-board" class="inline-block text-center">
+            <table>
+              <tr class="row-x-axis">
+                <td></td>
+                <td class="x-axis-A">A</td>
+                <td class="x-axis-B">B</td>
+                <td class="x-axis-C">C</td>
+                <td class="x-axis-D">D</td>
+                <td class="x-axis-E">E</td>
+                <td class="x-axis-F">F</td>
+                <td class="x-axis-G">G</td>
+                <td class="x-axis-H">H</td>
+                <td class="x-axis-I">I</td>
+                <td class="x-axis-J">J</td>
+              </tr>
+              <tr class="row-1">
+                <td class="y-axis-1">1</td>
+                <td class="A1 game-square"></td>
+                <td class="B1 game-square"></td>
+                <td class="C1 game-square"></td>
+                <td class="D1 game-square"></td>
+                <td class="E1 game-square"></td>
+                <td class="F1 game-square"></td>
+                <td class="G1 game-square"></td>
+                <td class="H1 game-square"></td>
+                <td class="I1 game-square"></td>
+                <td class="J1 game-square"></td>
+              </tr>
+              <tr class="row-2">
+                <td class="y-axis-2">2</td>
+                <td class="A2 game-square"></td>
+                <td class="B2 game-square"></td>
+                <td class="C2 game-square"></td>
+                <td class="D2 game-square"></td>
+                <td class="E2 game-square"></td>
+                <td class="F2 game-square"></td>
+                <td class="G2 game-square"></td>
+                <td class="H2 game-square"></td>
+                <td class="I2 game-square"></td>
+                <td class="J2 game-square"></td>
+              </tr>
+              <tr class="row-3">
+                <td class="y-axis-3">3</td>
+                <td class="A3 game-square"></td>
+                <td class="B3 game-square"></td>
+                <td class="C3 game-square"></td>
+                <td class="D3 game-square"></td>
+                <td class="E3 game-square"></td>
+                <td class="F3 game-square"></td>
+                <td class="G3 game-square"></td>
+                <td class="H3 game-square"></td>
+                <td class="I3 game-square"></td>
+                <td class="J3 game-square"></td>
+              </tr>
+              <tr class="row-4">
+                <td class="y-axis-4">4</td>
+                <td class="A4 game-square"></td>
+                <td class="B4 game-square"></td>
+                <td class="C4 game-square"></td>
+                <td class="D4 game-square"></td>
+                <td class="E4 game-square"></td>
+                <td class="F4 game-square"></td>
+                <td class="G4 game-square"></td>
+                <td class="H4 game-square"></td>
+                <td class="I4 game-square"></td>
+                <td class="J4 game-square"></td>
+              </tr>
+              <tr class="row-5">
+                <td class="y-axis-5">5</td>
+                <td class="A5 game-square"></td>
+                <td class="B5 game-square"></td>
+                <td class="C5 game-square"></td>
+                <td class="D5 game-square"></td>
+                <td class="E5 game-square"></td>
+                <td class="F5 game-square"></td>
+                <td class="G5 game-square"></td>
+                <td class="H5 game-square"></td>
+                <td class="I5 game-square"></td>
+                <td class="J5 game-square"></td>
+              </tr>
+              <tr class="row-6">
+                <td class="y-axis-6">6</td>
+                <td class="A6 game-square"></td>
+                <td class="B6 game-square"></td>
+                <td class="C6 game-square"></td>
+                <td class="D6 game-square"></td>
+                <td class="E6 game-square"></td>
+                <td class="F6 game-square"></td>
+                <td class="G6 game-square"></td>
+                <td class="H6 game-square"></td>
+                <td class="I6 game-square"></td>
+                <td class="J6 game-square"></td>
+              </tr>
+              <tr class="row-7">
+                <td class="y-axis-7">7</td>
+                <td class="A7 game-square"></td>
+                <td class="B7 game-square"></td>
+                <td class="C7 game-square"></td>
+                <td class="D7 game-square"></td>
+                <td class="E7 game-square"></td>
+                <td class="F7 game-square"></td>
+                <td class="G7 game-square"></td>
+                <td class="H7 game-square"></td>
+                <td class="I7 game-square"></td>
+                <td class="J7 game-square"></td>
+              </tr>
+              <tr class="row-8">
+                <td class="y-axis-8">8</td>
+                <td class="A8 game-square"></td>
+                <td class="B8 game-square"></td>
+                <td class="C8 game-square"></td>
+                <td class="D8 game-square"></td>
+                <td class="E8 game-square"></td>
+                <td class="F8 game-square"></td>
+                <td class="G8 game-square"></td>
+                <td class="H8 game-square"></td>
+                <td class="I8 game-square"></td>
+                <td class="J8 game-square"></td>
+              </tr>
+              <tr class="row-9">
+                <td class="y-axis-9">9</td>
+                <td class="A9 game-square"></td>
+                <td class="B9 game-square"></td>
+                <td class="C9 game-square"></td>
+                <td class="D9 game-square"></td>
+                <td class="E9 game-square"></td>
+                <td class="F9 game-square"></td>
+                <td class="G9 game-square"></td>
+                <td class="H9 game-square"></td>
+                <td class="I9 game-square"></td>
+                <td class="J9 game-square"></td>
+              </tr>
+              <tr class="row-10">
+                <td class="y-axis-10">10</td>
+                <td class="A10 game-square"></td>
+                <td class="B10 game-square"></td>
+                <td class="C10 game-square"></td>
+                <td class="D10 game-square"></td>
+                <td class="E10 game-square"></td>
+                <td class="F10 game-square"></td>
+                <td class="G10 game-square"></td>
+                <td class="H10 game-square"></td>
+                <td class="I10 game-square"></td>
+                <td class="J10 game-square"></td>
+              </tr>
+            </table>
+          </div>
+          <div id="opp-game-board" class="inline-block text-center">
+            <table>
+              <tr class="row-x-axis">
+                <td></td>
+                <td class="x-axis-A">A</td>
+                <td class="x-axis-B">B</td>
+                <td class="x-axis-C">C</td>
+                <td class="x-axis-D">D</td>
+                <td class="x-axis-E">E</td>
+                <td class="x-axis-F">F</td>
+                <td class="x-axis-G">G</td>
+                <td class="x-axis-H">H</td>
+                <td class="x-axis-I">I</td>
+                <td class="x-axis-J">J</td>
+              </tr>
+              <tr class="row-1">
+                <td class="y-axis-1">1</td>
+                <td class="A1 game-square"></td>
+                <td class="B1 game-square"></td>
+                <td class="C1 game-square"></td>
+                <td class="D1 game-square"></td>
+                <td class="E1 game-square"></td>
+                <td class="F1 game-square"></td>
+                <td class="G1 game-square"></td>
+                <td class="H1 game-square"></td>
+                <td class="I1 game-square"></td>
+                <td class="J1 game-square"></td>
+              </tr>
+              <tr class="row-2">
+                <td class="y-axis-2">2</td>
+                <td class="A2 game-square"></td>
+                <td class="B2 game-square"></td>
+                <td class="C2 game-square"></td>
+                <td class="D2 game-square"></td>
+                <td class="E2 game-square"></td>
+                <td class="F2 game-square"></td>
+                <td class="G2 game-square"></td>
+                <td class="H2 game-square"></td>
+                <td class="I2 game-square"></td>
+                <td class="J2 game-square"></td>
+              </tr>
+              <tr class="row-3">
+                <td class="y-axis-3">3</td>
+                <td class="A3 game-square"></td>
+                <td class="B3 game-square"></td>
+                <td class="C3 game-square"></td>
+                <td class="D3 game-square"></td>
+                <td class="E3 game-square"></td>
+                <td class="F3 game-square"></td>
+                <td class="G3 game-square"></td>
+                <td class="H3 game-square"></td>
+                <td class="I3 game-square"></td>
+                <td class="J3 game-square"></td>
+              </tr>
+              <tr class="row-4">
+                <td class="y-axis-4">4</td>
+                <td class="A4 game-square"></td>
+                <td class="B4 game-square"></td>
+                <td class="C4 game-square"></td>
+                <td class="D4 game-square"></td>
+                <td class="E4 game-square"></td>
+                <td class="F4 game-square"></td>
+                <td class="G4 game-square"></td>
+                <td class="H4 game-square"></td>
+                <td class="I4 game-square"></td>
+                <td class="J4 game-square"></td>
+              </tr>
+              <tr class="row-5">
+                <td class="y-axis-5">5</td>
+                <td class="A5 game-square"></td>
+                <td class="B5 game-square"></td>
+                <td class="C5 game-square"></td>
+                <td class="D5 game-square"></td>
+                <td class="E5 game-square"></td>
+                <td class="F5 game-square"></td>
+                <td class="G5 game-square"></td>
+                <td class="H5 game-square"></td>
+                <td class="I5 game-square"></td>
+                <td class="J5 game-square"></td>
+              </tr>
+              <tr class="row-6">
+                <td class="y-axis-6">6</td>
+                <td class="A6 game-square"></td>
+                <td class="B6 game-square"></td>
+                <td class="C6 game-square"></td>
+                <td class="D6 game-square"></td>
+                <td class="E6 game-square"></td>
+                <td class="F6 game-square"></td>
+                <td class="G6 game-square"></td>
+                <td class="H6 game-square"></td>
+                <td class="I6 game-square"></td>
+                <td class="J6 game-square"></td>
+              </tr>
+              <tr class="row-7">
+                <td class="y-axis-7">7</td>
+                <td class="A7 game-square"></td>
+                <td class="B7 game-square"></td>
+                <td class="C7 game-square"></td>
+                <td class="D7 game-square"></td>
+                <td class="E7 game-square"></td>
+                <td class="F7 game-square"></td>
+                <td class="G7 game-square"></td>
+                <td class="H7 game-square"></td>
+                <td class="I7 game-square"></td>
+                <td class="J7 game-square"></td>
+              </tr>
+              <tr class="row-8">
+                <td class="y-axis-8">8</td>
+                <td class="A8 game-square"></td>
+                <td class="B8 game-square"></td>
+                <td class="C8 game-square"></td>
+                <td class="D8 game-square"></td>
+                <td class="E8 game-square"></td>
+                <td class="F8 game-square"></td>
+                <td class="G8 game-square"></td>
+                <td class="H8 game-square"></td>
+                <td class="I8 game-square"></td>
+                <td class="J8 game-square"></td>
+              </tr>
+              <tr class="row-9">
+                <td class="y-axis-9">9</td>
+                <td class="A9 game-square"></td>
+                <td class="B9 game-square"></td>
+                <td class="C9 game-square"></td>
+                <td class="D9 game-square"></td>
+                <td class="E9 game-square"></td>
+                <td class="F9 game-square"></td>
+                <td class="G9 game-square"></td>
+                <td class="H9 game-square"></td>
+                <td class="I9 game-square"></td>
+                <td class="J9 game-square"></td>
+              </tr>
+              <tr class="row-10">
+                <td class="y-axis-10">10</td>
+                <td class="A10 game-square"></td>
+                <td class="B10 game-square"></td>
+                <td class="C10 game-square"></td>
+                <td class="D10 game-square"></td>
+                <td class="E10 game-square"></td>
+                <td class="F10 game-square"></td>
+                <td class="G10 game-square"></td>
+                <td class="H10 game-square"></td>
+                <td class="I10 game-square"></td>
+                <td class="J10 game-square"></td>
+              </tr>
+            </table>
+          </div>
+          <div id="message-panel-1" class="text-center"><p>Place your ships</p></div>
+          <div id="message-panel-2" class="text-center"><p></p></div>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center brdr-top">
+      Footer
+    </footer>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  <script type="text/javascript" src="Assets/Scripts/functions.js"></script>
 </html>
