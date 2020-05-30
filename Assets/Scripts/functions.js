@@ -1,4 +1,6 @@
-window.shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
+var shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
+var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
+var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
 
 var newScreen = function(){
     //This clears the squares, providing a new board to play upon
@@ -46,8 +48,8 @@ function placeShip(){
         $("#message-panel-2 p").html(`Please select another ship`);
     } else{
         $("#message-panel-1 p").html(`${shipSelected} selected`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(function(){
+        $("#message-panel-2 p").html(`Ship length:${spacesRemaining}`);
+        /*$(".game-square").click(function(){
             if(spacesRemaining > 0){
                 if($(this).hasClass("occupied")){
                     $("#message-panel-2 p").html("This square is occupied. Please select another");
@@ -62,7 +64,18 @@ function placeShip(){
             }
             
         
-        }); 
+        });*/
+        $(".game-square").click(findCoordinate);
+        //This finds the square that's been clicked.
+        var startingCoor = sqCoor;
+        //This breaks the coordinates into an x and y value.
+        calculateShipCoor(startingCoor);
+        //This will place the ship in the calculated coordinates.
+        for(i=0;i<newCoor.length;i++){
+            var currentCoor = newCoor[i];
+            $(`#user-game-board .${currentCoor}`).addClass("occupied");  
+        };
+
     }
 }
 // This function retrieves a new set of coordinates, and places ships in the opponent's grid
@@ -164,7 +177,7 @@ function findCoordinate(){
     var getClasses = this.className;
     window.sqCoor = getClasses[0]+getClasses[1];
     checkOccupiedStatus(sqCoor);
-    //console.log(sqCoor,checkOccupiedStatus(sqCoor));
+    console.log(sqCoor,checkOccupiedStatus(sqCoor));
     return [sqCoor, checkOccupiedStatus(sqCoor)];
 }
 //This function will receive the coordinates of a clicked square, and then check if that square is occupied.
@@ -176,6 +189,19 @@ function checkOccupiedStatus(sqCoor){
         occupiedStatus = false;
     }
     return occupiedStatus;
+}
+function calculateShipCoor(startingCoor){
+    console.log(startingCoor);
+    var xCoor = startingCoor[0];
+    var yCoor = startingCoor[1];
+    var xIndex = xAxis.indexOf(xCoor);
+    var yIndex = yAxis.indexOf(yCoor);
+    window.newCoor = [];
+    for(i=0;i<shipLength;i++){
+        newCoor.push(`${xCoor}${yAxis[yIndex]}`);
+        yIndex++;
+    }
+    return(newCoor);
 }
 
 

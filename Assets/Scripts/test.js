@@ -5,25 +5,36 @@ function placeAircraftCarrier(){
         $("#message-panel-2 p").html(`Please select another ship`);
     } else{
         $("#message-panel-1 p").html(`You have selected the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(function(){
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    spacesRemaining--;
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-                $("#aircraftcarrier").addClass("placed");
-            }
-            
+        $("#message-panel-2 p").html(`Ship length:${spacesRemaining} Spaces`);
+        $(".game-square").click(findCoordinate);
+        //This finds the square that's been clicked.
+        var startingCoor = sqCoor;
+        //This breaks the coordinates into an x and y value.
+        var xCoor = startingCoor[0];
+        var yCoor = startingCoor[1];
+        var xIndex = xAxis.indexOf(xCoor);
+        var yIndex = yAxis.indexOf(yCoor);
+        for(i=0,i<shipLength;i++){
+
+        }
         
-        }); 
+        
     }
 }
+function calculateShipCoor(startingCoor){
+    var xCoor = startingCoor[0];
+    var yCoor = startingCoor[1];
+    var xIndex = xAxis.indexOf(xCoor);
+    var yIndex = yAxis.indexOf(yCoor);
+    newCoor = [];
+    for(i=0,i<shipLength;i++){
+        newCoor.push(`${xCoor}+${yAxis[yIndex]}`);
+        yIndex++;
+    }
+    console.log(newCoor);
+}
+
+
 function placeBattleship(){
     var shipSelected = "Battleship";
     var spacesRemaining = 4;
