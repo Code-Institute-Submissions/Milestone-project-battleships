@@ -41,6 +41,7 @@ function placeAircraftCarrier(){
                 $("#aircraftcarrier").addClass("placed");
             }
             
+        
         }); 
     }
 }
@@ -236,24 +237,29 @@ function checkReadyStatus(readyStatus){
     }
     return readyStatus;
 }
+function findCoordinate(){
+    var getClasses = this.className;
+    var sqCoor = [getClasses[0],getClasses[1]];
+    console.log(sqCoor);
+    checkOccupiedStatus(sqCoor);
+    console.log(checkOccupiedStatus(sqCoor));
+    
+}
+function checkOccupiedStatus(sqCoor){
+    var occupiedStatus;
+    var subjectSq = sqCoor[0]+sqCoor[1];
+    if($(`#opp-game-board .${subjectSq}`).hasClass("occupied")){
+        occupiedStatus = true;
+    } else {
+        occupiedStatus = false;
+    }
+    return occupiedStatus;
+}
 
-/*function checkOccupiedSquare(spacesRemaining){
-    var spacesRemaining;
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                    spacesRemaining--; 
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-            }
-}*/
 
 $("#new-game-btn").click(newScreen);
 $("#ready-btn").click(getOpponentCoordinates);
+$(".game-square").click(findCoordinate);
 
 
 
