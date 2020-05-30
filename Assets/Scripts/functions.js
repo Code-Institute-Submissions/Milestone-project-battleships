@@ -1,4 +1,4 @@
-var shipSelection = [["Aircraft Carrier",5],["Battleship",4],["Submarine",3],["Destroyer",3],["Patrol Boat",2]];
+window.shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
 
 var newScreen = function(){
     //This clears the squares, providing a new board to play upon
@@ -9,23 +9,43 @@ var newScreen = function(){
     $("#message-panel-1 p").html("Please place your ships");
     $("#message-panel-2 p").html("Select a ship");
     //If user clicks on the arsenal table, it will run function shipSelector
-    $("#aircraftcarrier").click(placeAircraftCarrier);
-    $("#battleship").click(placeBattleship);
-    $("#submarine").click(placeSubmarine);
-    $("#destroyer").click(placeDestroyer);
-    $("#patrolboat").click(placePatrolBoat);
-    
+    $("#aircc").click(selectShip);
+    $("#aircc").click(placeShip);
+    $("#btsp").click(selectShip);
+    $("#btsp").click(placeShip);
+    $("#sub").click(selectShip);
+    $("#sub").click(placeShip);
+    $("dest").click(selectShip);
+    $("#dest").click(placeShip);
+    $("#pboat").click(selectShip);
+    $("#pboat").click(placeShip);
 
 }
 //This function allows the user to place a selected ship.
-function placeAircraftCarrier(){
-    var shipSelected = "Aircraft Carrier";
-    var spacesRemaining = 5;
-    if($(this).hasClass("placed")){
-        $("#message-panel-1 p").html(`You have already placed the ${shipSelected}`);
+function selectShip(){
+    window.shipId = $(this).attr('id');
+    var indexShip = findInMDArray(shipId);
+    window.shipLength = shipList[indexShip][2];
+    window.shipSelected = shipList[indexShip][1]
+    console.log(shipLength);
+}
+function findInMDArray(shipId){
+    var MDIndex;
+    for(i = 0; i < shipList.length; i++ ) {
+    if( shipList[i][0] === `${shipId}` ) {
+        MDIndex = i;
+        return MDIndex;
+    }
+}
+}
+function placeShip(){
+    var spacesRemaining = shipLength;
+    var shipId2 = this;
+    if($(shipId2).hasClass("placed")){
+        $("#message-panel-1 p").html(`${shipSelected} has already been deployed`);
         $("#message-panel-2 p").html(`Please select another ship`);
     } else{
-        $("#message-panel-1 p").html(`You have selected the ${shipSelected}`);
+        $("#message-panel-1 p").html(`${shipSelected} selected`);
         $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
         $(".game-square").click(function(){
             if(spacesRemaining > 0){
@@ -38,113 +58,14 @@ function placeAircraftCarrier(){
                 }
             } else {
                 $("#message-panel-2 p").html("Select another ship");
-                $("#aircraftcarrier").addClass("placed");
+                $(shipId2).addClass("placed");
             }
             
         
         }); 
     }
 }
-function placeBattleship(){
-    var shipSelected = "Battleship";
-    var spacesRemaining = 4;
-    if($(this).hasClass("placed")){
-        $("#message-panel-1 p").html(`You have already placed the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Please select another ship`);
-    } else{
-        $("#message-panel-1 p").html(`You have selected the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(function(){
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    spacesRemaining--;
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-                $("#battleship").addClass("placed");
-            }
-        }) ;
-    }
-}
-function placeSubmarine(){
-    var shipSelected = "Submarine";
-    var spacesRemaining = 3;
-    if($(this).hasClass("placed")){
-        $("#message-panel-1 p").html(`You have already placed the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Please select another ship`);
-    } else{
-        $("#message-panel-1 p").html(`You have selected the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(function(){
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    spacesRemaining--;
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-                $("#submarine").addClass("placed");
-            }
-        }) ;
-    }
-}
-function placeDestroyer(){
-    var shipSelected = "Destroyer";
-    var spacesRemaining = 3;
-    if($(this).hasClass("placed")){
-        $("#message-panel-1 p").html(`You have already placed the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Please select another ship`);
-    } else{
-        $("#message-panel-1 p").html(`You have selected the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(function(){
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    spacesRemaining--;
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-                $("#destroyer").addClass("placed");
-            }
-        }) ;
-    }
-}
-function placePatrolBoat(){
-    var shipSelected = "Patrol Boat";
-    var spacesRemaining = 2;
-    if($(this).hasClass("placed")){
-        $("#message-panel-1 p").html(`You have already placed the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Please select another ship`);
-    } else{
-        $("#message-panel-1 p").html(`You have selected the ${shipSelected}`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(function(){
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    spacesRemaining--;
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-                $("#patrolboat").addClass("placed");
-            }
-        });
-    }
-}
+// This function retrieves a new set of coordinates, and places ships in the opponent's grid
 function getOpponentCoordinates(){
     if(checkReadyStatus() == true){
     $.get("board-1.txt",function(rawCoor){
@@ -185,6 +106,7 @@ function getOpponentCoordinates(){
         console.log("You're a poop head");
     }
 }
+//This function checks if all of the user's ships has been placed, and then returns a true or false statement.
 function checkReadyStatus(readyStatus){
     var readyStatus
     var aircraftReady;
@@ -192,35 +114,35 @@ function checkReadyStatus(readyStatus){
     var submarineReady;
     var destroyerReady;
     var patrolboatReady;
-    if($("#aircraftcarrier").hasClass("placed")){
+    if($("#aircc").hasClass("placed")){
         aircraftReady = true;
         console.log("Aircraft Carrier Ready");
     } else {
         aircraftReady = false;
         console.log("Please deploy your Aircraft Carrier");
     }
-    if($("#battleship").hasClass("placed")){
+    if($("#btsp").hasClass("placed")){
         battleshipReady = true;
         console.log("Battleship Ready");
     } else {
         battleshipReady = false;
         console.log("Please deploy your Battleship");
     }
-    if($("#submarine").hasClass("placed")){
+    if($("#sub").hasClass("placed")){
         submarineReady = true;
         console.log("Submarine Ready");
     } else {
         submarineReady = false;
         console.log("Please deploy your Submarine");
     }
-    if($("#destroyer").hasClass("placed")){
+    if($("#dest").hasClass("placed")){
         destroyerReady = true;
         console.log("Destroyer Ready");
     } else {
         destroyerReady = false;
         console.log("Please deploy your Destroyer");
     }
-    if($("#patrolboat").hasClass("placed")){
+    if($("#pboat").hasClass("placed")){
         patrolboatReady = true;
         console.log("Patrol Boat Ready");
     } else {
@@ -237,18 +159,18 @@ function checkReadyStatus(readyStatus){
     }
     return readyStatus;
 }
+//When clicking on a game square, this function will read the coordinates of that square, and then run function 'checkOccupiedStatus'
 function findCoordinate(){
     var getClasses = this.className;
-    var sqCoor = [getClasses[0],getClasses[1]];
-    console.log(sqCoor);
+    window.sqCoor = getClasses[0]+getClasses[1];
     checkOccupiedStatus(sqCoor);
-    console.log(checkOccupiedStatus(sqCoor));
-    
+    //console.log(sqCoor,checkOccupiedStatus(sqCoor));
+    return [sqCoor, checkOccupiedStatus(sqCoor)];
 }
+//This function will receive the coordinates of a clicked square, and then check if that square is occupied.
 function checkOccupiedStatus(sqCoor){
-    var occupiedStatus;
-    var subjectSq = sqCoor[0]+sqCoor[1];
-    if($(`#opp-game-board .${subjectSq}`).hasClass("occupied")){
+    window.occupiedStatus;
+    if($(`#opp-game-board .${sqCoor}`).hasClass("occupied")){
         occupiedStatus = true;
     } else {
         occupiedStatus = false;
@@ -257,9 +179,12 @@ function checkOccupiedStatus(sqCoor){
 }
 
 
+
 $("#new-game-btn").click(newScreen);
 $("#ready-btn").click(getOpponentCoordinates);
 $(".game-square").click(findCoordinate);
+
+
 
 
 
