@@ -1,11 +1,11 @@
-function placeAircraftCarrier(){
-    var spacesRemaining = 5;
-    if($(this).hasClass("placed")){
-        $("#message-panel-1 p").html(`You have already placed the Aircraft Carrier`);
-        $("#message-panel-2 p").html(`Please select another ship`);
-    } else{
-        $("#message-panel-1 p").html(`You have selected the Aircraft Carrier`);
-        $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-        $(".game-square").click(checkOccupiedSquare);
-    }
+function placeShip(sqCoor){
+    //This finds the square that's been clicked.
+    var startingCoor = sqCoor;
+    //This breaks the coordinates into an x and y value.
+    calculateShipCoor(startingCoor);
+    //This will place the ship in the calculated coordinates.
+    for(i=0;i<newCoor.length;i++){
+            var currentCoor = newCoor[i];
+            $(`#user-game-board .${currentCoor}`).addClass("occupied");  
+    };
 }

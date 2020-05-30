@@ -10,26 +10,29 @@ var newScreen = function(){
     //User is prompted to start placing their ships
     $("#message-panel-1 p").html("Please place your ships");
     $("#message-panel-2 p").html("Select a ship");
-    //If user clicks on the arsenal table, it will run function shipSelector
+    //If user clicks on the arsenal table, it will run function selectShip
     $("#aircc").click(selectShip);
-    $("#aircc").click(placeShip);
     $("#btsp").click(selectShip);
-    $("#btsp").click(placeShip);
     $("#sub").click(selectShip);
-    $("#sub").click(placeShip);
-    $("dest").click(selectShip);
-    $("#dest").click(placeShip);
+    $("#dest").click(selectShip);
     $("#pboat").click(selectShip);
-    $("#pboat").click(placeShip);
-
+    $(".game-square").click(findCoordinate);
+    $(".game-square").click(placeShip);
+    
 }
 //This function allows the user to place a selected ship.
 function selectShip(){
     window.shipId = $(this).attr('id');
     var indexShip = findInMDArray(shipId);
     window.shipLength = shipList[indexShip][2];
-    window.shipSelected = shipList[indexShip][1]
-    console.log(shipLength);
+    window.shipSelected = shipList[indexShip][1];
+    if($(`#${shipId}`).hasClass("placed")){
+        $("#message-panel-1 p").html(`${shipSelected} has already been deployed`);
+        $("#message-panel-2 p").html(`Please select another ship`);
+    } else{
+        $("#message-panel-1 p").html(`${shipSelected} selected`);
+        $("#message-panel-2 p").html(`Ship length:${shipLength}`);
+    }
 }
 function findInMDArray(shipId){
     var MDIndex;
@@ -40,43 +43,72 @@ function findInMDArray(shipId){
     }
 }
 }
-function placeShip(){
-    var spacesRemaining = shipLength;
-    var shipId2 = this;
-    if($(shipId2).hasClass("placed")){
-        $("#message-panel-1 p").html(`${shipSelected} has already been deployed`);
-        $("#message-panel-2 p").html(`Please select another ship`);
+//When clicking on a game square, this function will read the coordinates of that square, and then run function 'checkOccupiedStatus'
+function findCoordinate(){
+    var getClasses = this.className;
+    window.sqCoor = getClasses[0]+getClasses[1];
+    checkOccupiedStatus(sqCoor);
+    console.log(sqCoor,checkOccupiedStatus(sqCoor));
+    return [sqCoor, checkOccupiedStatus(sqCoor)];
+}
+//This function will receive the coordinates of a clicked square, and then check if that square is occupied.
+function checkOccupiedStatus(sqCoor){
+    window.occupiedStatus;
+    if($(`#opp-game-board .${sqCoor}`).hasClass("occupied")){
+        occupiedStatus = true;
+    } else {
+        occupiedStatus = false;
+    }
+    return occupiedStatus;
+}
+function calculateShipCoor(startingCoor){
+    var xCoor = startingCoor[0];
+    var yCoor = startingCoor[1];
+    var xIndex = xAxis.indexOf(xCoor);
+    var yIndex = yAxis.indexOf(yCoor);
+    window.newCoor = [];
+    if(checkOrientation() == true){
+        for(i=0;i<shipLength;i++){
+            newCoor.push(`${xCoor}${yAxis[yIndex]}`);
+            yIndex++;
+        }
     } else{
-        $("#message-panel-1 p").html(`${shipSelected} selected`);
-        $("#message-panel-2 p").html(`Ship length:${spacesRemaining}`);
-        /*$(".game-square").click(function(){
-            if(spacesRemaining > 0){
-                if($(this).hasClass("occupied")){
-                    $("#message-panel-2 p").html("This square is occupied. Please select another");
-                } else{
-                    $(this).addClass("occupied");
-                    spacesRemaining--;
-                    $("#message-panel-2 p").html(`Spaces remaining:${spacesRemaining}`);
-                }
-            } else {
-                $("#message-panel-2 p").html("Select another ship");
-                $(shipId2).addClass("placed");
-            }
-            
-        
-        });*/
-        $(".game-square").click(findCoordinate);
-        //This finds the square that's been clicked.
-        var startingCoor = sqCoor;
-        //This breaks the coordinates into an x and y value.
-        calculateShipCoor(startingCoor);
-        //This will place the ship in the calculated coordinates.
-        for(i=0;i<newCoor.length;i++){
+        for(i=0;i<shipLength;i++){
+            newCoor.push(`${xAxis[xIndex]}${yCoor}`);
+            xIndex++;
+        }
+    }
+    return(newCoor);
+}
+//This function checks if the user wants to place their ship vertically or horizontally
+function checkOrientation(){
+    window.verticalStatus;
+    if($("#orientation-btn").hasClass("vertical")){
+        verticalStatus = true;
+    } else {
+        verticalStatus = false;
+    };
+    return verticalStatus;
+}
+//This function controls the 'Orientation Button'. Clicking toggles the status of vertically or horizontally.
+function changeOrientation(){
+    if($("#orientation-btn").hasClass("vertical")){
+        $("#orientation-btn").removeClass("vertical");
+    } else {
+        $("#orientation-btn").addClass("vertical");
+    }
+}
+function placeShip(){
+    //This finds the square that's been clicked.
+    var startingCoor = sqCoor;
+    //This breaks the coordinates into an x and y value.
+    calculateShipCoor(startingCoor);
+    //This will place the ship in the calculated coordinates.
+    for(i=0;i<newCoor.length;i++){
             var currentCoor = newCoor[i];
             $(`#user-game-board .${currentCoor}`).addClass("occupied");  
-        };
-
-    }
+    };
+    $(`#${shipId}`).addClass("placed");
 }
 // This function retrieves a new set of coordinates, and places ships in the opponent's grid
 function getOpponentCoordinates(){
@@ -172,43 +204,14 @@ function checkReadyStatus(readyStatus){
     }
     return readyStatus;
 }
-//When clicking on a game square, this function will read the coordinates of that square, and then run function 'checkOccupiedStatus'
-function findCoordinate(){
-    var getClasses = this.className;
-    window.sqCoor = getClasses[0]+getClasses[1];
-    checkOccupiedStatus(sqCoor);
-    console.log(sqCoor,checkOccupiedStatus(sqCoor));
-    return [sqCoor, checkOccupiedStatus(sqCoor)];
-}
-//This function will receive the coordinates of a clicked square, and then check if that square is occupied.
-function checkOccupiedStatus(sqCoor){
-    window.occupiedStatus;
-    if($(`#opp-game-board .${sqCoor}`).hasClass("occupied")){
-        occupiedStatus = true;
-    } else {
-        occupiedStatus = false;
-    }
-    return occupiedStatus;
-}
-function calculateShipCoor(startingCoor){
-    console.log(startingCoor);
-    var xCoor = startingCoor[0];
-    var yCoor = startingCoor[1];
-    var xIndex = xAxis.indexOf(xCoor);
-    var yIndex = yAxis.indexOf(yCoor);
-    window.newCoor = [];
-    for(i=0;i<shipLength;i++){
-        newCoor.push(`${xCoor}${yAxis[yIndex]}`);
-        yIndex++;
-    }
-    return(newCoor);
-}
+
 
 
 
 $("#new-game-btn").click(newScreen);
 $("#ready-btn").click(getOpponentCoordinates);
-$(".game-square").click(findCoordinate);
+$("#orientation-btn").click(changeOrientation);
+//$(".game-square").click(findCoordinate);
 
 
 

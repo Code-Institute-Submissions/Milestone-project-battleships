@@ -10,13 +10,7 @@ function placeAircraftCarrier(){
         //This finds the square that's been clicked.
         var startingCoor = sqCoor;
         //This breaks the coordinates into an x and y value.
-        var xCoor = startingCoor[0];
-        var yCoor = startingCoor[1];
-        var xIndex = xAxis.indexOf(xCoor);
-        var yIndex = yAxis.indexOf(yCoor);
-        for(i=0,i<shipLength;i++){
-
-        }
+        calculateShipCoor(startingCoor);
         
         
     }

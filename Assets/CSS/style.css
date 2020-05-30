@@ -22,6 +22,9 @@ footer{
 .inline-block{
     display:inline-block;
 }
+.block{
+    display: block;
+}
 /*-- Game Screen Dimensions --*/
 #button-row{
     height:50px;
