@@ -1,4 +1,5 @@
 var shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
+var shipIdList =["aircc","btsp","sub","dest","pboat"];
 var deployedList = [];
 var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
 var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
@@ -204,7 +205,7 @@ function placeShip(){
 // This function retrieves a new set of coordinates, and places ships in the opponent's grid
 function getOpponentCoordinates(){
     if(checkReadyStatus() == true){
-    $.get("board-1.txt",function(rawCoor){
+        $.get("board-1.txt",function(rawCoor){
         var oppCoor = rawCoor.split(/\n/g);
         var ACCoor = oppCoor[0].split(",");
         for(i=0;i<ACCoor.length;i++){
@@ -237,70 +238,50 @@ function getOpponentCoordinates(){
             $(`#opp-game-board .${currentCoor}`).addClass("occupied");
         }
 
-    })
+        })
     } else {
         console.log("You're a poop head");
     }
 }
 //This function checks if all of the user's ships has been placed, and then returns a true or false statement.
-function checkReadyStatus(readyStatus){
-    var readyStatus
-    var aircraftReady;
-    var battleshipReady;
-    var submarineReady;
-    var destroyerReady;
-    var patrolboatReady;
-    if($("#aircc").hasClass("placed")){
-        aircraftReady = true;
-        console.log("Aircraft Carrier Ready");
-    } else {
-        aircraftReady = false;
-        console.log("Please deploy your Aircraft Carrier");
-    }
-    if($("#btsp").hasClass("placed")){
-        battleshipReady = true;
-        console.log("Battleship Ready");
-    } else {
-        battleshipReady = false;
-        console.log("Please deploy your Battleship");
-    }
-    if($("#sub").hasClass("placed")){
-        submarineReady = true;
-        console.log("Submarine Ready");
-    } else {
-        submarineReady = false;
-        console.log("Please deploy your Submarine");
-    }
-    if($("#dest").hasClass("placed")){
-        destroyerReady = true;
-        console.log("Destroyer Ready");
-    } else {
-        destroyerReady = false;
-        console.log("Please deploy your Destroyer");
-    }
-    if($("#pboat").hasClass("placed")){
-        patrolboatReady = true;
-        console.log("Patrol Boat Ready");
-    } else {
-        patrolboatReady = false;
-        console.log("Please deploy your Patrol Boat");
-    }
-    if(aircraftReady == true && battleshipReady == true && submarineReady == true && destroyerReady == true && patrolboatReady == true){
+function checkReadyStatus(){
+    if(deployedList.length == 5){
         console.log("All ships deployed");
         readyStatus = true;
     } else {
         console.log("Please place all your ships before starting");
-        readyStatus = false;
-        
-    }
-    return readyStatus;
+        var yetToBeDeployed = [];
+        console.log(deployedList);
+        console.log(shipIdList);
+        var i=0;
+        while(i <shipIdList.length){
+            var j=0;
+            console.log(i);
+            console.log(shipIdList[i]);
+            do{
+                if(shipList[i][0]==deployedList[j]){
+                    i++;
+                    j=0;
+                }
+                if(shipList[i][0]!==deployedList[j]){
+                    j++;
+                }
+            } while(j<deployedList.length)
+            yetToBeDeployed.push(shipList[i][1]);
+            i++;
+            j=0;
+            
+        }
+        readyStatus = false;        
+        console.log(yetToBeDeployed);
+    }  
 }
 
 
 $(document).ready(function(){
     welcomeFunction();
     $("#new-game-btn").click(newScreen);
-    $("#ready-btn").click(getOpponentCoordinates);
+    $("#ready-btn").click(checkReadyStatus);
     $("#orientation-btn").click(changeOrientation);
 })
 
