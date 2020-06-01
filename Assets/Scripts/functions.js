@@ -1,6 +1,6 @@
 var shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
-var shipIdList =["aircc","btsp","sub","dest","pboat"];
 var deployedList = [];
+var oppsShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]]
 var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
 var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
 
@@ -146,7 +146,6 @@ function checkOverlapStatus(newCoor){
             overlapStatus = true;
             overlapSquare = newCoor[i];
             var getClasses = $(`#user-game-board .${overlapSquare}`).attr("class").split(" ");
-            console.log(getClasses);
             //I want to find the shipID, which will be the second last class added.
             occupyingShipId = getClasses[getClasses.length - 2];
             for(i=0;i<shipList.length;i++){
@@ -282,27 +281,27 @@ function getOpponentCoordinates(){
             var ACCoor = oppCoor[0].split(",");
             for(i=0;i<ACCoor.length;i++){
             var currentCoor = ACCoor[i];
-            $(`#opp-game-board .${currentCoor}`).addClass("occupied");
+            $(`#opp-game-board .${currentCoor}`).addClass("occupied aircc");
             }
             var BSCoor = oppCoor[1].split(",");
             for(i=0;i<BSCoor.length;i++){
             var currentCoor = BSCoor[i];
-            $(`#opp-game-board .${currentCoor}`).addClass("occupied");
+            $(`#opp-game-board .${currentCoor}`).addClass("occupied btsp");
             }
             var SubCoor = oppCoor[2].split(",");
             for(i=0;i<SubCoor.length;i++){
             var currentCoor = SubCoor[i];
-            $(`#opp-game-board .${currentCoor}`).addClass("occupied");
+            $(`#opp-game-board .${currentCoor}`).addClass("occupied sub");
             }
             var DesCoor = oppCoor[3].split(",");
             for(i=0;i<DesCoor.length;i++){
             var currentCoor = DesCoor[i];
-            $(`#opp-game-board .${currentCoor}`).addClass("occupied");
+            $(`#opp-game-board .${currentCoor}`).addClass("occupied dest");
             }
             var PBCoor = oppCoor[4].split(",");
             for(i=0;i<PBCoor.length;i++){
             var currentCoor = PBCoor[i];
-            $(`#opp-game-board .${currentCoor}`).addClass("occupied");
+            $(`#opp-game-board .${currentCoor}`).addClass("occupied pboat");
             }
     });
     opponentShipsPlaced = true;
@@ -316,7 +315,7 @@ function checkReadyStatus(){
         $("#message-panel-1 p").html("Please place all your ships before starting");
         var yetToBeDeployed = [];
         var i=0;
-        while(i <shipIdList.length){
+        while(i <shipList.length){
             var j=0;
             do{
                 if(shipList[i][0]==deployedList[j]){
@@ -339,21 +338,44 @@ function checkReadyStatus(){
 }
 function userMakeGuess(){
     $("#opp-game-board .game-square").click(findCoordinate);
-    checkOccupiedStatus(sqCoor);
-    if(occupiedStatus == true){
-        userHit();
+    if($(`#opp-game-board .${sqCoor}`).hasClass("attempted")){
+        $("#message-panel-1 p").html(`${sqCoor} has already been selected.`);
+        $("#message-panel-2 p").html(`Please select another square`);
     } else{
-        userMiss();
-    };
+        checkOccupiedStatus(sqCoor);
+        if(occupiedStatus == true){
+            userHit();
+        } else{
+            userMiss();
+        };
+    }
 }
 //This function will run if the user/opponent has correctly guessed a game square
 function userHit(){
-    
-}
+    //Change square to 'hit' class.
+    $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
+    $("#message-panel-1 p").html("It's a hit!");
+    //Which ship is hit?
+    var getClasses = $(`#${whichBoard} .${sqCoor}`).attr("class").split(" ");
+    var occupyingShipId = getClasses[getClasses.length - 3];
+    for(i=0;i<shipList.length;i++){
+        if(occupyingShipId == shipList[i][0]){;
+            occupyingShip = shipList[i][1];
+            $("#message-panel-2 p").html(`${occupyingShip} was damaged!`);
+            oppsShips[i][1]--;
+            if(oppsShips[i][1] == 0){
+                $("#message-panel-2 p").html(`${occupyingShip} was sunk!`);    
+                $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
+            }
+        }
+    };
+};
 //This function will run if the user/opponent has not correctly guessed a game square
 function userMiss(){
-
-}
+    $("#message-panel-1 p").html("You missed!");
+    $("#message-panel-2 p").html(``);
+$(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
+};
 
 
 $(document).ready(function(){
@@ -365,7 +387,7 @@ $(document).ready(function(){
     $(".game-square").mouseleave(unshowCoordinates);
     $("#ready-btn").click(beginGame);
     
-})
+});
 
 
 

@@ -73,3 +73,12 @@ table, td{
 .show-coordinates{
     background-color:blue;
 }
+.hit{
+    background-color: #555;
+}
+.sunk{
+    background-color: #111;
+}
+.miss{
+    background-color:#999;
+}
