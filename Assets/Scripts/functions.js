@@ -32,7 +32,9 @@ function newScreen(){
     $("#sub").click(selectShip);
     $("#dest").click(selectShip);
     $("#pboat").click(selectShip);
-    $(".game-square").click(findCoordinate);
+    $(".game-square").mouseenter(findCoordinate);
+    $(".game-square").mouseenter(showCoordinates);
+    $(".game-square").mouseleave(unshowCoordinates);
     $(".game-square").click(placeShip);
     
 }
@@ -65,6 +67,7 @@ function findInMDArray(shipId){
 function findCoordinate(){
     var getClasses = this.className;
     window.sqCoor = getClasses[0]+getClasses[1];
+    console.log(sqCoor);
     return sqCoor;
 }
 function calculateShipCoor(startingCoor){
@@ -117,7 +120,10 @@ function checkOverlapStatus(newCoor){
         if(checkOccupiedStatus(checkCoor)==true){
             overlapStatus = true;
             overlapSquare = newCoor[i];
-            occupyingShipId = $(`#user-game-board .${overlapSquare}`).attr("class").split(" ").pop();
+            var getClasses = $(`#user-game-board .${overlapSquare}`).attr("class").split(" ");
+            console.log(getClasses);
+            //I want to find the shipID, which will be the second last class added.
+            occupyingShipId = getClasses[getClasses.length - 2];
             for(i=0;i<shipList.length;i++){
                 if(occupyingShipId == shipList[i][0]){;
                     occupyingShip = shipList[i][1];
@@ -145,7 +151,7 @@ function checkOccupiedStatus(checkCoor){
 }
 //This function checks if a ship has already been placed, and will limit duplicates of the same ship.
 function checkDuplicateStatus(){
-    window.checkDuplicateStatus;
+    window.duplicateStatus;
     if($(`#${shipId}`).hasClass("placed")){
         duplicateStatus = true;
     } else {
@@ -164,12 +170,30 @@ function checkOrientation(){
     return verticalStatus;
 }
 //This function controls the 'Orientation Button'. Clicking toggles the status of vertically or horizontally.
-function changeOrientation(){
-    if($("#orientation-btn").hasClass("vertical")){
+function changeOrientation(event){
+       if($("#orientation-btn").hasClass("vertical")){
         $("#orientation-btn").removeClass("vertical");
-    } else {
+        } else {
         $("#orientation-btn").addClass("vertical");
-    }
+        } 
+}
+function showCoordinates(){
+        //This finds the square that's being hovered over.
+        var startingCoor = sqCoor;
+        //This breaks the coordinates into an x and y value.
+        calculateShipCoor(startingCoor);
+        console.log(newCoor);
+        //This will place the ship in the calculated coordinates.
+        for(i=0;i<newCoor.length;i++){
+            var currentCoor = newCoor[i];
+            console.log(currentCoor);
+            $(`#user-game-board .${currentCoor}`).addClass("show-coordinates");  
+        };
+        return;
+}
+
+function unshowCoordinates(){
+    $(".game-square").removeClass("show-coordinates");
 }
 //This function takes all the coordinates (provided by ship length) and fills the according squares
 function placeShip(){
@@ -249,7 +273,7 @@ function checkReadyStatus(){
         console.log("All ships deployed");
         readyStatus = true;
     } else {
-        console.log("Please place all your ships before starting");
+        $("#message-panel-1 p").html("Please place all your ships before starting");
         var yetToBeDeployed = [];
         console.log(deployedList);
         console.log(shipIdList);
@@ -272,8 +296,8 @@ function checkReadyStatus(){
             j=0;
             
         }
-        readyStatus = false;        
-        console.log(yetToBeDeployed);
+        readyStatus = false;
+        $("#message-panel-2 p").html(`${yetToBeDeployed} must still be deployed.`);        
     }  
 }
 
@@ -281,7 +305,7 @@ function checkReadyStatus(){
 $(document).ready(function(){
     welcomeFunction();
     $("#new-game-btn").click(newScreen);
-    $("#ready-btn").click(checkReadyStatus);
+    $("#ready-btn").click(getOpponentCoordinates);
     $("#orientation-btn").click(changeOrientation);
 })
 

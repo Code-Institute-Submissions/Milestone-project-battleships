@@ -70,3 +70,6 @@ table, td{
 .occupied{
     background-color:#ff453a;
 }
+.show-coordinates{
+    background-color:blue;
+}
