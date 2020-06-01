@@ -97,7 +97,11 @@ function unshowCoordinates(){
 }
 function calculateShipCoor(startingCoor){
     var xCoor = startingCoor[0];
-    var yCoor = startingCoor[1];
+    if(startingCoor.length == 3){
+        var yCoor = `${startingCoor[1]}${startingCoor[2]}`;
+    } else {
+        var yCoor = startingCoor[1];
+    }
     var xIndex = xAxis.indexOf(xCoor);
     var yIndex = yAxis.indexOf(yCoor);
     window.newCoor = [];
@@ -269,7 +273,26 @@ function beginGame(){
     window.placementPhase = false;
     $("#message-panel-1 p").html("Your opponent is ready");
     $("#message-panel-2 p").html("Your turn. Play your first move.");
-    $("#opp-game-board .game-square").click(userMakeGuess);
+    var userTurn = true;
+    var userShipCount = 0;
+    var oppsShipCount = 0;
+    do{
+        switch(userTurn){
+            case true:
+                console.log("user turn");
+                $("#opp-game-board .game-square").click(userMakeGuess);
+                break;
+            case false:
+                console.log("opponent turn");
+                oppMakeGuess();
+                break;
+        }
+
+    }while(userShipCount < 5 || oppsShipCount < 5);
+    return;
+    //if(userShipCount < 5 || oppsShipCount < 5){
+        //game over
+    //}
 };
 //Retrieving Opponent's Coordinates
 
@@ -338,26 +361,44 @@ function checkReadyStatus(){
 }
 function userMakeGuess(){
     $("#opp-game-board .game-square").click(findCoordinate);
-    if($(`#opp-game-board .${sqCoor}`).hasClass("attempted")){
+    if($(`#${whichBoard} .${sqCoor}`).hasClass("attempted")){
         $("#message-panel-1 p").html(`${sqCoor} has already been selected.`);
         $("#message-panel-2 p").html(`Please select another square`);
     } else{
         checkOccupiedStatus(sqCoor);
         if(occupiedStatus == true){
-            userHit();
+            hitStatus();
         } else{
-            userMiss();
+            missStatus();
         };
     }
+ 
+    turnCount++;
+    console.log(turnCount++);
+    
+}
+function oppMakeGuess(){
+    getRandomCoordinate();
+    if($(`"#user-game-board .${sqCoor}`).hasClass("attempted")){
+        getRandomCoordinate();
+    } else{
+        checkOccupiedStatus(sqCoor);
+        if(occupiedStatus == true){
+            hitStatus();
+        } else{
+            missStatus();
+        };
+    }
+    userTurn = true;
 }
 //This function will run if the user/opponent has correctly guessed a game square
-function userHit(){
+function hitStatus(){
     //Change square to 'hit' class.
     $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
     $("#message-panel-1 p").html("It's a hit!");
     //Which ship is hit?
     var getClasses = $(`#${whichBoard} .${sqCoor}`).attr("class").split(" ");
-    var occupyingShipId = getClasses[getClasses.length - 3];
+    var occupyingShipId = getClasses[getClasses.length - 4];
     for(i=0;i<shipList.length;i++){
         if(occupyingShipId == shipList[i][0]){;
             occupyingShip = shipList[i][1];
@@ -366,16 +407,31 @@ function userHit(){
             if(oppsShips[i][1] == 0){
                 $("#message-panel-2 p").html(`${occupyingShip} was sunk!`);    
                 $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
+                if(userTurn = true){
+                    userShipCount++;
+                } else {
+                    oppsShipCount++;
+                }
             }
         }
     };
 };
 //This function will run if the user/opponent has not correctly guessed a game square
-function userMiss(){
+function missStats(){
     $("#message-panel-1 p").html("You missed!");
     $("#message-panel-2 p").html(``);
 $(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
 };
+//This function will generate a random coordinate for the opponent to guess.
+function getRandomCoordinate(){
+    var xIndex = Math.floor(Math.random() * 10);
+    var xCoor = xAxis[xIndex];
+    var yIndex = Math.floor(Math.random() * 10);
+    var yCoor = yAxis[yIndex];
+    sqCoor = `${xCoor}${yCoor}`;
+    whichBoard = "user-game-board";
+    return sqCoor, whichBoard;
+}
 
 
 $(document).ready(function(){
