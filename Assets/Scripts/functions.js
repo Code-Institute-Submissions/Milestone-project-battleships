@@ -276,20 +276,8 @@ function beginGame(){
     var userTurn = true;
     var userShipCount = 0;
     var oppsShipCount = 0;
-    do{
-        switch(userTurn){
-            case true:
-                console.log("user turn");
-                $("#opp-game-board .game-square").click(userMakeGuess);
-                break;
-            case false:
-                console.log("opponent turn");
-                oppMakeGuess();
-                break;
-        }
-
-    }while(userShipCount < 5 || oppsShipCount < 5);
-    return;
+    window.turnCount = 0;
+    $("#opp-game-board .game-square").click(userMakeGuess);
     //if(userShipCount < 5 || oppsShipCount < 5){
         //game over
     //}
@@ -372,14 +360,15 @@ function userMakeGuess(){
             missStatus();
         };
     }
- 
+    oppMakeGuess();
     turnCount++;
     console.log(turnCount++);
     
 }
 function oppMakeGuess(){
+    console.log("opp turn");
     getRandomCoordinate();
-    if($(`"#user-game-board .${sqCoor}`).hasClass("attempted")){
+    if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
         getRandomCoordinate();
     } else{
         checkOccupiedStatus(sqCoor);
@@ -394,6 +383,7 @@ function oppMakeGuess(){
 //This function will run if the user/opponent has correctly guessed a game square
 function hitStatus(){
     //Change square to 'hit' class.
+    
     $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
     $("#message-panel-1 p").html("It's a hit!");
     //Which ship is hit?
@@ -417,7 +407,7 @@ function hitStatus(){
     };
 };
 //This function will run if the user/opponent has not correctly guessed a game square
-function missStats(){
+function missStatus(){
     $("#message-panel-1 p").html("You missed!");
     $("#message-panel-2 p").html(``);
 $(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
