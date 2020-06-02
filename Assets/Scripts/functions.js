@@ -5,7 +5,7 @@ var usersShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]]
 var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
 var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
 var attemptedGuesses = [];
-
+//Is this necessary as I also have 'newScreen()'
 function welcomeFunction(){
     //This clears the squares, providing a new board to play upon
     $(".game-square").removeClass("occupied");
@@ -27,17 +27,20 @@ function newScreen(){
     //This variable will tell some functions if ships are being deployed or not;
     window.placementPhase = true;
     console.log("Ready for new game");
-    //User is prompted to start placing their ships
-    $("#message-panel-1 p").html("Please place your ships");
-    $("#message-panel-2 p").html("Select a ship");
-    //If user clicks on the arsenal table, it will run function selectShip
-    $("#aircc").click(selectShip);
-    $("#btsp").click(selectShip);
-    $("#sub").click(selectShip);
-    $("#dest").click(selectShip);
-    $("#pboat").click(selectShip);
-    $("#user-game-board .game-square").click(placeShip);
-    return;
+    do{
+        //User is prompted to start placing their ships
+        $("#message-panel-1 p").html("Please place your ships");
+        $("#message-panel-2 p").html("Select a ship");
+        //If user clicks on the arsenal table, it will run function selectShip
+        $("#aircc").click(selectShip);
+        $("#btsp").click(selectShip);
+        $("#sub").click(selectShip);
+        $("#dest").click(selectShip);
+        $("#pboat").click(selectShip);
+        $("#user-game-board .game-square").click(placeShip);
+        return;
+    } while(placementPhase = true);
+    
     
 }
 //Placing User's Ships
@@ -45,7 +48,7 @@ function newScreen(){
 //This function allows the user to place a selected ship.
 function selectShip(){
     window.shipId = $(this).attr('id');
-    var indexShip = findInMDArray(shipId);
+    window.indexShip = findInMDArray(shipId);
     window.shipLength = shipList[indexShip][2];
     window.shipSelected = shipList[indexShip][1];
     if(checkDuplicateStatus()== true){
@@ -74,8 +77,8 @@ function findCoordinate(){
 }
 //This will highlight games squares provided by 'findCoordinate' and if applicable 'calculateShipCoor'
 function showCoordinates(){
-    if(whichBoard == "user-game-board"){
-        if(typeof shipLength == "undefined"){
+    if(whichBoard == "user-game-board" ){
+        if(typeof shipLength == "undefined" && placementPhase == true){
             $(`#${whichBoard} .${sqCoor}`).addClass("show-coordinates");
         } else {
         //This finds the square that's being hovered over.
@@ -218,12 +221,12 @@ function changeOrientation(){
 }
 function showCoordinates(){
     if(whichBoard == "user-game-board"){
-        if(typeof shipLength == "undefined"){
+        if(typeof shipLength == "undefined" || placementPhase == false){
             $(`#${whichBoard} .${sqCoor}`).addClass("show-coordinates");
         } else {
-        //This finds the square that's being hovered over.
-        var startingCoor = sqCoor;
-        //This breaks the coordinates into an x and y value.
+            //This finds the square that's being hovered over.
+            var startingCoor = sqCoor;
+            //This breaks the coordinates into an x and y value.
         calculateShipCoor(startingCoor);
         //This will place the ship in the calculated coordinates.
         for(i=0;i<newCoor.length;i++){
@@ -241,8 +244,18 @@ function unshowCoordinates(){
 }
 //This function takes all the coordinates (provided by ship length) and fills the according squares
 function placeShip(){
+    if(placementPhase == true){
     if(checkDuplicateStatus()==true){
-        return;
+        $(`#user-game-board .${shipId}`).removeClass(`occupied ${shipId}`);
+        $(`#${shipId}`).removeClass("placed");
+        $("#message-panel-1 p").html(`${shipSelected} Removed`);
+        $("#message-panel-2 p").html(`Please select where to redeploy ship`);
+        shipLength = shipList[indexShip][2];
+        var removeIndex = deployedList.indexOf(shipId);
+        if(removeIndex > -1){
+            deployedList.splice(removeIndex, 1);
+        }
+        
     } else {
         //This finds the square that's been clicked.
         var startingCoor = sqCoor;
@@ -256,34 +269,43 @@ function placeShip(){
             } else{
                 for(i=0;i<newCoor.length;i++){
                     var currentCoor = newCoor[i];
-                    $(`#user-game-board .${currentCoor}`).addClass(`occupied ${shipId}`);  
+                    $(`#user-game-board .${currentCoor}`).addClass(`occupied ${shipId}`);
+                     
                 };
                 $(`#${shipId}`).addClass("placed");
                 deployedList.push(shipId);
                 $("#message-panel-1 p").html(`${shipSelected} deployed`);
                 $("#message-panel-2 p").html(`Please select another ship`);
+                shipLength = 1;
                 return;
             };
         
+    }
+    } else {
+        return;
     }
 }
 //Beginning The Game
 //These functions are deployed when click "ready-btn". It will check if all of the user's ships are placed before retrieving coordinates.
 //If user is ready, the coordinates will load into "opp-game-board" and the game will begin.
 function beginGame(){
-    getOpponentCoordinates();
-    window.placementPhase = false;
-    $("#message-panel-1 p").html("Your opponent is ready");
-    $("#message-panel-2 p").html("Your turn. Play your first move.");
-    window.userTurn = true;
-    window.userShipCount = 0;
-    window.oppsShipCount = 0;
-    window.turnCount = 0;
-    if(userTurn  == true){
+    if(checkReadyStatus() == false){
+        return;
+    } else {
+        getOpponentCoordinates();
+        window.placementPhase = false;
+        $("#message-panel-1 p").html("Your opponent is ready");
+        $("#message-panel-2 p").html("Your turn. Play your first move.");
+        window.userTurn = true;
+        window.userShipCount = 0;
+        window.oppsShipCount = 0;
+        window.turnCount = 0;
+        if(userTurn  == true){
         $("#opp-game-board .game-square").click(userMakeGuess);
     } else {
         console.log("Wait your turn");
-    }  
+    }
+    } 
 };
 //Retrieving Opponent's Coordinates
 
@@ -329,7 +351,7 @@ function checkReadyStatus(){
         $("#message-panel-1 p").html("Please place all your ships before starting");
         var yetToBeDeployed = [];
         var i=0;
-        while(i <shipList.length){
+        while(i < shipList.length){
             var j=0;
             do{
                 if(shipList[i][0]==deployedList[j]){
@@ -391,13 +413,15 @@ function oppMakeGuess(){
         attemptedGuesses.push([sqCoor,occupiedStatus,occupyingShipId])
     } else{
         missStatus();
-        attemptedGuesses.push([sqCoor,occupiedStatus])
+        attemptedGuesses.push([sqCoor,occupiedStatus]);
+        
     };
 
     userTurn = true;
     turnCount++;
     console.log(turnCount);
     console.log(`User has sunk ${userShipCount} ships. Opponent has sunk ${oppsShipCount} ships`);
+    console.log(attemptedGuesses);
     if(userShipCount == 5 || oppsShipCount == 5){
         finishGame();
     };
@@ -409,7 +433,7 @@ function hitStatus(){
     $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
     //Which ship is hit?
     var getClasses = $(`#${whichBoard} .${sqCoor}`).attr("class").split(" ");
-    var occupyingShipId = getClasses[2];
+    var occupyingShipId = getClasses[3];
     for(i=0;i<shipList.length;i++){
         if(occupyingShipId == shipList[i][0]){;
             occupyingShip = shipList[i][1];
@@ -494,6 +518,7 @@ function getproCoor (){
     window.proyIndex = yAxis.indexOf(proyCoor);    
 }
 function intelligentGuess(){
+    var checkSunk;
 if (attemptedGuesses.length == 0){
         getRandomCoordinate();
 } else {
@@ -508,48 +533,45 @@ if (attemptedGuesses.length == 0){
     } else{
         if(attemptedGuesses.length == 2){
             getpenCoor();
-        //Did our second guess hit?
-        if(lastStatus == true){
-            sqCoor = `${xAxis[lastXIndex+1]}${lastyIndex}`;
-            //Did our guess sink the ship?
-            //This can only happen to patrol boat, being length of 2.
-            for(i=0;i<usersShips.length;i++){
-            if(usersShips[i][0]==attemptedGuesses[lastIndex][2])
-            checkSunk = usersShips[i][1];
-            }
-            if(checkSunk == 0){//Yes (511)
-                getRandomCoordinate();
-            } else {//No (511)
+            //Did our second guess hit?
+            if(lastStatus == true){
+                sqCoor = `${xAxis[lastxIndex+1]}${lastyIndex}`;
+                //Did our guess sink the ship?
+                //This can only happen to patrol boat, being length of 2.Meaning pen guess had to hit as well.
                 //Did our pen guess hit?
                 if(penStatus == true){//Yes(514)
-                    //Check which axis the hits were on
-                    //Are the guesses share the same x coor?
-                    if (lastxCoor == penxCoor){//Yes (516)
-                        //Are we going up/down the y-axis
-                        if(lastyIndex < penyIndex){//Up
-                            //Continue going up the y-axis with the same x coor.
-                            sqCoor = `${lastxCoor}${yAxis[lastyIndex-1]}`;
-                        } else {//Down
-                            //Go down the y-axis with the same x coor.
-                            sqCoor = `${lastxCoor}${yAxis[lastyIndex+1]}`;
+                        //Check which axis the hits were on
+                        //Are the guesses share the same x coor?
+                        if (lastxCoor == penxCoor){//Yes (516)
+                            //Are we going up/down the y-axis
+                            if(lastyIndex < penyIndex){//Up
+                                //Continue going up the y-axis with the same x coor.
+                                sqCoor = `${lastxCoor}${yAxis[lastyIndex-1]}`;
+                            } else {//Down
+                                //Go down the y-axis with the same x coor.
+                                sqCoor = `${lastxCoor}${yAxis[lastyIndex+1]}`;
+                            }
+                        } else {//No (516)
+                            //Are we going up/down the x-axis?
+                            if(lastxIndex < penxIndex){//Up/left
+                                //Continue going left on the x-axis with the same y coor.
+                                sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                            } else {//Down/right
+                                //Continue going right on the x-axis with the same y coor.
+                                sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                            }
                         }
-                    } else {//No (516)
-                        //Are we going up/down the x-axis?
-                        if(lastxIndex < penxIndex){//Up/left
-                            //Continue going left on the x-axis with the same y coor.
-                            sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
-                        } else {//Down/right
-                            //Continue going right on the x-axis with the same y coor.
-                            sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
-                        }
-                    }
                 } else {
-                    sqCoor = `${xAxis[lastXIndex+1]}${lastyIndex}`
+                        sqCoor = `${xAxis[lastxIndex+1]}${lastyIndex}`
+                    }
+            } else{//No (493)
+                //Did our first guess hit?
+                if(penStatus == true){//Yes(571)
+                    sqCoor = `${xAxis[penxIndex+1]}${penyIndex}`;
+                } else {
+               getRandomCoordinate(); 
                 }
             }
-        } else{//No (493)
-            
-        }
         } else {
             getproCoor();
         //Did our last guess hit?
@@ -663,10 +685,10 @@ if (attemptedGuesses.length == 0){
                         //I want to check if lastguessy is higher or lower
                         if(lastyCoor > penyCoor){//lgY is larger (91)
                             //Same x coor, larger y coor.
-                            sqCoor = `${lastXCoor}${yAxis[lastxIndex+1]}`;
+                            sqCoor = `${lastxCoor}${yAxis[lastxIndex+1]}`;
                         } else {//Smaller (91)
                             //Same x coor, smaller y coor.
-                            sqCoor = `${lastXCoor}${yAxis[lastxIndex-1]}`;
+                            sqCoor = `${lastxCoor}${yAxis[lastxIndex-1]}`;
                         }
                     }
                 }
