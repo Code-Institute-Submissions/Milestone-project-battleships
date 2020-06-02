@@ -1,8 +1,10 @@
 var shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
 var deployedList = [];
-var oppsShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]]
+var oppsShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]];
+var usersShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]]
 var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
 var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
+var attemptedGuesses = [];
 
 function welcomeFunction(){
     //This clears the squares, providing a new board to play upon
@@ -273,14 +275,15 @@ function beginGame(){
     window.placementPhase = false;
     $("#message-panel-1 p").html("Your opponent is ready");
     $("#message-panel-2 p").html("Your turn. Play your first move.");
-    var userTurn = true;
-    var userShipCount = 0;
-    var oppsShipCount = 0;
+    window.userTurn = true;
+    window.userShipCount = 0;
+    window.oppsShipCount = 0;
     window.turnCount = 0;
-    $("#opp-game-board .game-square").click(userMakeGuess);
-    //if(userShipCount < 5 || oppsShipCount < 5){
-        //game over
-    //}
+    if(userTurn  == true){
+        $("#opp-game-board .game-square").click(userMakeGuess);
+    } else {
+        console.log("Wait your turn");
+    }  
 };
 //Retrieving Opponent's Coordinates
 
@@ -348,58 +351,81 @@ function checkReadyStatus(){
     return readyStatus;
 }
 function userMakeGuess(){
-    $("#opp-game-board .game-square").click(findCoordinate);
-    if($(`#${whichBoard} .${sqCoor}`).hasClass("attempted")){
-        $("#message-panel-1 p").html(`${sqCoor} has already been selected.`);
-        $("#message-panel-2 p").html(`Please select another square`);
-    } else{
-        checkOccupiedStatus(sqCoor);
-        if(occupiedStatus == true){
-            hitStatus();
+    if(userTurn == false){
+        console.log("Wait your turn!");
+    } else {
+        $("#opp-game-board .game-square").click(findCoordinate);
+        if($(`#${whichBoard} .${sqCoor}`).hasClass("attempted")){
+            $("#message-panel-1 p").html(`${sqCoor} has already been selected.`);
+            $("#message-panel-2 p").html(`Please select another square`);
         } else{
-            missStatus();
-        };
+            checkOccupiedStatus(sqCoor);
+            if(occupiedStatus == true){
+                hitStatus();
+            } else{
+                missStatus();
+            };
+            userTurn = false;
+            setTimeout(oppMakeGuess,000);
+        }
     }
-    oppMakeGuess();
-    turnCount++;
-    console.log(turnCount++);
-    
 }
 function oppMakeGuess(){
+    whichBoard = "user-game-board";
     console.log("opp turn");
-    getRandomCoordinate();
-    if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
-        getRandomCoordinate();
+    do{
+       intelligentGuess(); 
+    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+    checkOccupiedStatus(sqCoor);
+    if(occupiedStatus == true){
+        hitStatus();
+        var getClasses = $(`#user-game-board .${sqCoor}`).attr("class").split(" ");
+            //I want to find the shipID, which will be the second last class added.
+        window.occupyingShipId = getClasses[getClasses.length - 4];
+            for(i=0;i<shipList.length;i++){
+                if(occupyingShipId == shipList[i][0]){;
+                    occupyingShipId = shipList[i][0];
+                    console.log(occupyingShip);
+                }
+            };
+        attemptedGuesses.push([sqCoor,occupiedStatus,occupyingShipId])
     } else{
-        checkOccupiedStatus(sqCoor);
-        if(occupiedStatus == true){
-            hitStatus();
-        } else{
-            missStatus();
-        };
-    }
+        missStatus();
+        attemptedGuesses.push([sqCoor,occupiedStatus])
+    };
+
     userTurn = true;
+    turnCount++;
+    console.log(turnCount);
+    console.log(`User has sunk ${userShipCount} ships. Opponent has sunk ${oppsShipCount} ships`);
+    if(userShipCount == 5 || oppsShipCount == 5){
+        finishGame();
+    };
 }
 //This function will run if the user/opponent has correctly guessed a game square
 function hitStatus(){
     //Change square to 'hit' class.
-    
-    $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
     $("#message-panel-1 p").html("It's a hit!");
+    $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
     //Which ship is hit?
     var getClasses = $(`#${whichBoard} .${sqCoor}`).attr("class").split(" ");
-    var occupyingShipId = getClasses[getClasses.length - 4];
+    var occupyingShipId = getClasses[2];
     for(i=0;i<shipList.length;i++){
         if(occupyingShipId == shipList[i][0]){;
             occupyingShip = shipList[i][1];
             $("#message-panel-2 p").html(`${occupyingShip} was damaged!`);
-            oppsShips[i][1]--;
-            if(oppsShips[i][1] == 0){
-                $("#message-panel-2 p").html(`${occupyingShip} was sunk!`);    
-                $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
-                if(userTurn = true){
+            if(userTurn == true){
+                oppsShips[i][1]--;
+                if(oppsShips[i][1] == 0){
+                    $("#message-panel-2 p").html(`${occupyingShip} was sunk!`);    
+                    $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
                     userShipCount++;
-                } else {
+                }
+            } else {
+                usersShips[i][1]--;
+                if(oppsShips[i][1] == 0){
+                    $("#message-panel-2 p").html(`${occupyingShip} was sunk!`);    
+                    $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
                     oppsShipCount++;
                 }
             }
@@ -408,9 +434,15 @@ function hitStatus(){
 };
 //This function will run if the user/opponent has not correctly guessed a game square
 function missStatus(){
-    $("#message-panel-1 p").html("You missed!");
-    $("#message-panel-2 p").html(``);
-$(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
+    if(userTurn == true){
+        $("#message-panel-1 p").html("You missed!");
+        $("#message-panel-2 p").html(`${sqCoor} was empty`);
+    } else {
+        $("#message-panel-1 p").html("Your opponent missed!");
+        $("#message-panel-2 p").html(`${sqCoor} was empty`);            
+    }
+    
+    $(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
 };
 //This function will generate a random coordinate for the opponent to guess.
 function getRandomCoordinate(){
@@ -419,9 +451,313 @@ function getRandomCoordinate(){
     var yIndex = Math.floor(Math.random() * 10);
     var yCoor = yAxis[yIndex];
     sqCoor = `${xCoor}${yCoor}`;
-    whichBoard = "user-game-board";
-    return sqCoor, whichBoard;
+    return sqCoor;
 }
+//This function will attempt to allow the opponent to make an intelligent guess based on their previous result.
+function getlastCoor (){
+    var lastIndex = attemptedGuesses.length-1;
+    window.lastsqCoor = attemptedGuesses[lastIndex][0];
+    window.lastStatus = attemptedGuesses[lastIndex][1];
+    window.lastxCoor = lastsqCoor[0];
+    window.lastxIndex = xAxis.indexOf(lastxCoor);
+    if(lastsqCoor.length == 3){
+        window.lastyCoor = `${lastsqCoor[1]}${lastsqCoor[2]}`;
+    } else {
+        window.lastyCoor = lastsqCoor[1];
+    }
+    window.lastyIndex = yAxis.indexOf(lastyCoor);    
+}
+function getpenCoor (){
+    var penIndex = attemptedGuesses.length-2;
+    window.pensqCoor = attemptedGuesses[penIndex][0];
+    window.penStatus = attemptedGuesses[penIndex][1]
+    window.penxCoor = pensqCoor[0];
+    window.penxIndex = xAxis.indexOf(penxCoor);
+    if(pensqCoor.length == 3){
+        window.penyCoor = `${pensqCoor[1]}${pensqCoor[2]}`;
+    } else {
+        window.penyCoor = pensqCoor[1];
+    }
+    window.penyIndex = yAxis.indexOf(penyCoor);    
+}
+function getproCoor (){
+    var proIndex = attemptedGuesses.length-3
+    window.prosqCoor = attemptedGuesses[proIndex][0];
+    window.proStatus = attemptedGuesses[proIndex][1]
+    window.proxCoor = prosqCoor[0];
+    window.proxIndex = xAxis.indexOf(proxCoor);
+    if(prosqCoor.length == 3){
+        window.proyCoor = `${prosqCoor[1]}${prosqCoor[2]}`;
+    } else {
+        window.proyCoor = prosqCoor[1];
+    }
+    window.proyIndex = yAxis.indexOf(proyCoor);    
+}
+function intelligentGuess(){
+if (attemptedGuesses.length == 0){
+        getRandomCoordinate();
+} else {
+    if (attemptedGuesses.length == 1){
+        getlastCoor();
+        //Did our first guess hit?
+        if(lastStatus == true){
+            sqCoor = `${xAxis[lastxIndex+1]}${lastyIndex}`;
+        } else{//No (493)
+            getRandomCoordinate();
+        }
+    } else{
+        if(attemptedGuesses.length == 2){
+            getpenCoor();
+        //Did our second guess hit?
+        if(lastStatus == true){
+            sqCoor = `${xAxis[lastXIndex+1]}${lastyIndex}`;
+            //Did our guess sink the ship?
+            //This can only happen to patrol boat, being length of 2.
+            for(i=0;i<usersShips.length;i++){
+            if(usersShips[i][0]==attemptedGuesses[lastIndex][2])
+            checkSunk = usersShips[i][1];
+            }
+            if(checkSunk == 0){//Yes (511)
+                getRandomCoordinate();
+            } else {//No (511)
+                //Did our pen guess hit?
+                if(penStatus == true){//Yes(514)
+                    //Check which axis the hits were on
+                    //Are the guesses share the same x coor?
+                    if (lastxCoor == penxCoor){//Yes (516)
+                        //Are we going up/down the y-axis
+                        if(lastyIndex < penyIndex){//Up
+                            //Continue going up the y-axis with the same x coor.
+                            sqCoor = `${lastxCoor}${yAxis[lastyIndex-1]}`;
+                        } else {//Down
+                            //Go down the y-axis with the same x coor.
+                            sqCoor = `${lastxCoor}${yAxis[lastyIndex+1]}`;
+                        }
+                    } else {//No (516)
+                        //Are we going up/down the x-axis?
+                        if(lastxIndex < penxIndex){//Up/left
+                            //Continue going left on the x-axis with the same y coor.
+                            sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                        } else {//Down/right
+                            //Continue going right on the x-axis with the same y coor.
+                            sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                        }
+                    }
+                } else {
+                    sqCoor = `${xAxis[lastXIndex+1]}${lastyIndex}`
+                }
+            }
+        } else{//No (493)
+            
+        }
+        } else {
+            getproCoor();
+        //Did our last guess hit?
+        if (lastStatus == true){ //Yes (4)
+        //Did that ship sink?
+        for(i=0;i<usersShips.length;i++){
+            if(usersShips[i][0]==attemptedGuesses[lastIndex][2])
+            checkSunk = usersShips[i][1];
+        }
+        if(checkSunk == 0){//Yes (6)
+            //Random Number
+            getRandomCoordinate();
+        } else {//No (6)
+            //Did our pen guess hit?
+            if(penStatus == true){//Yes (10)
+                //Was it the same ship?
+                if(attemptedGuesses[lastIndex][1] == attemptedGuesses[penIndex][1]){//Yes (12)
+                    //Does the last guess and pen guess share the same x-coor?
+                    if (lastxCoor == penxCoor){//Yes (14)
+                        //Should I go up or down the y-axis?
+                        if(lastyIndex > penyIndex){//Down (16)
+                            //Same x coor, larger y coor
+                            sqCoor = `${lastxCoor}${yAxis[lastyIndex+1]}`;
+                        } else {//Up (16)
+                            //Same x coor, smaller y coor
+                            sqCoor = `${lastxCoor}${yAxis[lastyIndex-1]}`;
+                        }
+                    } else {//No (14)
+                        //Does the last guess and pen guess share the same y-coor?
+                        if(lastyCoor == penyCoor){//Yes (23)
+                            //Should I go up or down the x-axis?     
+                            if(lastxIndex > penxIndex){//Down/Right (25)
+                                //Same y coor, larger x coor
+                                sqCoor = `${xAxis[lastxIndex+1]}${lastyCoor}`;
+                            } else {//Up/Left (25)
+                                //Same y coor, smaller x coor
+                                sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                            }
+                        } else{//No (23)
+                           //This cannot happen, because lastguess and penguess ship is the same, and ship's must share either x or y coor.     
+                        }
+                    }
+                } else {//No(12)
+                    //Did the penguess sink the ship?
+                    for(i=0;i<usersShips.length;i++){
+                        if(usersShips[i][0]==attemptedGuesses[penIndex][2])
+                        checkSunk = usersShips[i][1];
+                    }
+                    if(checkSunk == 0){//Yes (36)
+                        //Then ignore penguess, previous ship irrelevant
+                        //I need to search around the area of lastguess.
+                        //Can go x+/-1 or y+/-1. But keep one constant
+                        sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                    } else {//No (36)
+                        //Can this happen?
+                        console.log("I am the diagonal ship problem. My last two guesses hit two different ships.")
+                    }
+                }
+            } else {//No (10)
+                //Did our pro guess hit?
+                if(proStatus == hit){//Yes (47)
+                    //Was it the same ship as lastguess?
+                    if(attemptedGuesses[lastIndex][2]==attemptedGuesses[proIndex][2]){//Yes (49)
+                        //Then we want to continue in the same axis trend.
+                        //Does last guess and pro guess share the same x coor?
+                        if (lastxCoor == proxCoor){//Yes (52)
+                            //Should I go up or down?
+                            if(lastyCoor > proyCoor){//Down (54)
+                                //Same x coor, larger y coor
+                                sqCoor = `${lastxCoor}${yAxis[lastyIndex+1]}`;
+                            } else {//Up (54)
+                                //Same x coor, smaller y coor
+                                sqCoor = `${lastxCoor}${yAxis[lastyIndex-1]}`;
+                            }
+                        } else {//No (52)
+                            //Does the last guess and pro guess share the same y coor?
+                            if(lastyCoor == proyCoor){//Yes (61)
+                                //Should I go up or down the y axis?
+                                if (lastyCoor > proyCoor){//Down/Right(63)
+                                    //Same y coor, larger x coor
+                                    sqCoor = `${xAxis[lastxIndex+1]}${lastyCoor}`;
+                                } else {//Up/left (63)
+                                    //Same y coor, smaller x coor
+                                    sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                                }
+                            } else {//No (61)
+                                //This cannot happen, because lastguess and proguess ship is the same, and ship's must share either x or y coor.
+                            }
+                        }
+                    } else { //No (49)
+                        //Then they are different ships. Disregard pro guess.
+                        //Explore around last guess coor.
+                        sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                    }
+                } else {//No (47)
+                    //Previous two guesses were misses.
+                    //Check if penguess x coor share the same pen guess x coor
+                    if(penxCoor == proxCoor){//yes (79)
+                        //I know that I have previously attempted the space inbetween with the same x coor. 
+                        //So i want to check lastguessx, but away from pen/pro guess.
+                        //I check if lastguessx is higher or lower
+                        if(lastxCoor > penxCoor){//lgX is larger (83)
+                            //So i want to keep the same y coor with a larger x coor.
+                            sqCoor = `${xAxis[lastxIndex+1]}${lastyCoor}`;
+                        } else {//lgX is smaller (83)
+                            //I want to keep the same y coor but with a smaller x coor.
+                            sqCoor = `${xAxis[lastxIndex-1]}${lastyCoor}`;
+                        }
+                    } else {//No (79)
+                        //Then I keep the same x coor.
+                        //I want to check if lastguessy is higher or lower
+                        if(lastyCoor > penyCoor){//lgY is larger (91)
+                            //Same x coor, larger y coor.
+                            sqCoor = `${lastXCoor}${yAxis[lastxIndex+1]}`;
+                        } else {//Smaller (91)
+                            //Same x coor, smaller y coor.
+                            sqCoor = `${lastXCoor}${yAxis[lastxIndex-1]}`;
+                        }
+                    }
+                }
+            }
+        }
+    } else{ //No (4)
+        //Did our pen guess hit?
+        if(penStatus == true){//Yes (102)
+            //Did pen guess sink?
+            for(i=0;i<usersShips.length;i++){
+                if(usersShips[i][0]==attemptedGuesses[penIndex][2])
+                checkSunk = usersShips[i][1];
+            }
+            if(checkSunk == 0){//yes (104)
+                getRandomCoordinate();
+            } else {//No (104)
+                //Did last guess and pen guess share the same x coor?
+                if(lastxCoor == penxCoor){//Yes(109)
+                    //Should I go up or down the y-axis?
+                    if(lastyCoor < penyCoor){//Down(111)
+                        //Keep the same x coor, but larger y coor.
+                        //Using penguess, NOT last guess.
+                        //Otherwise youre in the same space.
+                        sqCoor = `${penxCoor}${yAxis[penyIndex+1]}`;
+                    } else {//Up(111)
+                        //Keep the same x coor, but smaller y coor.
+                        //Use pen guess NOT last guess
+                        sqCoor = `${penxCoor}${yAxis[penyIndex-1]}`;
+                    }
+                } else {//No (109)
+                    //Last guess and pen guess had the same y coor.
+                    //Should I go up or down the x-axis?
+                    if(lastxCoor < penxCoor){//Up/right (122)
+                        //Keep the same y coor, but larger x coor.
+                        //Use pen guess NOT last guess.
+                        sqCoor = `${xAxis[penxIndex+1]}${penyCoor}`;
+                    }else{//Down/left (122)
+                        //Keep the same y coor, but smaller x coor.
+                        //Use pen guess NOT last guess.
+                        sqCoor = `${xAxis[penxIndex-1]}${penyCoor}`;
+                    }
+                }
+            }
+        } else { // No (102)
+            //Check if pro guess hit
+            if(proStatus == true){//Yes (133)
+                //Does last guess and pen guess share the same x coor?
+                if(lastxCoor == penxCoor){//Yes (135)
+                    //Then we know pro guess also shares the same x coor.
+                    //So we want to a higher or lower x coor, with pro guess y coor.
+                    sqCoor = `${xAxis[lastxCoor+1]}${proxCoor}`;
+                } else {//No (135)
+                    //Then we know pro guess also shares the same y coor.
+                    //So we want a higher or lower y coor, with pro guess x coor.
+                    sqCoor = `${proxCoor}${yAxis[proxIndex+1]}`;
+                }
+            } else {//No (133)
+                //Check if pen guess and pro guess have same the x coor
+                if(penxCoor == proxCoor){//Yes (144)
+                    //Then we know that there is an attempted square between pen and pro guess on the y-axis.
+                    //If the square to the left/right of last guess is attempted, or hit, then we need to try two squares to the left/right.
+                    if($(`#${whichBoard} .${xAxis[lastxIndex+1]}${yAxis[lastyIndex]}`).hasClass("attempted")){
+                        sqCoor = `${xAxis[lastxIndex-2]}${yIndex[lastyIndex]}`
+                    }
+                    if($(`#${whichBoard} .${xAxis[lastxIndex-1]}${yAxis[lastyIndex]}`).hasClass("attempted")){
+                        sqCoor = `${xAxis[lastxIndex-2]}${yAxis[lastyIndex]}`
+                    }
+                } else {//No(144)
+                    //Then we know that there is an attempted square between pro and pro guess on the x-axis.
+                    //If the square to the up/down of last guess is attempted, or hit, then we need to try two squares up/down.
+                    if($(`#${whichBoard} .${xAxis[lastxIndex]}${yAxis[lastyIndex+1]}`).hasClass("attempted")){
+                        sqCoor = `${xAxis[lastxIndex]}${yAxis[lastyIndex-2]}`
+                    }
+                    if($(`#${whichBoard} .${xAxis[lastxIndex]}${yAxis[lastyIndex-1]}`).hasClass("attempted")){
+                        sqCoor = `${xAxis[lastxIndex]}${yAxis[lastyIndex+2]}`
+                    }
+                }
+            }
+        }
+    }
+    }
+}
+return sqCoor, whichBoard;
+        }
+}    
+    
+    
+
+function finishGame(){
+    console.log("game over");
+};
 
 
 $(document).ready(function(){
