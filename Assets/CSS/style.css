@@ -1,84 +1,389 @@
-/*-- Main Construction Dimensions --*/
-header{
-    height:125px;
-}
-footer{
-    height:75px;
-}
-#game-screen{
-    width:80%;
-    min-height:600px;
-}
-/*-- General Styling Rules --*/
-.brdr-full{
-    border:1px solid #000;
-}
-.brdr-top{
-    border-top: 1px solid #000;
-}
-.brdr-btm{
-    border-bottom: 1px solid #000;
-}
-.inline-block{
-    display:inline-block;
-}
-.block{
-    display: block;
-}
-/*-- Game Screen Dimensions --*/
-#button-row{
-    height:50px;
-    line-height:25px;
-}
-#game-module{
-    width:1550px;
-    height:620px;
-    margin:auto;
-}
-[id$="game-board"]{
-    height:525px;
-    width:525px;
-}
-/*-- Arsenal Dimensions --*/
-#arsenal{
-    width:200px;
-}
-#arsenal tr td:first-child{
-    width:125px;
-}
-#arsenal tr td:last-child{
-    width:75px;
-}
-/*-- Battlefield Table Dimesions --*/
-table, td{
-    border:1px solid #000;
-    border-collapse: collapse;
-}
-.game-square{
-    height:50px;
-    width:50px;
-    background-color: #ccc;
-}
-[class^="y-axis"]{
-    width:25px;
-}
-.row-x-axis{
-    text-align: center;
-    line-height:13px;
-    height:25px;
-}
-.occupied{
-    background-color:#ff453a;
-}
-.show-coordinates{
-    background-color:blue;
-}
-.hit{
-    background-color: #555;
-}
-.sunk{
-    background-color: #111;
-}
-.miss{
-    background-color:#999;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Tera&family=Piedra&display=swap');
+
+/*-- Main Construction Specifications --*/
+        body {
+        background-color: #fffbf0;
+        color: #080824;
+        font-family: Raleway, sans-serif;
+        font-weight:200;
+        }
+        header{
+            background-image: url("../Images/header-background.png");
+            color: #f5f1e4;
+            height:100px;
+            margin-bottom:10px;
+            border-bottom: 10px solid #f9bd80;
+        }
+        footer{
+            background-image: url("../Images/header-background.png");
+            color: #f5f1e4;
+            height:75px;
+            border-top: 5px solid #f9bd80;
+        }
+/*-- Header Specifications --*/
+        .header img{
+            height:140px;
+        }
+        .logo img{
+            height:75px;
+        }
+/*-- Footer Specifications --*/
+        footer{
+            padding:20px;
+            font-size:12px;
+        }
+        footer a{
+            text-decoration: none;
+            color:#fff8e7;
+        }
+        footer a:hover{
+            color: #f9bd80;
+        }
+
+/*-- General Styling Specifications --*/
+    /*-- Layout/Spacing Rules --*/
+        .inline-block{
+            display:inline-block;
+        }
+        .block{
+            display: block;
+        }
+        .hidden{
+            opacity: 0;
+            display: block;
+        }
+        #orientation-label{
+            opacity: 0;
+        }
+        .inactive{
+            display: none;
+        }
+        .flt-left{
+            float:left;
+        }
+        .flt-right{
+            float:right;
+        }
+        .mrgn-top-50{
+            margin-top:50px;
+        }
+        .mrgn-bot-50{
+            margin-bottom: 50px;
+        }
+        .mrgn-bot-0{
+            margin-bottom: 0px;
+        }
+        .mrgn-top-10{
+            margin-top:10px;
+        }
+        .mrgn-right-10{
+            margin-right: 10px;
+        }
+    /*-- Font Rules --*/
+        .font-12{
+            font-size:12px;
+        }
+        .font-14{
+            font-size:14px;
+        }
+    /*-- Desgin Rules --*/
+        button{
+            padding:6px;
+            background-color: #fff8e7;
+            color:#080824;
+            border: 1px solid #080824;
+            border-radius: 2px;
+            font-weight:200;
+            margin:10px;
+        }
+        button:hover{
+            background-color: rgba(250,201,152, 0.3);
+        }
+        .uppercase{
+            text-transform: uppercase;
+        }
+/*-- Main Content Specifications --*/
+    /*-- Button Row Specifications --*/
+        #button-row{
+            height:60px;
+            line-height:25px;
+        }
+        #button-row ul{
+            margin-bottom:0;
+            height:100%;
+        }
+        #button-row ul li{
+            text-transform: uppercase;
+            min-width:150px;
+            margin:auto 35px;
+        }
+        #button-row i{
+            margin: 14px auto 7px auto;
+        }
+        .label-container{
+            height:25px;
+            width:148;
+        }
+        #button-row p{
+
+            margin: 0px;
+            text-decoration: underline;
+            letter-spacing: 1.5px;
+        }
+    /*-- Left Column --*/
+    /*-- Arsenal Dimensions --*/
+        #arsenal{
+            width:202px;
+        }
+        #arsenal td{
+            padding:2px 3px;
+        }
+        #arsenal tr td:first-child{
+            width:125px;
+        }
+        #arsenal tr td:last-child{
+            width:75px;
+        }
+        #arsenal tr:not(:first-child):hover{
+            background-color: rgba(250,201,152, 0.3);
+            font-weight:300;
+        }
+        #arsenal tr:first-child{
+            background-color: rgba(8,8,36, 0.1)
+        }
+        #orientation-btn{
+            width:140px;
+        }
+    /*-- Game Screen Dimensions --*/
+        #game-module{
+            width:100%;
+            min-height:550px;
+
+        }
+        [id$="game-board"]{
+            height:525px;
+            width:525px;
+        }
+        [id$="game-board"] p{
+            margin:10px auto;
+        }
+    /*-- Battlefield Table Dimesions --*/
+        table, td{
+            border:1px solid #080824;
+            border-collapse: collapse;
+        }
+        .game-square{
+            height:50px;
+            width:50px;
+            background-color: #fff8e7;
+        }
+        [class^="y-axis"]{
+            width:25px;
+            background-color: rgba(8,8,36,0.8);
+            color: #fff8e7;
+            border:1px solid #fff8e7;
+        }
+        .row-x-axis{
+            text-align: center;
+            line-height:15px;
+            height:25px;
+            background-color: rgba(8,8,36,0.8);
+            color: #fff8e7;
+            
+        }
+        .row-x-axis td{
+            border:1px solid #fff8e7;
+        }
+    /*-- Game Square Specifications --*/
+    /*-- These rules dictate the colour or status of a game square --*/
+        .occupied{
+            background-color:rgba(8,8,36, 0.9);
+        }
+        #opp-game-board .occupied{
+            background-color:rgba(255,248,231);
+        }
+        .show-coordinates{
+            background-color:rgba(8,8,36, 0.4);
+        }
+        .hit{
+            background-color: #555;
+        }
+        .sunk{
+            background-color: #111;
+        }
+        .miss{
+            background-color:#999;
+        }        
+/*-- Modal Speicifcations --*/
+    /*--Credit belongs to https://www.w3schools.com/howto/howto_css_modals.asp for the creation of this modal. --*/
+    /* The Modal (background) */
+        .modal-styling {
+            background-color: #080824;
+            position: absolute;
+            z-index: 1;
+            top:-630px;
+            width:500px;
+            height:630px;
+            animation-name: ;
+            animation-duration: 1.5s;
+            animation-direction: alternate;
+            animation-timing-function: ease;
+            animation-fill-mode: forwards;
+        }
+        .modal-content-styling {
+            background-color: #f9bd80;
+            border: 2px solid #fff8e7;
+            margin:5px;
+        }
+        .modal-body-styling {
+            margin:5px;
+            background-image: url("../Images/welcomemodalbackground.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding: 20px;
+            height:476px;
+            width:476px;
+        }
+        .modal-header,.modal-footer {
+            height:60px;
+            margin:5px;
+            background-image: url("../Images/header-background.png");
+            background-position: center;
+            background-repeat: repeat;
+            background-size: contain;
+            color: #fff8e7;
+            text-align: center;
+            font-weight:100;
+            font-size:24px;
+            line-height:30px;
+        }
+        /*-- Scores Table Specifications --*/
+            #scores-table{
+                margin:18px;
+                width:400px;
+                height:400px;
+            }
+            #scores-reset-btn{
+                animation-name: ;
+                animation-duration: 1.5s;
+                animation-direction: normal;
+                animation-timing-function: ease;
+                animation-fill-mode: forwards;
+                animation-iteration-count: infinite;
+            }
+            #scores-reset-label{
+                opacity: 0;
+                margin-right:10px;
+                font-size:16px;
+            }
+
+    /*-- Welcome Page Modal --*/
+        .welcome-modal-styling{
+            background-color: #080824;
+            position: fixed;
+            align-self: center;
+            z-index: 1;
+            width:500px;
+            height:500px;
+        }
+        .welcome-content-styling{
+            margin:5px;
+            background-color: #f9bd80;
+            border: 2px solid #fff8e7;
+        }
+        .welcome-body-styling{
+            margin:5px;
+            height:476px;
+            width:476px;
+            background-image: url("../Images/battleships-header.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 20px;
+            font-family: Piedra, sans-serif;
+        }
+        #welcome-header{
+            margin-top:50px;
+            font-size:32px;
+        }
+        #welcome-btn{
+            width: 200px;
+            height: 200px;
+            background-image: url("../Images/battleships-logo-full-blue-circle.png");
+            background-size:contain;
+            position: absolute;
+            bottom: 138px;
+            left:138px;
+            font-size:28px;
+            line-height:100px;
+        }
+    /*-- Sidebar Modals --*/
+        .banner-modal-styling{
+            background-color: #080824;
+            position: absolute;
+            z-index: 1;
+            left: -450px;
+            animation-name: ;
+            animation-duration: 1.5s;
+            animation-direction: alternate;
+            animation-timing-function: ease;
+            animation-fill-mode: forwards;
+        }
+        .banner-content-styling{
+            margin:5px 5px 5px 0;
+            background-color: #f9bd80;
+            border-bottom: 2px solid #fff8e7;
+            border-right: 2px solid #fff8e7;
+            border-top: 2px solid #fff8e7;
+        }
+        .banner-body-styling{
+            margin:5px 5px 5px 0;
+            background-color:#fff8e7;
+            padding: 20px;
+        }
+        #banner-modal{
+            top: 220px;
+        }
+        #arsenal-modal{
+            top: 372px;
+        }
+        #orientation-modal{
+            top: 679px;
+        }
+    
+    /*-- Modal Animations --*/
+        @keyframes animatetop {
+            from {display:none; top: -630px}
+            to {display:block; top: 150px; }
+        }
+        @keyframes animatebottom {
+            from {top: 150px; display:block}
+            to {top: -630px; display:none}
+        }
+        @keyframes animateleft {
+            0%   {display:none; left:-450px;}
+            100% {display:block;left:0px;}
+        }
+        @keyframes animateright {
+        0%   {display:block; left:0px;}
+        100% {display:none; left:-450px;}
+        }
+        /*-- Credit belongs to https://codepen.io/vitoralberto/pen/OPYyYB for this rotation animation --*/
+        @keyframes rotation {
+            from {
+                    -webkit-transform: rotate(0deg);
+            }
+            to {
+                    -webkit-transform: rotate(359deg);
+            }
+        }
+    /*-- Header Animations --*/
+        @keyframes headerinfromtop {
+            from {display:none; top: -630px}
+            to {display:block; top: 150px; }
+        }     
+
+        
+        
+        
