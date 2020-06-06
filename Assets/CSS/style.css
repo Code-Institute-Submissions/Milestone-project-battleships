@@ -82,31 +82,47 @@
         .mrgn-bot-10{
             margin-bottom:10px;
         }
+        .mrgn-top-20{
+            margin-top:20px;
+        }
+        .mrgn-bot-20{
+            margin-bottom: 20px;
+        }
         .mrgn-right-10{
             margin-right: 10px;
         }
+        .mrgn-right-50{
+            margin-right: 20px;
+        }
     /*-- Font Rules --*/
+        .font-10{
+            font-size: 8px;
+        }
         .font-12{
             font-size:12px;
         }
         .font-14{
             font-size:14px;
         }
+        .font-20{
+            font-size:20px;
+        }
+        .bold{
+            font-weight:bold;
+        }
+        .uppercase{
+            text-transform: uppercase;
+        }
     /*-- Desgin Rules --*/
-        button{
+        input{
             padding:6px;
-            background-color: #fff8e7;
+            width:200px;
+            background-color: transparent;
             color:#080824;
             border: 1px solid #080824;
             border-radius: 2px;
             font-weight:200;
             margin:10px;
-        }
-        button:hover{
-            background-color: rgba(250,201,152, 0.3);
-        }
-        .uppercase{
-            text-transform: uppercase;
         }
 /*-- Main Content Specifications --*/
     /*-- Button Row Specifications --*/
@@ -283,6 +299,10 @@
                 margin:18px;
                 width:400px;
                 height:400px;
+                padding:0px;
+            }
+            #scores-table td{
+                line-height: 12px;
             }
             #scores-reset-btn{
                 animation-name: ;
@@ -297,6 +317,61 @@
                 margin-right:10px;
                 font-size:16px;
             }
+    /*-- End Game Modal --*/
+        .endgame-modal-styling {
+            background-color: #080824;
+            position: absolute;
+            z-index: 1;
+            top:-630px;
+            width:500px;
+            height:365px;
+            animation-name: ;
+            animation-duration: 1.5s;
+            animation-direction: alternate;
+            animation-timing-function: ease;
+            animation-fill-mode: forwards;
+        }
+        .endgame-modal-content-styling {
+            background-color: #f9bd80;
+            border: 2px solid #fff8e7;
+            margin:5px;
+        }
+        .endgame-modal-body-styling {
+            margin:5px;
+            background-image: url("../Images/welcomemodalbackground.png");
+            background-position: center;
+            background-repeat: repeat-x;
+            background-size: contain;
+            padding: 20px;
+            height:276px;
+            width:476px;
+        }
+        .endgame-modal-header{
+            height:60px;
+            margin:5px;
+            padding: 20px;
+            background-image: url("../Images/header-background.png");
+            background-position: center;
+            background-repeat: repeat;
+            background-size: contain;
+            color: #fff8e7;
+            text-align: center;
+            font-weight:100;
+            font-size:24px;
+            line-height:30px;
+        }
+        #endgame-panel-2 *{
+            display: inline-block;
+        }
+        #endgame-panel-2 p{
+            width:200px;
+        }
+        #pressEnter{
+            opacity: 0;
+        }
+        #submit{
+            display:none;
+        }
 
     /*-- Welcome Page Modal --*/
         .welcome-modal-styling{
@@ -441,6 +516,19 @@
     .banner-body-styling{
         padding: 10px 10px 10px 15px;
     }
+    .modal-styling {
+        width:300px;
+    }
+    .modal-body-styling {
+        background-size: cover;
+        width:276px;
+    }
+    #scores-table{
+                margin:18px;
+                width:200px;
+                height:400px;
+                padding:0px;
+            }
     
     
 }

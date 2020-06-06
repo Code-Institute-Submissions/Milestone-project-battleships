@@ -75,7 +75,7 @@
                     </div>
                     <div class="inline-block text-center" id="instr-btn">
                         <i class="fa fa-book fa-2x"></i>
-                        <div class="label-container"><p class="hidden font-12">Ready</p></div>
+                        <div class="label-container"><p class="hidden font-12">Instructions</p></div>
                     </div>
                     <div class="inline-block text-center" id="scores-btn">
                         <i class="fa fa-star-o fa-2x"></i>
@@ -459,7 +459,7 @@
                         <span class="close-btn"><i class="far fa-times-circle"></i></span>
                     </div>
                     <div class="modal-body-styling">
-                        <table id="scores-table" class="text-center">
+                        <table id="scores-table" class="text-center font-12">
                             <tr class="row0"><td class="userName"></td><td class="userScore"></td></tr>
                             <tr class="row1"><td class="userName"></td><td class="userScore"></td></tr>
                             <tr class="row2"><td class="userName"></td><td class="userScore"></td></tr>
@@ -475,6 +475,20 @@
                     <div class="modal-footer">
                         <p id="scores-reset-label" class="uppercase mrgn-bot-0">Reset Scores</p>
                         <span id="scores-reset-btn"><i class="fas fa-redo-alt"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="endgame-modal-styling uppercase" id="endgame-modal">
+                <div class="endgame-modal-content-styling">
+                    <div class="endgame-modal-header">
+                        <p class="mx-auto uppercase mrgn-bot-0"></p>
+                        <span class="close-btn flt-right"><i class="far fa-times-circle"></i></span>
+                    </div>
+                    <div class="endgame-modal-body-styling text-center">
+                        <div id="endgame-panel-1" class="font-20 bold mrgn-bot-50 mrgn-top-20"><p></p></div>
+                        <div id="endgame-panel-3" class="mrgn-bot-50 mrgn-top-20"><p>Turn Count:</p></div>
+                        <div id="endgame-panel-2" class="font-14"><p class="mrgn-bot-0">Enter your name:</p><input id="userNameInput" type="text" class="input" oninput="showEnterMessage()"></div>
+                        <p id="pressEnter" class="uppercase font-10">Press Enter To Submit</p>
                     </div>
                 </div>
             </div>
