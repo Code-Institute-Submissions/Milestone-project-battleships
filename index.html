@@ -40,29 +40,96 @@
     <!-- Load Scripts -->
 
     <!-- Load Tests -->
-    <script type="text/javascript" src="Assets/Specs/functionsSpec.js"></script>
+    <script type="text/javascript" src="assets/specs/functionsSpec.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.js"
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
       crossorigin="anonymous"
     ></script>
-    <link href="Assets/CSS/style.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
     <title>Battleships</title>
   </head>
   <body>
     <header class="text-center">
-        <img class="header" src="Assets/Images/BATTLE-HEADER.png">
-        <img class="logo" src="Assets/Images/battleships-logo-full-white.png">
-        <img class="header" src="Assets/Images/SHIPS-HEADER.png">
+        <img class="header" src="assets/images/BATTLE-HEADER.png">
+        <img class="logo" src="assets/images/battleships-logo-full-white.png">
+        <img class="header" src="assets/images/SHIPS-HEADER.png">
     </header>
+    <div id="modal-container" class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-md-8 col-lg-4">
+                        <div class="welcome-modal-styling" id="welcome-modal">
+                            <div class="welcome-content-styling">
+                                <div class="welcome-body-styling">
+                                    <img src="assets/images/battleships-logo-with-header.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-styling font-14" id="instr-modal">
+                            <div class="modal-content-styling">
+                                <div class="modal-header">
+                                    <p class="mx-auto uppercase mrgn-bot-0">Instructions</p>
+                                    <span class="close-btn"><i class="far fa-times-circle"></i></span>
+                                </div>
+                                <div class="modal-body-styling">
+                                    <p>Welcome to Battleships!</p>
+                                    <p>Battleships is a turn-based strategy game in which two opposing players attempt to 'sink' the other's ships before their own are sunk.</p>
+                                    <p>Begin by placing your ships onto your board. You are in control of five ships of differing lengths: Aircraft Carrier, Battleship, Submarine, Destroyer and Patrol Boat.
+                                    You place your ships horizontally or vertically on your board. Simply click the ship you wish to place from the list in the armory, and click the square where you wish to place it.
+                                    Change the orientation, if you wish, by clicking on the arrow located beneath the armory. Once all your ships have been placed, the game can begin.</p>
+                                    <p>Once the game begins, you and your opponent take turns to guess the location of each other's ships. If you correctly guess all the squares where a ship has been placed, that ship has sunk.
+                                    Sink all your opponent's ships before they sink yours.</p>
+                                    <p>Good luck!</p>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-styling" id="scores-modal">
+                            <div class="modal-content-styling">
+                                <div class="modal-header">
+                                    <p class="mx-auto uppercase mrgn-bot-0">Scores</p>
+                                    <span class="close-btn"><i class="far fa-times-circle"></i></span>
+                                </div>
+                                <div class="modal-body-styling">
+                                    <table id="scores-table" class="text-center font-12">
+                                        <tr class="row0"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row1"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row2"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row3"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row4"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row5"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row6"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row7"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row8"><td class="userName"></td><td class="userScore"></td></tr>
+                                        <tr class="row9"><td class="userName"></td><td class="userScore"></td></tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <p id="scores-reset-label" class="uppercase mrgn-bot-0">Reset Scores</p>
+                                    <span id="scores-reset-btn"><i class="fas fa-redo-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="endgame-modal-styling uppercase" id="endgame-modal">
+                            <div class="endgame-modal-content-styling">
+                                <div class="endgame-modal-header">
+                                    <p class="mx-auto uppercase mrgn-bot-0"></p>
+                                    <span class="close-btn flt-right"><i class="far fa-times-circle"></i></span>
+                                </div>
+                                <div class="endgame-modal-body-styling text-center">
+                                    <div id="endgame-panel-1" class="font-20 bold mrgn-bot-50 mrgn-top-20"><p></p></div>
+                                    <div id="endgame-panel-3" class="mrgn-bot-50 mrgn-top-20"><p>Turn Count:</p></div>
+                                    <div id="endgame-panel-2" class="font-14"><p class="mrgn-bot-0">Enter your name:</p><input id="userNameInput" type="text" class="input" oninput="showEnterMessage()"></div>
+                                    <p id="pressEnter" class="uppercase font-10">Press Enter To Submit</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>    
+    </div>
     <div id="main-content container-fluid">
-        <div class="block welcome-modal-styling" id="welcome-modal">
-            <div class="welcome-content-styling">
-                <div class="welcome-body-styling">
-                    
-                </div>
-            </div>
-        </div>
+        
         <div id="button-row" class="row  justify-content-md-center">
             <div class="col-lg-6 justify-content-center uppercase">
                     <div class="inline-block text-center" id="new-game-btn">
@@ -400,7 +467,7 @@
                         <div id="arsenal" class="block text-center mx-auto font-12 uppercase">
                                 <table>
                                     <tr>
-                                        <th colspan="2" class="uppercase">Arsenal</th>
+                                        <th colspan="2" class="uppercase">Armory</th>
                                     </tr>
                                     <tr id="aircc">
                                         <td>Aircraft Carrier</td>
@@ -437,61 +504,7 @@
                         <div id="orientation-message-panel" class="uppercase font-12">Orientation is now set to vertical</div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-styling" id="instr-modal">
-                <div class="modal-content-styling">
-                    <div class="modal-header">
-                        <p class="mx-auto uppercase mrgn-bot-0">Instructions</p>
-                        <span class="close-btn"><i class="far fa-times-circle"></i></span>
-                    </div>
-                    <div class="modal-body-styling">
-                        <p>Some text in the Modal Body</p>
-                        <p>Some other text...</p>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-styling" id="scores-modal">
-                <div class="modal-content-styling">
-                    <div class="modal-header">
-                        <p class="mx-auto uppercase mrgn-bot-0">Scores</p>
-                        <span class="close-btn"><i class="far fa-times-circle"></i></span>
-                    </div>
-                    <div class="modal-body-styling">
-                        <table id="scores-table" class="text-center font-12">
-                            <tr class="row0"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row1"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row2"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row3"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row4"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row5"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row6"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row7"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row8"><td class="userName"></td><td class="userScore"></td></tr>
-                            <tr class="row9"><td class="userName"></td><td class="userScore"></td></tr>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <p id="scores-reset-label" class="uppercase mrgn-bot-0">Reset Scores</p>
-                        <span id="scores-reset-btn"><i class="fas fa-redo-alt"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="endgame-modal-styling uppercase" id="endgame-modal">
-                <div class="endgame-modal-content-styling">
-                    <div class="endgame-modal-header">
-                        <p class="mx-auto uppercase mrgn-bot-0"></p>
-                        <span class="close-btn flt-right"><i class="far fa-times-circle"></i></span>
-                    </div>
-                    <div class="endgame-modal-body-styling text-center">
-                        <div id="endgame-panel-1" class="font-20 bold mrgn-bot-50 mrgn-top-20"><p></p></div>
-                        <div id="endgame-panel-3" class="mrgn-bot-50 mrgn-top-20"><p>Turn Count:</p></div>
-                        <div id="endgame-panel-2" class="font-14"><p class="mrgn-bot-0">Enter your name:</p><input id="userNameInput" type="text" class="input" oninput="showEnterMessage()"></div>
-                        <p id="pressEnter" class="uppercase font-10">Press Enter To Submit</p>
-                    </div>
-                </div>
-            </div>
+            </div>    
         </div>
     </div>
     
@@ -504,5 +517,5 @@
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"
   ></script>
-  <script type="text/javascript" src="Assets/Scripts/functions.js"></script>
+  <script type="text/javascript" src="assets/scripts/functions.js"></script>
 </html>

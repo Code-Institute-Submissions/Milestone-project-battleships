@@ -313,7 +313,7 @@ function beginGame(){
 // This function retrieves a new set of coordinates, and places ships in the opponent's grid
 function getOpponentCoordinates(){
     var opponentShipsPlaced = false;
-    $.get("board-1.txt",function(rawCoor){
+    $.get("assets/coordinates/board-1.txt",function(rawCoor){
             var oppCoor = rawCoor.split(/\n/g);
             var ACCoor = oppCoor[0].split(",");
             for(i=0;i<ACCoor.length;i++){
@@ -929,6 +929,7 @@ function intelligentGuess(){
 //This function will run after the game ends, if either user or the opponent destroys 5 ships.
 function finishGame(text1,text2){
     var modal = document.getElementById("endgame-modal");
+    $("#modal-container").css("display","block");
     closeBanner();
     if(text1 == "You lost"){
         console.log("You lost")
@@ -975,80 +976,6 @@ function saveScores(){
     var i = localStorage.length;
     localStorage.setItem(`${i}`, `${score}`);
 }
-//This function control the various modals throughout the page.
-function openWelcomePage(){
-    var screenWidth = window.innerWidth;
-    var modalWidth = parseInt($("#welcome-modal").css("width"));
-    var bodyWidth = modalWidth - 24;
-    $("#welcome-modal").css("height",`${modalWidth}`);
-    $('.welcome-body-styling').css("width",`${bodyWidth}`);
-    $('.welcome-body-styling').css("height",`${bodyWidth}`);
-
-    var welcomeModalLeft = (screenWidth - modalWidth)/2;
-    $("#welcome-modal").css("left", welcomeModalLeft);
-    var height = window.innerHeight;
-    var welcomeModalTop = (height - modalWidth)/2;
-    $("#welcome-modal").css("top", welcomeModalTop);
-    $(window).one("click", function() {
-        $("#welcome-modal").css("display", "none");
-        bannerModal("Welcome to Battleships!","Press 'New Game' to begin");
-    });
-    return;
-}
-function openInstructions(){
-    //Credit belongs to https://www.w3schools.com/howto/howto_css_modals.asp for the creation of this modal.
-    var modal = document.getElementById("instr-modal");
-    var width = window.innerWidth;
-    var modalWidth = parseInt($("#instr-modal").css("width"));
-    var modalLeft = (width - modalWidth)/2;
-    $("#instr-modal").css("left", modalLeft);
-    modal.style.animationName = "animatetop";
-    $(document).keyup(function(e) {
-        if (e.keyCode === 27) modal.style.animationName = "animatebottom";
-    });
-    $(".close-btn").click(function(){
-        modal.style.animationName = "animatebottom";
-    })
-    
-}
-function openScores(){
-    //Credit belongs to https://www.w3schools.com/howto/howto_css_modals.asp for the creation of this modal.
-    var modal = document.getElementById("scores-modal");
-    var width = window.innerWidth;
-    var modalWidth = parseInt($("#scores-modal").css("width"));
-    var modalLeft = (width - modalWidth)/2;
-    $("#scores-modal").css("left", modalLeft);
-   modal.style.animationName = "animatetop";
-    $(document).keyup(function(e) {
-        if (e.keyCode === 27) modal.style.display = "none";
-    });
-    $(".close-btn").click(function(){
-        modal.style.animationName = "animatebottom";
-    })
-    displayScores();
-    resetScores();
-}
-function bannerModal(text1,text2){
-    var modal = document.getElementById("banner-modal");
-    modal.style.animationName = "animateleft";
-    $("#modal-panel-1 p").text(text1);
-    $("#modal-panel-2 p").text(text2);
-}
-function closeBanner(){
-    var modal = document.getElementById("banner-modal");
-    modal.style.animationName = "animateright";
-}
-function arsenalModal(){
-    var modal = document.getElementById("arsenal-modal");
-    modal.style.animationName = "animateleft"
-}
-function orientationModal(){
-    var modal = document.getElementById("orientation-modal");
-    modal.style.animationName = "animateleft";
-    setTimeout(function(){
-        modal.style.animationName = "animateright";
-    },3000);
-} 
 //This function retrieves the top-10 scores saved in LocalStorage and displays them in '#scores-table'.
 function displayScores(){
     totalScores = [];
@@ -1113,6 +1040,88 @@ function resetScores(){
             $("#scores-reset-label").text("Scores cleared");
     });
 }
+//This function control the various modals throughout the page.
+function openWelcomePage(){
+    $("#modal-container").css("display","block");
+    $(window).one("click", function() {
+        $("#welcome-modal").css("display", "none");
+        $("#modal-container").css("display","none");
+        bannerModal("Welcome to Battleships!","Press 'New Game' to begin");
+    });
+    return;
+}
+function openInstructions(){
+    $("#modal-container").css("display","block");
+    //Credit belongs to https://www.w3schools.com/howto/howto_css_modals.asp for the creation of this modal.
+    var modal = document.getElementById("instr-modal");
+    modal.style.display = "block";
+    modal.style.animationName = "animatetop";
+    $(document).keyup(function(e) {
+        if (e.keyCode === 27) modal.style.animationName = "animatebottom";
+        setTimeout(function(){
+            $("#modal-container").css("display","none");
+            modal.style.display = "none";
+        },1500);
+    });
+    $(".close-btn").click(function(){
+        modal.style.animationName = "animatebottom";
+        setTimeout(function(){
+            $("#modal-container").css("display","none");
+            modal.style.display = "none";
+        },1500);
+        
+    })
+    
+}
+function openScores(){
+    $("#modal-container").css("display","block");
+    //Credit belongs to https://www.w3schools.com/howto/howto_css_modals.asp for the creation of this modal.
+    var modal = document.getElementById("scores-modal");
+    modal.style.display = "block";
+    modal.style.animationName = "animatetop";
+    $(document).keyup(function(e) {
+        if (e.keyCode === 27){
+            modal.style.animationName = "animatebottom";
+            setTimeout(function(){
+                $("#modal-container").css("display","none");
+                modal.style.display = "none";
+            },1500);
+        }    
+    });
+    $(".close-btn").click(function(){
+        modal.style.animationName = "animatebottom";
+        setTimeout(function(){
+            $("#modal-container").css("display","none");
+            modal.style.display = "none";
+        },1500);
+        
+    })
+    displayScores();
+    resetScores();
+}
+
+function bannerModal(text1,text2){
+    var modal = document.getElementById("banner-modal");
+    modal.style.animationName = "animateleft";
+    $("#modal-panel-1 p").text(text1);
+    $("#modal-panel-2 p").text(text2);
+}
+function closeBanner(){
+    var modal = document.getElementById("banner-modal");
+    modal.style.animationName = "animateright";
+}
+function arsenalModal(){
+    var modal = document.getElementById("arsenal-modal");
+    modal.style.animationName = "animateleft"
+}
+function orientationModal(){
+    var modal = document.getElementById("orientation-modal");
+    modal.style.animationName = "animateleft";
+    setTimeout(function(){
+        modal.style.animationName = "animateright";
+    },3000);
+} 
+
 
 
 $(document).ready(function(){
