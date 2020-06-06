@@ -6,17 +6,7 @@ var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
 var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
 var attemptedGuesses = [];
 //Is this necessary as I also have 'newScreen()'
-function welcomeFunction(){
-    //This clears the squares, providing a new board to play upon
-    $(".game-square").removeClass("occupied");
-    for(i=0;i<shipList.length;i++){
-        $(".game-square").removeClass(`${shipList[i][0]}`)
-    }
-    deployedList = [];
-    $("#arsenal tr").removeClass("placed");
-    bannerModal("Welcome to Battleships!","Press 'New Game' to begin");
-    console.log("Ready for new game");
-}
+
 function newScreen(){
     //This clears the squares, providing a new board to play upon
     $(".game-square").removeClass("occupied");
@@ -26,10 +16,11 @@ function newScreen(){
     deployedList = [];
     $("#arsenal tr").removeClass("placed");
     //This variable will tell some functions if ships are being deployed or not;
+    $(".board-label").fadeTo("slow",1);
     window.placementPhase = true;
     do{
         //User is prompted to start placing their ships
-        bannerModal("Please place your ships","Select a ship from the arsenal");
+        bannerModal("Please place your ships.","Select a ship from the arsenal");
         arsenalModal();
         //If user clicks on the arsenal table, it will run function selectShip
         $("#aircc").click(selectShip);
@@ -70,7 +61,7 @@ function findInMDArray(shipId){
 //When clicking/hovering on a game square, this function will read the coordinates of that square.
 function findCoordinate(){
     var getClasses = this.className.split(" ");
-    window.whichBoard = this.parentElement.parentElement.parentElement.parentElement.id;
+    window.whichBoard = this.parentElement.parentElement.parentElement.id;
     window.sqCoor = getClasses[0];
     return sqCoor, whichBoard;
 }
@@ -153,9 +144,10 @@ function checkOverlapStatus(newCoor){
         if(checkOccupiedStatus(checkCoor)==true){
             overlapStatus = true;
             overlapSquare = newCoor[i];
-            var getClasses = $(`#user-game-board .${overlapSquare}`).attr("class").split(" ");
-            //I want to find the shipID, which will be the second last class added.
-            occupyingShipId = getClasses[getClasses.length - 2];
+            var getClasses = $(`#${whichBoard} .${overlapSquare}`).attr("class").split(" ");
+            //I want to find the shipID, which will be the third class.
+            occupyingShipId = getClasses[3];
+            console.log(occupyingShipId);
             for(i=0;i<shipList.length;i++){
                 if(occupyingShipId == shipList[i][0]){;
                     occupyingShip = shipList[i][1];
@@ -163,7 +155,7 @@ function checkOverlapStatus(newCoor){
                 }
             };
             bannerModal(`${occupyingShip} is occupying square ${overlapSquare}`,`Please place your ship in another square`);
-            setTimeout(closeBanner(),6000);
+
             return;
         } else {
             overlapStatus = false;
@@ -313,9 +305,9 @@ function beginGame(){
         window.turnCount = 0;
         if(userTurn  == true){
         $("#opp-game-board .game-square").click(userMakeGuess);
-    } else {
-        console.log("Wait your turn");
-    }
+        } else {
+            console.log("Wait your turn");
+        }
     } 
 };
 //Retrieving Opponent's Coordinates
@@ -384,12 +376,12 @@ function checkReadyStatus(){
 }
 function userMakeGuess(){
     if(userTurn == false){
-        console.log("Wait your turn!");
+        bannerModal(`Opponent is making a guess.`,`Wait your turn!`);
     } else {
         $("#opp-game-board .game-square").click(findCoordinate);
+        bannerModal(`You are checking ${sqCoor}`,` `);
         if($(`#${whichBoard} .${sqCoor}`).hasClass("attempted")){
             bannerModal(`${sqCoor} has already been selected.`,`Please select another square`);
-            setTimeout(closeBanner(),4000);
         } else{
             checkOccupiedStatus(sqCoor);
             if(occupiedStatus == true){
@@ -405,7 +397,8 @@ function userMakeGuess(){
 function oppMakeGuess(){
     whichBoard = "user-game-board";
     console.log("opp turn");
-    intelligentGuess(); 
+    intelligentGuess();
+    bannerModal(`Opponent guessed ${sqCoor}`,` `);
     checkOccupiedStatus(sqCoor);
     if(occupiedStatus == true){
         var getClasses = $(`#user-game-board .${sqCoor}`).attr("class").split(" ");
@@ -448,7 +441,7 @@ function hitStatus(){
                 }
             } else {
                 usersShips[i][1]--;
-                if(oppsShips[i][1] == 0){
+                if(usersShips[i][1] == 0){
                     text2 = `${occupyingShip} was sunk!`;   
                     $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
                     oppsShipCount++;
@@ -456,17 +449,15 @@ function hitStatus(){
             }
         }
     };
-    bannerModal("It's a hit!",text2);
-    setTimeout(closeBanner(),4000);
+    bannerModal(" ",`It's a hit! ${text2}`);
+
 };
 //This function will run if the user/opponent has not correctly guessed a game square
 function missStatus(){
     if(userTurn == true){
         bannerModal("You missed!",`${sqCoor} was empty`);
-        setTimeout(closeBanner(),4000);
     } else {
-        bannerModal("Your opponent missed!",`${sqCoor} was empty`);
-        setTimeout(closeBanner(),4000);      
+        bannerModal("Your opponent missed!",`${sqCoor} was empty`);  
     }
     
     $(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
@@ -533,7 +524,7 @@ function intelligentGuess(){
             //Did our first guess hit?
             if(lastStatus == true){
                 console.log("This is my second guess. My first one hit, so I looking in the vicinity.")
-                sqCoor = `${xAxis[lastxIndex+1]}${lastyIndex}`;
+                sqCoor = `${xAxis[lastxIndex+1]}${lastyCoor}`;
                 console.log(`Come find me ${sqCoor}`);
                 return;
             } else{//No (493)
@@ -603,7 +594,7 @@ function intelligentGuess(){
                         }
                     } else {
                         console.log("My guess before that missed.")
-                            sqCoor = `${xAxis[lastxIndex+1]}${lastyIndex}`
+                            sqCoor = `${xAxis[lastxIndex+1]}${lastyCoor}`
                             console.log(`Come find me ${sqCoor}`);
                             return;
                         }
@@ -615,7 +606,7 @@ function intelligentGuess(){
                         sqCoor = `${xAxis[penxIndex-1]}${penyIndex}`;
                         return;
                     } else {
-                        console.log("Both my guesses missed");
+                        console.log("Both my previous guesses missed");
                         getRandomCoordinate(); 
                         return;
                     }
@@ -863,7 +854,7 @@ function intelligentGuess(){
                                 console.log(`Come find me ${sqCoor}`);
                                 return;
                             } else {//No (135)
-                                console.log("My last 2 guess share the same y coor.");
+                                console.log("My last 2 guesses share the same y coor.");
                                 //Then we know pro guess also shares the same y coor.
                                 //So we want a higher or lower y coor, with pro guess x coor.
                                 sqCoor = `${proxCoor}${yAxis[proyIndex+1]}`;
@@ -871,35 +862,43 @@ function intelligentGuess(){
                                 return;
                             }
                         } else {//No (133)
-                            console.log("My last 3 guess did not hit");
-                            //Check if pen guess and pro guess have same the x coor
-                            if(penxCoor == proxCoor){//Yes (144)
-                                //Then we know that there is an attempted square between pen and pro guess on the y-axis.
-                                //If the square to the left/right of last guess is attempted, or hit, then we need to try two squares to the left/right.
-                                if($(`#user-game-board .${xAxis[lastxIndex+1]}${yAxis[lastyIndex]}`).hasClass("attempted")){
-                                    sqCoor = `${xAxis[lastxIndex-2]}${yIndex[lastyIndex]}`
-                                    console.log(`Come find me ${sqCoor}`);
-                                    return;
+                            console.log("My last 3 guesses did not hit");
+                            //Check if any guesses have hit yet.
+                            if(attemptedGuesses[attemptedGuesses.length-4][1]==true){
+                                //Check if pen guess and pro guess have same the x coor
+                                if(penxCoor == proxCoor){//Yes (144)
+                                    //Then we know that there is an attempted square between pen and pro guess on the y-axis.
+                                    //If the square to the left/right of last guess is attempted, or hit, then we need to try two squares to the left/right.
+                                    if($(`#user-game-board .${xAxis[lastxIndex+1]}${lastyCoor}`).hasClass("attempted")){
+                                        sqCoor = `${xAxis[lastxIndex+2]}${lastyCoor}`
+                                        console.log(`Come find me ${sqCoor}`);
+                                        return;
+                                    }
+                                    if($(`#user-game-board .${xAxis[lastxIndex-1]}${lastyCoor}`).hasClass("attempted")){
+                                        sqCoor = `${xAxis[lastxIndex-2]}${lastyCoor}`
+                                        console.log(`Come find me ${sqCoor}`);
+                                        return;
+                                    }
+                                } else {//No(144)
+                                    //Then we know that there is an attempted square between pro and pro guess on the x-axis.
+                                    //If the square to the up/down of last guess is attempted, or hit, then we need to try two squares up/down.
+                                    if($(`#user-game-board .${lastxCoor}${yAxis[lastyIndex+1]}`).hasClass("attempted")){
+                                        sqCoor = `${xAxis[lastxIndex]}${yAxis[lastyIndex+2]}`
+                                        console.log(`Come find me ${sqCoor}`);
+                                        return;
+                                    }
+                                    if($(`#user-game-board .${lastxCoor}${yAxis[lastyIndex-1]}`).hasClass("attempted")){
+                                        sqCoor = `${lastxCoor}${yAxis[lastyIndex-2]}`;
+                                        console.log(`Come find me ${sqCoor}`);
+                                        return;
+                                    }
                                 }
-                                if($(`#user-game-board .${xAxis[lastxIndex-1]}${yAxis[lastyIndex]}`).hasClass("attempted")){
-                                    sqCoor = `${xAxis[lastxIndex-2]}${yAxis[lastyIndex]}`
-                                    console.log(`Come find me ${sqCoor}`);
-                                    return;
-                                }
-                            } else {//No(144)
-                                //Then we know that there is an attempted square between pro and pro guess on the x-axis.
-                                //If the square to the up/down of last guess is attempted, or hit, then we need to try two squares up/down.
-                                if($(`#user-game-board .${xAxis[lastxIndex]}${yAxis[lastyIndex+1]}`).hasClass("attempted")){
-                                    sqCoor = `${xAxis[lastxIndex]}${yAxis[lastyIndex-2]}`
-                                    console.log(`Come find me ${sqCoor}`);
-                                    return;
-                                }
-                                if($(`#user-game-board .${xAxis[lastxIndex]}${yAxis[lastyIndex-1]}`).hasClass("attempted")){
-                                    sqCoor = `${xAxis[lastxIndex]}${yAxis[lastyIndex+2]}`;
-                                    console.log(`Come find me ${sqCoor}`);
-                                    return;
-                                }
+                            } else {
+                               console.log("My last 4 guesses did not hit, so I will make a random guess");
+                               getRandomCoordinate();
+                               return;
                             }
+                            
                         }
                     }
                 }
@@ -921,16 +920,24 @@ function saveScores(){
 }
 //This function control the various modals throughout the page.
 function openWelcomePage(){
-    var width = window.innerWidth;
-    var welcomeModalLeft = (width - 500)/2;
+    var screenWidth = window.innerWidth;
+    var modalWidth = parseInt($("#welcome-modal").css("width"));
+    var bodyWidth = modalWidth - 24;
+    $("#welcome-modal").css("height",`${modalWidth}`);
+    $('.welcome-body-styling').css("width",`${bodyWidth}`);
+    $('.welcome-body-styling').css("height",`${bodyWidth}`);
+
+    var welcomeModalLeft = (screenWidth - modalWidth)/2;
     $("#welcome-modal").css("left", welcomeModalLeft);
     var height = window.innerHeight;
-    var welcomeModalTop = (height - 500)/2;
+    var welcomeModalTop = (height - modalWidth)/2;
     $("#welcome-modal").css("top", welcomeModalTop);
-}
-function closeWelcomePage(){
-    console.log("Closing Welcome Page")
-    $("#welcome-modal").removeClass("block").addClass("inactive");
+    window.onclick = function() {
+        $("#welcome-modal").css("display", "none");
+        
+    }
+    bannerModal("Welcome to Battleships!","Press 'New Game' to begin");
+    return;
 }
 function openInstructions(){
     //Credit belongs to https://www.w3schools.com/howto/howto_css_modals.asp for the creation of this modal.
@@ -970,12 +977,6 @@ function bannerModal(text1,text2){
     $("#modal-panel-2 p").text(text2);
     
 }
-function closeBanner(timeVar){
-    var modal = document.getElementById("banner-modal");
-    setTimeout(function(){
-        modal.style.animationName = "animateright";
-    },timeVar);
-}
 function arsenalModal(){
     var modal = document.getElementById("arsenal-modal");
     modal.style.animationName = "animateleft"
@@ -986,6 +987,35 @@ function orientationModal(){
     setTimeout(function(){
         modal.style.animationName = "animateright";
     },3000);
+}
+function sizeBoard(){
+    var getWidth = parseInt($(".table-container").css("width"));
+    console.log(getWidth);
+    var containerWidth = getWidth-30;
+    console.log(containerWidth);
+    var boardWidth = parseInt($("#user-game-board").css("width"));
+    console.log(boardWidth);
+    if(containerWidth >= 575 && window.innerWidth >= 1000){
+        console.log("Hello");
+        var boardMargin = (containerWidth-boardWidth)/8;
+        console.log(boardMargin);
+        marginOuter = boardMargin*3;
+        marginInner = boardMargin;
+        $("#user-game-board").css("margin-left", `${marginOuter}px`);
+        $("#user-game-board").css("margin-right", `${marginInner}px`);
+        $("#user-game-board").css("float", "right");
+        $("#opp-game-board").css("margin-left", `${marginInner}px`);
+        $("#opp-game-board").css("margin-right", `${marginOuter}px`);
+        $("#opp-game-board").css("float","left")
+    } else{
+        boardMargin = (containerWidth-boardWidth)/2;
+        console.log(boardMargin);
+        $("#user-game-board").css("margin-left", `${boardMargin}px`);
+        $("#user-game-board").css("margin-right", `${boardMargin}px`);
+        $("#opp-game-board").css("margin-left", `${boardMargin}px`);
+        $("#opp-game-board").css("margin-right", `${boardMargin}px`);
+    }
+    
 }
 //This function retrieves the top-10 scores saved in LocalStorage and displays them in '#scores-table'.
 function displayScores(){
@@ -1042,11 +1072,15 @@ function resetScores(){
     });
 }
 
+
 $(document).ready(function(){
     openWelcomePage();
-    $("#welcome-btn").click(closeWelcomePage);
-    welcomeFunction();
     window.verticalStatus = true
+    //sizeBoard();
+    var screenWidth = window.innerWidth;
+    if (screenWidth < 1024){
+        $("#orientation-btn i").removeClass("fa-2x").addClass("fa-lg")  
+    }
     $("#new-game-btn").click(newScreen);
     $("#orientation-btn").click(changeOrientation);
     $(".game-square").mouseenter(findCoordinate);
@@ -1078,21 +1112,21 @@ $(document).ready(function(){
         $("#orientation-label").fadeTo( "fast", 0 );
         $("#orientation-btn i").removeClass("fas").addClass("far");
     });
-    $("#instr-tab").mouseenter(function(){
-        $("#instr-tab .label-container p").fadeTo( "fast", 1 );
-        $("#instr-tab .fa").removeClass("fa-book").addClass("fa-book-open");
+    $("#instr-btn").mouseenter(function(){
+        $("#instr-btn .label-container p").fadeTo( "fast", 1 );
+        $("#instr-btn .fa").removeClass("fa-book").addClass("fa-book-open");
     });
-    $("#instr-tab").mouseleave(function(){
-        $("#instr-tab .label-container p").fadeTo( "fast", 0 );
-        $("#instr-tab .fa").removeClass("fa-book-open").addClass("fa-book");
+    $("#instr-btn").mouseleave(function(){
+        $("#instr-btn .label-container p").fadeTo( "fast", 0 );
+        $("#instr-btn .fa").removeClass("fa-book-open").addClass("fa-book");
     });
-    $("#scores-tab").mouseenter(function(){
+    $("#scores-btn").mouseenter(function(){
         $("#scores-tab .label-container p").fadeTo( "fast", 1 );
         $("#scores-tab .fa").removeClass("fa-star-o").addClass("fa-star");
     });
-    $("#scores-tab").mouseleave(function(){
-        $("#scores-tab .label-container p").fadeTo( "fast", 0 );
-        $("#scores-tab .fa").removeClass("fa-star").addClass("fa-star-o");
+    $("#scores-btn").mouseleave(function(){
+        $("#scores-btn .label-container p").fadeTo( "fast", 0 );
+        $("#scores-btn .fa").removeClass("fa-star").addClass("fa-star-o");
     });
     $(".close-btn").mouseenter(function(){
         $(".close-btn i").removeClass("far").addClass("fas");
@@ -1100,8 +1134,7 @@ $(document).ready(function(){
     $(".close-btn").mouseleave(function(){
         $(".close-btn i").removeClass("fas").addClass("far");
     });
-    $("#instr-tab").click(openInstructions);
-    $("#scores-tab").click(openScores);
-    
+    $("#instr-btn").click(openInstructions);
+    $("#scores-btn").click(openScores);
 
 });

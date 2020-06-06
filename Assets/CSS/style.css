@@ -11,6 +11,7 @@
             background-image: url("../Images/header-background.png");
             color: #f5f1e4;
             height:100px;
+            width:100%;
             margin-bottom:10px;
             border-bottom: 10px solid #f9bd80;
         }
@@ -21,11 +22,13 @@
             border-top: 5px solid #f9bd80;
         }
 /*-- Header Specifications --*/
-        .header img{
+        .header{
             height:140px;
+
         }
-        .logo img{
+        .logo {
             height:75px;
+
         }
 /*-- Footer Specifications --*/
         footer{
@@ -76,6 +79,9 @@
         .mrgn-top-10{
             margin-top:10px;
         }
+        .mrgn-bot-10{
+            margin-bottom:10px;
+        }
         .mrgn-right-10{
             margin-right: 10px;
         }
@@ -108,14 +114,8 @@
             height:60px;
             line-height:25px;
         }
-        #button-row ul{
-            margin-bottom:0;
-            height:100%;
-        }
-        #button-row ul li{
-            text-transform: uppercase;
-            min-width:150px;
-            margin:auto 35px;
+        #button-row [id$="btn"]{
+            width:24%;
         }
         #button-row i{
             margin: 14px auto 7px auto;
@@ -155,12 +155,13 @@
             width:140px;
         }
     /*-- Game Screen Dimensions --*/
-        #game-module{
-            width:100%;
-            min-height:550px;
-
+        .table-container div{
+            display:inline-block;
+            margin: auto 50px;
         }
+        
         [id$="game-board"]{
+            display: inline-block;
             height:525px;
             width:525px;
         }
@@ -168,13 +169,13 @@
             margin:10px auto;
         }
     /*-- Battlefield Table Dimesions --*/
-        table, td{
+        tr, td{
             border:1px solid #080824;
             border-collapse: collapse;
         }
         .game-square{
-            height:50px;
             width:50px;
+            height:50px;
             background-color: #fff8e7;
         }
         [class^="y-axis"]{
@@ -182,6 +183,11 @@
             background-color: rgba(8,8,36,0.8);
             color: #fff8e7;
             border:1px solid #fff8e7;
+            border-left:1px solid #080824;
+            border-right:1px solid #080824;
+        }
+        .y-axis-10{
+            border-bottom:1px solid #080824
         }
         .row-x-axis{
             text-align: center;
@@ -189,20 +195,34 @@
             height:25px;
             background-color: rgba(8,8,36,0.8);
             color: #fff8e7;
-            
         }
         .row-x-axis td{
             border:1px solid #fff8e7;
+            border-top:1px solid #080824;
+            border-bottom:1px solid #080824;
+        }
+        .row-x-axis td:last-child{
+            border-right:1px solid #080824;
+        }
+        .row-x-axis td:first-child{
+            border-left:1px solid #080824;
+            border-bottom:1px solid #fff8e7;
+        }
+        .board-label{
+            opacity: 0;
         }
     /*-- Game Square Specifications --*/
     /*-- These rules dictate the colour or status of a game square --*/
-        .occupied{
+        #user-game-board .occupied{
             background-color:rgba(8,8,36, 0.9);
         }
-        #opp-game-board .occupied{
+        .occupied{
             background-color:rgba(255,248,231);
         }
         .show-coordinates{
+            background-color:rgba(8,8,36, 0.4);
+        }
+        #user-game-board .occupied.show-coordinates{
             background-color:rgba(8,8,36, 0.4);
         }
         .hit{
@@ -283,7 +303,7 @@
             background-color: #080824;
             position: fixed;
             align-self: center;
-            z-index: 1;
+            z-index: 2;
             width:500px;
             height:500px;
         }
@@ -294,29 +314,11 @@
         }
         .welcome-body-styling{
             margin:5px;
-            height:476px;
-            width:476px;
-            background-image: url("../Images/battleships-header.png");
+            background-image: url("../Images/battleships-logo-with-header.png");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             padding: 20px;
-            font-family: Piedra, sans-serif;
-        }
-        #welcome-header{
-            margin-top:50px;
-            font-size:32px;
-        }
-        #welcome-btn{
-            width: 200px;
-            height: 200px;
-            background-image: url("../Images/battleships-logo-full-blue-circle.png");
-            background-size:contain;
-            position: absolute;
-            bottom: 138px;
-            left:138px;
-            font-size:28px;
-            line-height:100px;
         }
     /*-- Sidebar Modals --*/
         .banner-modal-styling{
@@ -340,10 +342,10 @@
         .banner-body-styling{
             margin:5px 5px 5px 0;
             background-color:#fff8e7;
-            padding: 20px;
+            padding: 20px 20px 20px 30px;
         }
         #banner-modal{
-            top: 220px;
+            top: 110px;
         }
         #arsenal-modal{
             top: 372px;
@@ -362,12 +364,12 @@
             to {top: -630px; display:none}
         }
         @keyframes animateleft {
-            0%   {display:none; left:-450px;}
-            100% {display:block;left:0px;}
+            0%   {display:none; left:-450px; opacity: 0}
+            100% {display:block;left:0px; opacity: 1}
         }
         @keyframes animateright {
-        0%   {display:block; left:0px;}
-        100% {display:none; left:-450px;}
+            0%   {display:block; left:0px; opacity: 1}
+            100% {display:none; left:-450px; opacity: 0}
         }
         /*-- Credit belongs to https://codepen.io/vitoralberto/pen/OPYyYB for this rotation animation --*/
         @keyframes rotation {
@@ -378,12 +380,67 @@
                     -webkit-transform: rotate(359deg);
             }
         }
-    /*-- Header Animations --*/
-        @keyframes headerinfromtop {
-            from {display:none; top: -630px}
-            to {display:block; top: 150px; }
-        }     
-
-        
-        
-        
+/*-- Media Queries --*/
+@media (max-width:1150px){
+    .header{
+        height:70px;
+        }
+    .logo{
+        margin-top:5px;
+    }
+    .table-container div{
+        display: block;
+    }
+    [id$="game-board"]{
+        width:400px;
+        height:400px;
+    }
+    [id$="game-board"] td{
+        width: 35px;
+        height:35px;
+    }
+    .font-12{
+        font-size:10px;
+    }
+    .font-14{
+        font-size:12px;
+    }
+}
+@media (max-width:800px){
+    #banner-modal{
+        top: 850px;
+    }
+    #arsenal-modal{
+        top: 631px;
+    }
+    #orientation-modal{
+        top: 535px;
+    }
+}
+@media (max-width:600px){
+    .welcome-modal-styling{
+        width:75%
+    }
+    .header{
+        height:50px;
+        }
+    .font-12{
+        font-size:8px;
+    }
+    .font-14{
+        font-size:10px;
+    }
+    [id$="game-board"]{
+        width:300px;
+        height:300px;
+    }
+    [id$="game-board"] td{
+        width: 26px;
+        height:26px;
+    }
+    .banner-body-styling{
+        padding: 10px 10px 10px 15px;
+    }
+    
+    
+}

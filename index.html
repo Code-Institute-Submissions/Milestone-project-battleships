@@ -51,340 +51,339 @@
   </head>
   <body>
     <header class="text-center">
-      <div class="row justify-content-md-center">
-        <div class="col-3 header"><img src="Assets/Images/BATTLE-HEADER.png"></div>
-        <div class="col-1 logo"><img src="Assets/Images/battleships-logo-full-white.png"></div>
-        <div class="col-3 header"><img class="flt-left" src="Assets/Images/SHIPS-HEADER.png"></div>
-      </div>
+        <img class="header" src="Assets/Images/BATTLE-HEADER.png">
+        <img class="logo" src="Assets/Images/battleships-logo-full-white.png">
+        <img class="header" src="Assets/Images/SHIPS-HEADER.png">
     </header>
     <div id="main-content container-fluid">
         <div class="block welcome-modal-styling" id="welcome-modal">
             <div class="welcome-content-styling">
                 <div class="welcome-body-styling">
-                    <div id="welcome-btn" class=""></div>
+                    
                 </div>
             </div>
         </div>
-        <div id="button-row" class="row justify-content-md-center">
-            <div class="col-6">
-                <ul class="list-inline justify-content-md-center">
-                    <li class="list-inline-item text-center " id="new-game-btn">
+        <div id="button-row" class="row  justify-content-md-center">
+            <div class="col-lg-6 justify-content-center uppercase">
+                    <div class="inline-block text-center" id="new-game-btn">
                         <i class="fa fa-play-circle-o fa-2x"></i>
-                        <div class="label-container"><p class="hidden font-12">Play</p></div>
-                    </li>
-                    <li class="list-inline-item text-center" id="ready-btn">
+                        <div class="label-container"><p class="hidden font-12">New Game</p></div>
+                    </div>
+                    <div class="inline-block text-center" id="ready-btn">
                         <i class="fa fa-check-circle-o fa-2x"></i>
                         <div class="label-container"><p class="hidden font-12">Ready</p></div>
-                    </li>
-                    <li class="list-inline-item text-center" id="instr-tab">
+                    </div>
+                    <div class="inline-block text-center" id="instr-btn">
                         <i class="fa fa-book fa-2x"></i>
-                        <div class="label-container"><p class="hidden font-12">Instructions</p></div>
-                    </li>
-                    <li class="list-inline-item text-center" id="scores-tab">
+                        <div class="label-container"><p class="hidden font-12">Ready</p></div>
+                    </div>
+                    <div class="inline-block text-center" id="scores-btn">
                         <i class="fa fa-star-o fa-2x"></i>
                         <div class="label-container"><p class="hidden font-12">Scores</p></div>
-                        
-                    </li>
-                </ul>
+                    </div>
             </div>
         </div>
-        <div id="game-module" class="row justify-content-md-center mrgn-top-50 mrgn-bot-50">
-                <div id="user-game-board" class="col-4 inline-block text-center">
-                    <table class="mx-auto">
-                        <tr class="row-x-axis">
-                            <td></td>
-                            <td class="x-axis-A">A</td>
-                            <td class="x-axis-B">B</td>
-                            <td class="x-axis-C">C</td>
-                            <td class="x-axis-D">D</td>
-                            <td class="x-axis-E">E</td>
-                            <td class="x-axis-F">F</td>
-                            <td class="x-axis-G">G</td>
-                            <td class="x-axis-H">H</td>
-                            <td class="x-axis-I">I</td>
-                            <td class="x-axis-J">J</td>
-                        </tr>
-                        <tr class="row-1">
-                            <td class="y-axis-1">1</td>
-                            <td class="A1 game-square"></td>
-                            <td class="B1 game-square"></td>
-                            <td class="C1 game-square"></td>
-                            <td class="D1 game-square"></td>
-                            <td class="E1 game-square"></td>
-                            <td class="F1 game-square"></td>
-                            <td class="G1 game-square"></td>
-                            <td class="H1 game-square"></td>
-                            <td class="I1 game-square"></td>
-                            <td class="J1 game-square"></td>
-                        </tr>
-                        <tr class="row-2">
-                            <td class="y-axis-2">2</td>
-                            <td class="A2 game-square"></td>
-                            <td class="B2 game-square"></td>
-                            <td class="C2 game-square"></td>
-                            <td class="D2 game-square"></td>
-                            <td class="E2 game-square"></td>
-                            <td class="F2 game-square"></td>
-                            <td class="G2 game-square"></td>
-                            <td class="H2 game-square"></td>
-                            <td class="I2 game-square"></td>
-                            <td class="J2 game-square"></td>
-                        </tr>
-                        <tr class="row-3">
-                            <td class="y-axis-3">3</td>
-                            <td class="A3 game-square"></td>
-                            <td class="B3 game-square"></td>
-                            <td class="C3 game-square"></td>
-                            <td class="D3 game-square"></td>
-                            <td class="E3 game-square"></td>
-                            <td class="F3 game-square"></td>
-                            <td class="G3 game-square"></td>
-                            <td class="H3 game-square"></td>
-                            <td class="I3 game-square"></td>
-                            <td class="J3 game-square"></td>
-                        </tr>
-                        <tr class="row-4">
-                            <td class="y-axis-4">4</td>
-                            <td class="A4 game-square"></td>
-                            <td class="B4 game-square"></td>
-                            <td class="C4 game-square"></td>
-                            <td class="D4 game-square"></td>
-                            <td class="E4 game-square"></td>
-                            <td class="F4 game-square"></td>
-                            <td class="G4 game-square"></td>
-                            <td class="H4 game-square"></td>
-                            <td class="I4 game-square"></td>
-                            <td class="J4 game-square"></td>
-                        </tr>
-                        <tr class="row-5">
-                            <td class="y-axis-5">5</td>
-                            <td class="A5 game-square"></td>
-                            <td class="B5 game-square"></td>
-                            <td class="C5 game-square"></td>
-                            <td class="D5 game-square"></td>
-                            <td class="E5 game-square"></td>
-                            <td class="F5 game-square"></td>
-                            <td class="G5 game-square"></td>
-                            <td class="H5 game-square"></td>
-                            <td class="I5 game-square"></td>
-                            <td class="J5 game-square"></td>
-                        </tr>
-                        <tr class="row-6">
-                            <td class="y-axis-6">6</td>
-                            <td class="A6 game-square"></td>
-                            <td class="B6 game-square"></td>
-                            <td class="C6 game-square"></td>
-                            <td class="D6 game-square"></td>
-                            <td class="E6 game-square"></td>
-                            <td class="F6 game-square"></td>
-                            <td class="G6 game-square"></td>
-                            <td class="H6 game-square"></td>
-                            <td class="I6 game-square"></td>
-                            <td class="J6 game-square"></td>
-                        </tr>
-                        <tr class="row-7">
-                            <td class="y-axis-7">7</td>
-                            <td class="A7 game-square"></td>
-                            <td class="B7 game-square"></td>
-                            <td class="C7 game-square"></td>
-                            <td class="D7 game-square"></td>
-                            <td class="E7 game-square"></td>
-                            <td class="F7 game-square"></td>
-                            <td class="G7 game-square"></td>
-                            <td class="H7 game-square"></td>
-                            <td class="I7 game-square"></td>
-                            <td class="J7 game-square"></td>
-                        </tr>
-                        <tr class="row-8">
-                            <td class="y-axis-8">8</td>
-                            <td class="A8 game-square"></td>
-                            <td class="B8 game-square"></td>
-                            <td class="C8 game-square"></td>
-                            <td class="D8 game-square"></td>
-                            <td class="E8 game-square"></td>
-                            <td class="F8 game-square"></td>
-                            <td class="G8 game-square"></td>
-                            <td class="H8 game-square"></td>
-                            <td class="I8 game-square"></td>
-                            <td class="J8 game-square"></td>
-                        </tr>
-                        <tr class="row-9">
-                            <td class="y-axis-9">9</td>
-                            <td class="A9 game-square"></td>
-                            <td class="B9 game-square"></td>
-                            <td class="C9 game-square"></td>
-                            <td class="D9 game-square"></td>
-                            <td class="E9 game-square"></td>
-                            <td class="F9 game-square"></td>
-                            <td class="G9 game-square"></td>
-                            <td class="H9 game-square"></td>
-                            <td class="I9 game-square"></td>
-                            <td class="J9 game-square"></td>
-                        </tr>
-                        <tr class="row-10">
-                            <td class="y-axis-10">10</td>
-                            <td class="A10 game-square"></td>
-                            <td class="B10 game-square"></td>
-                            <td class="C10 game-square"></td>
-                            <td class="D10 game-square"></td>
-                            <td class="E10 game-square"></td>
-                            <td class="F10 game-square"></td>
-                            <td class="G10 game-square"></td>
-                            <td class="H10 game-square"></td>
-                            <td class="I10 game-square"></td>
-                            <td class="J10 game-square"></td>
-                        </tr>
-                    </table>
-                    <p>Your board</p>
+        <div class="container-fluid">
+            <div id="game-module" class="row mrgn-top-50 mrgn-bot-50 text-center justify-content-center">
+                <div class="col-lg-10 table-container">
+                    <div>
+                        <table id="user-game-board" class="font-12 mx-auto">
+                            <tr class="row-x-axis">
+                                <td></td>
+                                <td class="x-axis-A">A</td>
+                                <td class="x-axis-B">B</td>
+                                <td class="x-axis-C">C</td>
+                                <td class="x-axis-D">D</td>
+                                <td class="x-axis-E">E</td>
+                                <td class="x-axis-F">F</td>
+                                <td class="x-axis-G">G</td>
+                                <td class="x-axis-H">H</td>
+                                <td class="x-axis-I">I</td>
+                                <td class="x-axis-J">J</td>
+                            </tr>
+                            <tr class="row-1">
+                                <td class="y-axis-1">1</td>
+                                <td class="A1 game-square"></td>
+                                <td class="B1 game-square"></td>
+                                <td class="C1 game-square"></td>
+                                <td class="D1 game-square"></td>
+                                <td class="E1 game-square"></td>
+                                <td class="F1 game-square"></td>
+                                <td class="G1 game-square"></td>
+                                <td class="H1 game-square"></td>
+                                <td class="I1 game-square"></td>
+                                <td class="J1 game-square"></td>
+                            </tr>
+                            <tr class="row-2">
+                                <td class="y-axis-2">2</td>
+                                <td class="A2 game-square"></td>
+                                <td class="B2 game-square"></td>
+                                <td class="C2 game-square"></td>
+                                <td class="D2 game-square"></td>
+                                <td class="E2 game-square"></td>
+                                <td class="F2 game-square"></td>
+                                <td class="G2 game-square"></td>
+                                <td class="H2 game-square"></td>
+                                <td class="I2 game-square"></td>
+                                <td class="J2 game-square"></td>
+                            </tr>
+                            <tr class="row-3">
+                                <td class="y-axis-3">3</td>
+                                <td class="A3 game-square"></td>
+                                <td class="B3 game-square"></td>
+                                <td class="C3 game-square"></td>
+                                <td class="D3 game-square"></td>
+                                <td class="E3 game-square"></td>
+                                <td class="F3 game-square"></td>
+                                <td class="G3 game-square"></td>
+                                <td class="H3 game-square"></td>
+                                <td class="I3 game-square"></td>
+                                <td class="J3 game-square"></td>
+                            </tr>
+                            <tr class="row-4">
+                                <td class="y-axis-4">4</td>
+                                <td class="A4 game-square"></td>
+                                <td class="B4 game-square"></td>
+                                <td class="C4 game-square"></td>
+                                <td class="D4 game-square"></td>
+                                <td class="E4 game-square"></td>
+                                <td class="F4 game-square"></td>
+                                <td class="G4 game-square"></td>
+                                <td class="H4 game-square"></td>
+                                <td class="I4 game-square"></td>
+                                <td class="J4 game-square"></td>
+                            </tr>
+                            <tr class="row-5">
+                                <td class="y-axis-5">5</td>
+                                <td class="A5 game-square"></td>
+                                <td class="B5 game-square"></td>
+                                <td class="C5 game-square"></td>
+                                <td class="D5 game-square"></td>
+                                <td class="E5 game-square"></td>
+                                <td class="F5 game-square"></td>
+                                <td class="G5 game-square"></td>
+                                <td class="H5 game-square"></td>
+                                <td class="I5 game-square"></td>
+                                <td class="J5 game-square"></td>
+                            </tr>
+                            <tr class="row-6">
+                                <td class="y-axis-6">6</td>
+                                <td class="A6 game-square"></td>
+                                <td class="B6 game-square"></td>
+                                <td class="C6 game-square"></td>
+                                <td class="D6 game-square"></td>
+                                <td class="E6 game-square"></td>
+                                <td class="F6 game-square"></td>
+                                <td class="G6 game-square"></td>
+                                <td class="H6 game-square"></td>
+                                <td class="I6 game-square"></td>
+                                <td class="J6 game-square"></td>
+                            </tr>
+                            <tr class="row-7">
+                                <td class="y-axis-7">7</td>
+                                <td class="A7 game-square"></td>
+                                <td class="B7 game-square"></td>
+                                <td class="C7 game-square"></td>
+                                <td class="D7 game-square"></td>
+                                <td class="E7 game-square"></td>
+                                <td class="F7 game-square"></td>
+                                <td class="G7 game-square"></td>
+                                <td class="H7 game-square"></td>
+                                <td class="I7 game-square"></td>
+                                <td class="J7 game-square"></td>
+                            </tr>
+                            <tr class="row-8">
+                                <td class="y-axis-8">8</td>
+                                <td class="A8 game-square"></td>
+                                <td class="B8 game-square"></td>
+                                <td class="C8 game-square"></td>
+                                <td class="D8 game-square"></td>
+                                <td class="E8 game-square"></td>
+                                <td class="F8 game-square"></td>
+                                <td class="G8 game-square"></td>
+                                <td class="H8 game-square"></td>
+                                <td class="I8 game-square"></td>
+                                <td class="J8 game-square"></td>
+                            </tr>
+                            <tr class="row-9">
+                                <td class="y-axis-9">9</td>
+                                <td class="A9 game-square"></td>
+                                <td class="B9 game-square"></td>
+                                <td class="C9 game-square"></td>
+                                <td class="D9 game-square"></td>
+                                <td class="E9 game-square"></td>
+                                <td class="F9 game-square"></td>
+                                <td class="G9 game-square"></td>
+                                <td class="H9 game-square"></td>
+                                <td class="I9 game-square"></td>
+                                <td class="J9 game-square"></td>
+                            </tr>
+                            <tr class="row-10">
+                                <td class="y-axis-10">10</td>
+                                <td class="A10 game-square"></td>
+                                <td class="B10 game-square"></td>
+                                <td class="C10 game-square"></td>
+                                <td class="D10 game-square"></td>
+                                <td class="E10 game-square"></td>
+                                <td class="F10 game-square"></td>
+                                <td class="G10 game-square"></td>
+                                <td class="H10 game-square"></td>
+                                <td class="I10 game-square"></td>
+                                <td class="J10 game-square"></td>
+                            </tr>
+                        </table>
+                        <p class="uppercase board-label mrgn-bot-10">Your board</p>
+                    </div>
+                    <div>
+                        <table id="opp-game-board" class="font-12 mx-auto">
+                                <tr class="row-x-axis">
+                                    <td></td>
+                                    <td class="x-axis-A">A</td>
+                                    <td class="x-axis-B">B</td>
+                                    <td class="x-axis-C">C</td>
+                                    <td class="x-axis-D">D</td>
+                                    <td class="x-axis-E">E</td>
+                                    <td class="x-axis-F">F</td>
+                                    <td class="x-axis-G">G</td>
+                                    <td class="x-axis-H">H</td>
+                                    <td class="x-axis-I">I</td>
+                                    <td class="x-axis-J">J</td>
+                                </tr>
+                                <tr class="row-1">
+                                    <td class="y-axis-1">1</td>
+                                    <td class="A1 game-square occupied"></td>
+                                    <td class="B1 game-square"></td>
+                                    <td class="C1 game-square"></td>
+                                    <td class="D1 game-square"></td>
+                                    <td class="E1 game-square"></td>
+                                    <td class="F1 game-square"></td>
+                                    <td class="G1 game-square"></td>
+                                    <td class="H1 game-square"></td>
+                                    <td class="I1 game-square"></td>
+                                    <td class="J1 game-square"></td>
+                                </tr>
+                                <tr class="row-2">
+                                    <td class="y-axis-2">2</td>
+                                    <td class="A2 game-square"></td>
+                                    <td class="B2 game-square"></td>
+                                    <td class="C2 game-square"></td>
+                                    <td class="D2 game-square"></td>
+                                    <td class="E2 game-square"></td>
+                                    <td class="F2 game-square"></td>
+                                    <td class="G2 game-square"></td>
+                                    <td class="H2 game-square"></td>
+                                    <td class="I2 game-square"></td>
+                                    <td class="J2 game-square"></td>
+                                </tr>
+                                <tr class="row-3">
+                                    <td class="y-axis-3">3</td>
+                                    <td class="A3 game-square"></td>
+                                    <td class="B3 game-square"></td>
+                                    <td class="C3 game-square"></td>
+                                    <td class="D3 game-square"></td>
+                                    <td class="E3 game-square"></td>
+                                    <td class="F3 game-square"></td>
+                                    <td class="G3 game-square"></td>
+                                    <td class="H3 game-square"></td>
+                                    <td class="I3 game-square"></td>
+                                    <td class="J3 game-square"></td>
+                                </tr>
+                                <tr class="row-4">
+                                    <td class="y-axis-4">4</td>
+                                    <td class="A4 game-square"></td>
+                                    <td class="B4 game-square"></td>
+                                    <td class="C4 game-square"></td>
+                                    <td class="D4 game-square"></td>
+                                    <td class="E4 game-square"></td>
+                                    <td class="F4 game-square"></td>
+                                    <td class="G4 game-square"></td>
+                                    <td class="H4 game-square"></td>
+                                    <td class="I4 game-square"></td>
+                                    <td class="J4 game-square"></td>
+                                </tr>
+                                <tr class="row-5">
+                                    <td class="y-axis-5">5</td>
+                                    <td class="A5 game-square"></td>
+                                    <td class="B5 game-square"></td>
+                                    <td class="C5 game-square"></td>
+                                    <td class="D5 game-square"></td>
+                                    <td class="E5 game-square"></td>
+                                    <td class="F5 game-square"></td>
+                                    <td class="G5 game-square"></td>
+                                    <td class="H5 game-square"></td>
+                                    <td class="I5 game-square"></td>
+                                    <td class="J5 game-square"></td>
+                                </tr>
+                                <tr class="row-6">
+                                    <td class="y-axis-6">6</td>
+                                    <td class="A6 game-square"></td>
+                                    <td class="B6 game-square"></td>
+                                    <td class="C6 game-square"></td>
+                                    <td class="D6 game-square"></td>
+                                    <td class="E6 game-square"></td>
+                                    <td class="F6 game-square"></td>
+                                    <td class="G6 game-square"></td>
+                                    <td class="H6 game-square"></td>
+                                    <td class="I6 game-square"></td>
+                                    <td class="J6 game-square"></td>
+                                </tr>
+                                <tr class="row-7">
+                                    <td class="y-axis-7">7</td>
+                                    <td class="A7 game-square"></td>
+                                    <td class="B7 game-square"></td>
+                                    <td class="C7 game-square"></td>
+                                    <td class="D7 game-square"></td>
+                                    <td class="E7 game-square"></td>
+                                    <td class="F7 game-square"></td>
+                                    <td class="G7 game-square"></td>
+                                    <td class="H7 game-square"></td>
+                                    <td class="I7 game-square"></td>
+                                    <td class="J7 game-square"></td>
+                                </tr>
+                                <tr class="row-8">
+                                    <td class="y-axis-8">8</td>
+                                    <td class="A8 game-square"></td>
+                                    <td class="B8 game-square"></td>
+                                    <td class="C8 game-square"></td>
+                                    <td class="D8 game-square"></td>
+                                    <td class="E8 game-square"></td>
+                                    <td class="F8 game-square"></td>
+                                    <td class="G8 game-square"></td>
+                                    <td class="H8 game-square"></td>
+                                    <td class="I8 game-square"></td>
+                                    <td class="J8 game-square"></td>
+                                </tr>
+                                <tr class="row-9">
+                                    <td class="y-axis-9">9</td>
+                                    <td class="A9 game-square"></td>
+                                    <td class="B9 game-square"></td>
+                                    <td class="C9 game-square"></td>
+                                    <td class="D9 game-square"></td>
+                                    <td class="E9 game-square"></td>
+                                    <td class="F9 game-square"></td>
+                                    <td class="G9 game-square"></td>
+                                    <td class="H9 game-square"></td>
+                                    <td class="I9 game-square"></td>
+                                    <td class="J9 game-square"></td>
+                                </tr>
+                                <tr class="row-10">
+                                    <td class="y-axis-10">10</td>
+                                    <td class="A10 game-square"></td>
+                                    <td class="B10 game-square"></td>
+                                    <td class="C10 game-square"></td>
+                                    <td class="D10 game-square"></td>
+                                    <td class="E10 game-square"></td>
+                                    <td class="F10 game-square"></td>
+                                    <td class="G10 game-square"></td>
+                                    <td class="H10 game-square"></td>
+                                    <td class="I10 game-square"></td>
+                                    <td class="J10 game-square"></td>
+                                </tr>
+                        </table>
+                        <p class="uppercase board-label mrgn-bot-10">Opponent's board</p>
+                    </div>
                 </div>
-                <div id="opp-game-board" class="col-4 inline-block text-center">
-                    <table class="mx-auto">
-                        <tr class="row-x-axis">
-                            <td></td>
-                            <td class="x-axis-A">A</td>
-                            <td class="x-axis-B">B</td>
-                            <td class="x-axis-C">C</td>
-                            <td class="x-axis-D">D</td>
-                            <td class="x-axis-E">E</td>
-                            <td class="x-axis-F">F</td>
-                            <td class="x-axis-G">G</td>
-                            <td class="x-axis-H">H</td>
-                            <td class="x-axis-I">I</td>
-                            <td class="x-axis-J">J</td>
-                        </tr>
-                        <tr class="row-1">
-                            <td class="y-axis-1">1</td>
-                            <td class="A1 game-square occupied"></td>
-                            <td class="B1 game-square"></td>
-                            <td class="C1 game-square"></td>
-                            <td class="D1 game-square"></td>
-                            <td class="E1 game-square"></td>
-                            <td class="F1 game-square"></td>
-                            <td class="G1 game-square"></td>
-                            <td class="H1 game-square"></td>
-                            <td class="I1 game-square"></td>
-                            <td class="J1 game-square"></td>
-                        </tr>
-                        <tr class="row-2">
-                            <td class="y-axis-2">2</td>
-                            <td class="A2 game-square"></td>
-                            <td class="B2 game-square"></td>
-                            <td class="C2 game-square"></td>
-                            <td class="D2 game-square"></td>
-                            <td class="E2 game-square"></td>
-                            <td class="F2 game-square"></td>
-                            <td class="G2 game-square"></td>
-                            <td class="H2 game-square"></td>
-                            <td class="I2 game-square"></td>
-                            <td class="J2 game-square"></td>
-                        </tr>
-                        <tr class="row-3">
-                            <td class="y-axis-3">3</td>
-                            <td class="A3 game-square"></td>
-                            <td class="B3 game-square"></td>
-                            <td class="C3 game-square"></td>
-                            <td class="D3 game-square"></td>
-                            <td class="E3 game-square"></td>
-                            <td class="F3 game-square"></td>
-                            <td class="G3 game-square"></td>
-                            <td class="H3 game-square"></td>
-                            <td class="I3 game-square"></td>
-                            <td class="J3 game-square"></td>
-                        </tr>
-                        <tr class="row-4">
-                            <td class="y-axis-4">4</td>
-                            <td class="A4 game-square"></td>
-                            <td class="B4 game-square"></td>
-                            <td class="C4 game-square"></td>
-                            <td class="D4 game-square"></td>
-                            <td class="E4 game-square"></td>
-                            <td class="F4 game-square"></td>
-                            <td class="G4 game-square"></td>
-                            <td class="H4 game-square"></td>
-                            <td class="I4 game-square"></td>
-                            <td class="J4 game-square"></td>
-                        </tr>
-                        <tr class="row-5">
-                            <td class="y-axis-5">5</td>
-                            <td class="A5 game-square"></td>
-                            <td class="B5 game-square"></td>
-                            <td class="C5 game-square"></td>
-                            <td class="D5 game-square"></td>
-                            <td class="E5 game-square"></td>
-                            <td class="F5 game-square"></td>
-                            <td class="G5 game-square"></td>
-                            <td class="H5 game-square"></td>
-                            <td class="I5 game-square"></td>
-                            <td class="J5 game-square"></td>
-                        </tr>
-                        <tr class="row-6">
-                            <td class="y-axis-6">6</td>
-                            <td class="A6 game-square"></td>
-                            <td class="B6 game-square"></td>
-                            <td class="C6 game-square"></td>
-                            <td class="D6 game-square"></td>
-                            <td class="E6 game-square"></td>
-                            <td class="F6 game-square"></td>
-                            <td class="G6 game-square"></td>
-                            <td class="H6 game-square"></td>
-                            <td class="I6 game-square"></td>
-                            <td class="J6 game-square"></td>
-                        </tr>
-                        <tr class="row-7">
-                            <td class="y-axis-7">7</td>
-                            <td class="A7 game-square"></td>
-                            <td class="B7 game-square"></td>
-                            <td class="C7 game-square"></td>
-                            <td class="D7 game-square"></td>
-                            <td class="E7 game-square"></td>
-                            <td class="F7 game-square"></td>
-                            <td class="G7 game-square"></td>
-                            <td class="H7 game-square"></td>
-                            <td class="I7 game-square"></td>
-                            <td class="J7 game-square"></td>
-                        </tr>
-                        <tr class="row-8">
-                            <td class="y-axis-8">8</td>
-                            <td class="A8 game-square"></td>
-                            <td class="B8 game-square"></td>
-                            <td class="C8 game-square"></td>
-                            <td class="D8 game-square"></td>
-                            <td class="E8 game-square"></td>
-                            <td class="F8 game-square"></td>
-                            <td class="G8 game-square"></td>
-                            <td class="H8 game-square"></td>
-                            <td class="I8 game-square"></td>
-                            <td class="J8 game-square"></td>
-                        </tr>
-                        <tr class="row-9">
-                            <td class="y-axis-9">9</td>
-                            <td class="A9 game-square"></td>
-                            <td class="B9 game-square"></td>
-                            <td class="C9 game-square"></td>
-                            <td class="D9 game-square"></td>
-                            <td class="E9 game-square"></td>
-                            <td class="F9 game-square"></td>
-                            <td class="G9 game-square"></td>
-                            <td class="H9 game-square"></td>
-                            <td class="I9 game-square"></td>
-                            <td class="J9 game-square"></td>
-                        </tr>
-                        <tr class="row-10">
-                            <td class="y-axis-10">10</td>
-                            <td class="A10 game-square"></td>
-                            <td class="B10 game-square"></td>
-                            <td class="C10 game-square"></td>
-                            <td class="D10 game-square"></td>
-                            <td class="E10 game-square"></td>
-                            <td class="F10 game-square"></td>
-                            <td class="G10 game-square"></td>
-                            <td class="H10 game-square"></td>
-                            <td class="I10 game-square"></td>
-                            <td class="J10 game-square"></td>
-                        </tr>
-                    </table>
-                    <p>Opponent's board</p>
-                </div>
+            </div>
         </div>
         <div>
             <div id="banner-modal" class="banner-modal-styling">
@@ -483,7 +482,7 @@
     </div>
     
     <footer class="text-center uppercase">
-      Website created by <a href="https://github.com/Lindsaykerr1994">Lindsay Kerr &copy; 2020</a>
+      Website created by <a href="https://github.com/Lindsaykerr1994">Lindsay Kerr</a> &copy; 2020
     </footer>
   </body>
   <script
