@@ -5,7 +5,6 @@ var usersShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]];
 var xAxis = ["A","B","C","D","E","F","G","H","I","J"];
 var yAxis = ["1","2","3","4","5","6","7","8","9","10"];
 var attemptedGuesses = [];
-//Is this necessary as I also have 'newScreen()'
 
 function newScreen(){
     //This clears the squares, providing a new board to play upon
@@ -375,7 +374,7 @@ function userMakeGuess(){
         if($(`#opp-game-board .${sqCoor}`).hasClass("attempted")){
             bannerModal(`${sqCoor} has already been selected.`,`Please select another square`);
         } else{
-            var text1 = `You are checking ${sqCoor}`
+            var text1 = `You are checking ${sqCoor}`;
             checkOccupiedStatus(sqCoor);
             if(occupiedStatus == true){
                 $(`#opp-game-board .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
@@ -383,7 +382,7 @@ function userMakeGuess(){
                 //I want to find the shipID, which will be the third class.
                 occupyingShipId = getClasses[2];
                 for(i=0;i<shipList.length;i++){
-                    if(occupyingShipId == shipList[i][0]){;
+                    if(occupyingShipId == shipList[i][0]){
                         occupyingShip = shipList[i][1];
                         text2 = `You hit your opponent's ${occupyingShip}!`;    
                         oppsShips[i][1]--;
@@ -411,10 +410,9 @@ function userMakeGuess(){
     }
 }
 function oppMakeGuess(){
-    whichBoard = "user-game-board";
     intelligentGuess();
     checkOccupiedStatus(sqCoor);
-    var text1 =`Opponent guessed ${sqCoor}`
+    var text1 =`Opponent guessed ${sqCoor}`;
     if(occupiedStatus == true){
         $(`#user-game-board .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
         var getClasses = $(`#user-game-board .${sqCoor}`).attr("class").split(" ");
@@ -427,7 +425,7 @@ function oppMakeGuess(){
                 usersShips[i][1]--;
                 if(usersShips[i][1] == 0){
                     text2 = `Your ${occupyingShip} was sunk!`;    
-                    $(`#opp-game-board .${occupyingShipId}`).removeClass("hit").addClass("sunk");
+                    $(`#user-game-board.${occupyingShipId}`).removeClass("hit").addClass("sunk");
                     oppsShipCount++;
                 }
             }    
@@ -1334,7 +1332,6 @@ function openScores(){
 }
 function bannerModal(text1,text2){
     var modal = document.getElementById("banner-modal");
-    console.log("opened modal");
     modal.style.animationName = "animateleft";
     $("#modal-panel-1 p").text(text1);
     $("#modal-panel-2 p").text(text2);
