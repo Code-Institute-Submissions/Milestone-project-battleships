@@ -163,21 +163,12 @@ function checkOverlapStatus(newCoor){
 //This function will receive the coordinates of a clicked square, and then check if that square is occupied.
 function checkOccupiedStatus(checkCoor){
     window.occupiedStatus;
-    if(placementPhase == true){
-        if($(`#user-game-board .${checkCoor}`).hasClass("occupied")){
-            occupiedStatus = true;
-        } else {
-            occupiedStatus = false;
-        }
-        return occupiedStatus;
+    if($(`#${whichBoard} .${checkCoor}`).hasClass("occupied")){
+        occupiedStatus = true;
     } else {
-       if($(`#${whichBoard} .${sqCoor}`).hasClass("occupied")){
-            occupiedStatus = true;
-        } else {
-            occupiedStatus = false;
-        }
-        return occupiedStatus; 
+        occupiedStatus = false;
     }
+    return occupiedStatus;
 }
 //This function checks if a ship has already been placed, and will limit duplicates of the same ship.
 function checkDuplicateStatus(){
