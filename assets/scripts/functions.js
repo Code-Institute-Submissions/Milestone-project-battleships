@@ -19,7 +19,7 @@ function newScreen(){
     window.placementPhase = true;
     do{
         //User is prompted to start placing their ships
-        bannerModal("Please place your ships.","Select a ship from the arsenal");
+        bannerModal("Please place your ships.","Select a ship from the armory");
         arsenalModal();
         //If user clicks on the arsenal table, it will run function selectShip
         $("#aircc").click(selectShip);
@@ -410,6 +410,7 @@ function userMakeGuess(){
     }
 }
 function oppMakeGuess(){
+    whichBoard = "user-game-board";
     intelligentGuess();
     checkOccupiedStatus(sqCoor);
     var text1 =`Opponent guessed ${sqCoor}`;
@@ -425,7 +426,7 @@ function oppMakeGuess(){
                 usersShips[i][1]--;
                 if(usersShips[i][1] == 0){
                     text2 = `Your ${occupyingShip} was sunk!`;    
-                    $(`#user-game-board.${occupyingShipId}`).removeClass("hit").addClass("sunk");
+                    $(`#user-game-board .${occupyingShipId}`).removeClass("hit").addClass("sunk");
                     oppsShipCount++;
                 }
             }    
