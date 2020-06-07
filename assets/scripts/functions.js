@@ -368,100 +368,85 @@ function checkReadyStatus(){
     return readyStatus;
 }
 function userMakeGuess(){
-    whichBoard = "opp-game-board";
     if(userTurn == false){
         bannerModal(`Opponent is making a guess.`,`Wait your turn!`);
     } else {
         $("#opp-game-board .game-square").click(findCoordinate);
-        bannerModal(`You are checking ${sqCoor}`,` `);
-        if($(`#${whichBoard} .${sqCoor}`).hasClass("attempted")){
+        if($(`#opp-game-board .${sqCoor}`).hasClass("attempted")){
             bannerModal(`${sqCoor} has already been selected.`,`Please select another square`);
         } else{
+            var text1 = `You are checking ${sqCoor}`
             checkOccupiedStatus(sqCoor);
             if(occupiedStatus == true){
-                hitStatus();
+                $(`#opp-game-board .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
+                var getClasses = $(`#opp-game-board .${sqCoor}`).attr("class").split(" ");
+                //I want to find the shipID, which will be the third class.
+                occupyingShipId = getClasses[2];
+                for(i=0;i<shipList.length;i++){
+                    if(occupyingShipId == shipList[i][0]){;
+                        occupyingShip = shipList[i][1];
+                        text2 = `You hit your opponent's ${occupyingShip}!`;    
+                        oppsShips[i][1]--;
+                        if(oppsShips[i][1] == 0){
+                            text2 = `You sunk your opponent's ${occupyingShip}!`;    
+                            $(`#opp-game-board .${occupyingShipId}`).removeClass("hit").addClass("sunk");
+                            userShipCount++;
+                        }
+                    }    
+                }
                 if(userShipCount == 5){
                     finishGame("You win!",`Turn Count: ${turnCount}`);
+                    return;
                 }
             } else{
-                missStatus();
-            };
+                text2 = `You missed! ${sqCoor} was empty`);
+                $(`#opp-game-board .${sqCoor}`).addClass("miss attempted");
+            }
+            bannerModal(text1,text2);
             userTurn = false;
             turnCount++;
-            setTimeout(oppMakeGuess,3500);
+            setTimeout(oppMakeGuess,2500);
         }
+        
     }
 }
 function oppMakeGuess(){
     whichBoard = "user-game-board";
-    console.log("opp turn");
     intelligentGuess();
-    bannerModal(`Opponent guessed ${sqCoor}`,` `);
     checkOccupiedStatus(sqCoor);
+    var text1 =`Opponent guessed ${sqCoor}`
     if(occupiedStatus == true){
+        $(`#user-game-board .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
         var getClasses = $(`#user-game-board .${sqCoor}`).attr("class").split(" ");
-            //I want to find the shipID, which will be the second last class added.
-        window.occupyingShipId = getClasses[3];
-        hitStatus();
-        
-        attemptedGuesses.push([sqCoor,occupiedStatus,occupyingShipId])
+        //I want to find the shipID, which will be the third class.
+        occupyingShipId = getClasses[2];
+        for(i=0;i<shipList.length;i++){
+            if(occupyingShipId == shipList[i][0]){;
+                occupyingShip = shipList[i][1];
+                text2 = `Your ${occupyingShip} was hit!`;    
+                usersShips[i][1]--;
+                if(usersShips[i][1] == 0){
+                    text2 = `Your ${occupyingShip} was sunk!`;    
+                    $(`#opp-game-board .${occupyingShipId}`).removeClass("hit").addClass("sunk");
+                    oppsShipCount++;
+                }
+            }    
+        }
+        attemptedGuesses.push([sqCoor,occupiedStatus,occupyingShipId]);
+        if(oppsShipCount == 5){
+            finishGame("You lost!",`Turn Count: ${turnCount}`);
+            return;
+        }
     } else{
-        missStatus();
+        text2 = `It's a miss! ${sqCoor} was empty`);
+        $(`#user-game-board .${sqCoor}`).addClass("miss attempted");
         attemptedGuesses.push([sqCoor,occupiedStatus]);
-        
-    };
-
+    }
+    bannerModal(text1,text2);
     userTurn = true;
     console.log(`User has sunk ${userShipCount} ships. Opponent has sunk ${oppsShipCount} ships`);
     console.log(attemptedGuesses);
-    if(oppsShipCount == 5){
-        finishGame("You lost",`Turn Count: ${turnCount}`);
-    };
 }
-//This function will run if the user/opponent has correctly guessed a game square
-function hitStatus(){
-    //Change square to 'hit' class.
-    var text2;
-    $(`#${whichBoard} .${sqCoor}`).removeClass("occupied").addClass("hit attempted");
-    var getClasses = $(`#${whichBoard} .${sqCoor}`).attr("class").split(" ");
-    //I want to find the shipID, which will be the third class.
-    occupyingShipId = getClasses[2];
-    //Which ship is hit?
-    for(i=0;i<shipList.length;i++){
-        if(occupyingShipId == shipList[i][0]){;
-            occupyingShip = shipList[i][1];
-            if(userTurn == true){
-                text2 = `You hit a ship!`; //I might change this. If the user hits a ship, it might be more challenging to not specificy which one.
-                oppsShips[i][1]--;
-                if(oppsShips[i][1] == 0){
-                    text2 = `${occupyingShip} was sunk!`;    
-                    $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
-                    userShipCount++;
-                }
-            } else {
-                text2 = `It's a hit! Your ${occupyingShip} was damaged!`; //I might change this. If the user hits a ship, it might be more challenging to not specificy which one.
-                usersShips[i][1]--;
-                if(usersShips[i][1] == 0){
-                    text2 = `${occupyingShip} was sunk!`;   
-                    $(`#${whichBoard} .${occupyingShipId}`).removeClass("hit").addClass("sunk");
-                    oppsShipCount++;
-                }
-            }
-        }
-    };
-    bannerModal(" ",`${text2}`);
-
-};
-//This function will run if the user/opponent has not correctly guessed a game square
-function missStatus(){
-    if(userTurn == true){
-        bannerModal("You missed!",`${sqCoor} was empty`);
-    } else {
-        bannerModal("Your opponent missed!",`${sqCoor} was empty`);  
-    }
-    
-    $(`#${whichBoard} .${sqCoor}`).addClass("miss attempted")
-};
 //This function will generate a random coordinate for the opponent to guess.
 function getRandomCoordinate(){
     var xIndex = Math.floor(Math.random() * 10);
