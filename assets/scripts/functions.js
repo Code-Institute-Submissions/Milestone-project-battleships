@@ -399,7 +399,7 @@ function userMakeGuess(){
                     return;
                 }
             } else{
-                text2 = `You missed! ${sqCoor} was empty`);
+                text2 = `You missed! ${sqCoor} was empty`;
                 $(`#opp-game-board .${sqCoor}`).addClass("miss attempted");
             }
             bannerModal(text1,text2);
@@ -438,7 +438,7 @@ function oppMakeGuess(){
             return;
         }
     } else{
-        text2 = `It's a miss! ${sqCoor} was empty`);
+        text2 = `It's a miss! ${sqCoor} was empty`;
         $(`#user-game-board .${sqCoor}`).addClass("miss attempted");
         attemptedGuesses.push([sqCoor,occupiedStatus]);
     }
