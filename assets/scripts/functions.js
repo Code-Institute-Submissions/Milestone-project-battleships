@@ -30,7 +30,7 @@ function newScreen(){
         $("#user-game-board .game-square").click(placeShip);
         return;
     } while(placementPhase == true);
-    
+
     
 }
 //Placing User's Ships
@@ -50,8 +50,8 @@ function selectShip(){
 }
 function findInMDArray(shipId){
     var MDIndex;
-    for(i = 0; i < shipList.length; i++ ) {
-    if( shipList[i][0] === `${shipId}` ) {
+    for(i=0; i < shipList.length; i++){
+    if(shipList[i][0] === `${shipId}` ){
         MDIndex = i;
         return MDIndex;
     }
@@ -278,10 +278,11 @@ function beginGame(){
     if(checkReadyStatus() == false){
         return;
     } else {
+        $("#ready-btn .label-container p").css("opacity","0");
         var arsenal = document.getElementById("arsenal-modal");
         arsenal.style.animationName = "animateright";
         getOpponentCoordinates();
-        window.placementPhase = false;
+        placementPhase = false;
         bannerModal("Your opponent is ready","Your turn. Play your first move.");
         window.userTurn = true;
         window.userShipCount = 0;
@@ -292,7 +293,8 @@ function beginGame(){
         } else {
             console.log("Wait your turn");
         }
-    } 
+    }
+    return;
 }
 //Retrieving Opponent's Coordinates
 // This function retrieves a new set of coordinates, and places ships in the opponent's grid
@@ -397,8 +399,8 @@ function userMakeGuess(){
             turnCount++;
             setTimeout(oppMakeGuess,2500);
         }
-        
     }
+    return;
 }
 function oppMakeGuess(){
     whichBoard = "user-game-board";
@@ -411,7 +413,7 @@ function oppMakeGuess(){
         //I want to find the shipID, which will be the third class.
         occupyingShipId = getClasses[2];
         for(i=0;i<shipList.length;i++){
-            if(occupyingShipId == shipList[i][0]){;
+            if(occupyingShipId == shipList[i][0]){
                 occupyingShip = shipList[i][1];
                 text2 = `Your ${occupyingShip} was hit!`;    
                 usersShips[i][1]--;
@@ -436,6 +438,7 @@ function oppMakeGuess(){
     userTurn = true;
     console.log(`User has sunk ${userShipCount} ships. Opponent has sunk ${oppsShipCount} ships`);
     console.log(attemptedGuesses);
+    return;
 }
 //This function will generate a random coordinate for the opponent to guess.
 function getRandomCoordinate(){
@@ -469,7 +472,7 @@ function getpenCoor (){
     window.penIndex = (guessesLength-2);
     console.log(penIndex);
     window.pensqCoor = attemptedGuesses[penIndex][0];
-    window.penStatus = attemptedGuesses[penIndex][1]
+    window.penStatus = attemptedGuesses[penIndex][1];
     window.penxCoor = pensqCoor[0];
     window.penxIndex = xAxis.indexOf(penxCoor);
     if(pensqCoor.length == 3){
@@ -484,7 +487,7 @@ function getproCoor (){
     window.proIndex = (guessesLength-3);
         console.log(proIndex);
     window.prosqCoor = attemptedGuesses[proIndex][0];
-    window.proStatus = attemptedGuesses[proIndex][1]
+    window.proStatus = attemptedGuesses[proIndex][1];
     window.proxCoor = prosqCoor[0];
     window.proxIndex = xAxis.indexOf(proxCoor);
     if(prosqCoor.length == 3){
@@ -500,19 +503,19 @@ function intelligentGuess(){
     var yCoor;
     if (attemptedGuesses.length == 0){
             getRandomCoordinate();
-            console.log("This is my first guess. I will make a random one.")
+            console.log("This is my first guess. I will make a random one.");
             return;
     } else {
         if (attemptedGuesses.length == 1){
             getlastCoor();
             //Did our first guess hit?
             if(lastStatus == true){
-                console.log("This is my second guess. My first one hit, so I looking in the vicinity.")
+                console.log("This is my second guess. My first one hit, so I looking in the vicinity.");
                 xCoor = xAxis[lastxIndex+1];
                 yCoor = lastyCoor;
                 if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                     getRandomCoordinate();
-                    console.log("Coordinates were undefined. I will make a random one.")
+                    console.log("Coordinates were undefined. I will make a random one.");
                     return;
                 } else {
                     sqCoor = `${xCoor}${yCoor}`;
@@ -528,30 +531,30 @@ function intelligentGuess(){
             if(attemptedGuesses.length == 2){
                 getlastCoor();
                 getpenCoor();
-                console.log("This is my third guess.")
+                console.log("This is my third guess.");
                 //Did our second guess hit?
                 if(lastStatus == true){
-                    console.log("My most recent guess hit")
+                    console.log("My most recent guess hit");
                     //Did our guess sink the ship?
                     //This can only happen to patrol boat, being length of 2.Meaning pen guess had to hit as well.
                     //Did our pen guess hit?
                     if(penStatus == true){//Yes(514)
-                        console.log("My guess before that also hit.")
+                        console.log("My guess before that also hit.");
                         for(i=0;i<usersShips.length;i++){
                             if(usersShips[i][0]==attemptedGuesses[lastIndex][2]){
                                 checkSunk = usersShips[i][1];
                             }
                         }
                         if(checkSunk == 0){
-                            console.log("The ship sunk, so I will make a randon guess next")
+                            console.log("The ship sunk, so I will make a randon guess next");
                             getRandomCoordinate();
                             return;
                         } else {
-                            console.log("The ship didn't sink. So i will keep looking in this area")
+                            console.log("The ship didn't sink. So i will keep looking in this area");
                             //Check which axis the hits were on
                             //Are the guesses share the same x coor?
                             if (lastxCoor == penxCoor){//Yes (516)
-                                console.log("My last 2 guesses shared an x-coor.")
+                                console.log("My last 2 guesses shared an x-coor.");
                                 //Are we going up/down the y-axis
                                 if(lastyIndex < penyIndex){//Up
                                     //Continue going up the y-axis with the same x coor.
@@ -560,7 +563,7 @@ function intelligentGuess(){
                                     console.log("My last guess is above on the y-axis of the one before.");
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                         getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.")
+                                        console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -574,7 +577,7 @@ function intelligentGuess(){
                                     console.log("My last guess is below the one before.");
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                         getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.")
+                                        console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -584,7 +587,7 @@ function intelligentGuess(){
                                 }
                             } else {//No (516)
                                 //Are we going up/down the x-axis?
-                                console.log("My last 2 guesses shared an y-coor.")
+                                console.log("My last 2 guesses shared an y-coor.");
                                 if(lastxIndex < penxIndex){//Up/left
                                     console.log("My last guess is left the one before.");
                                     //Continue going left on the x-axis with the same y coor.
@@ -592,7 +595,7 @@ function intelligentGuess(){
                                     yCoor = lastyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                         getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.")
+                                        console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -606,7 +609,7 @@ function intelligentGuess(){
                                     yCoor = lastyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                         getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.")
+                                        console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -623,7 +626,7 @@ function intelligentGuess(){
                         yCoor = lastyCoor;
                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                             getRandomCoordinate();
-                            console.log("Coordinates were undefined. I will make a random one.")
+                            console.log("Coordinates were undefined. I will make a random one.");
                             return;
                         } else {
                             sqCoor = `${xCoor}${yCoor}`;
@@ -640,7 +643,7 @@ function intelligentGuess(){
                         yCoor = penyIndex;
                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                             getRandomCoordinate();
-                            console.log("Coordinates were undefined. I will make a random one.")
+                            console.log("Coordinates were undefined. I will make a random one.");
                             return;
                         } else {
                             sqCoor = `${xCoor}${yCoor}`;
@@ -690,7 +693,7 @@ function intelligentGuess(){
                                         yCoor = yAxis[lastyIndex-1];
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                             getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.")
+                                            console.log("Coordinates were undefined. I will make a random one.");
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
@@ -704,7 +707,7 @@ function intelligentGuess(){
                                         yCoor = yAxis[lastyIndex+1];
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                             getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.")
+                                            console.log("Coordinates were undefined. I will make a random one.");
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
@@ -722,7 +725,7 @@ function intelligentGuess(){
                                         yCoor = lastyCoor;
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                             getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.")
+                                            console.log("Coordinates were undefined. I will make a random one.");
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
@@ -769,8 +772,10 @@ function intelligentGuess(){
                                         return;
                                     }
                                 } else {//No (36)
-                                    //Can this happen?
-                                    console.log("I am the diagonal ship problem. My last two guesses hit two different ships.")
+                                    //As far as I am aware, this can never happen, but I have left this here so that the function does not stall.
+                                    console.log("I am the diagonal ship problem. My last two guesses hit two different ships.");
+                                    getRandomCoordinate();
+                                    return;
                                 }
                             }
                         } else {//No (10)
@@ -908,7 +913,7 @@ function intelligentGuess(){
                                     //Then I keep the same x coor.
                                     //I want to check if lastguessy is higher or lower
                                     if(lastyCoor > penyCoor){//lgY is larger (91)
-                                        console.log("My last guess had a larger y coor than my penultimate. So I want to check the space between")
+                                        console.log("My last guess had a larger y coor than my penultimate. So I want to check the space between");
                                         //Same x coor, larger y coor.
                                         xCoor = lastxCoor;
                                         yCoor = yAxis[lastyIndex+1];
@@ -1155,7 +1160,7 @@ function finishGame(text1,text2){
     $("#modal-container").css("display","block");
     closeBanner();
     if(text1 == "You lost"){
-        console.log("You lost")
+        console.log("You lost");
         $("#endgame-panel-2").css("display","none");
         $("#endgame-panel-3").css("display","none");
     }
@@ -1170,13 +1175,13 @@ function finishGame(text1,text2){
     });
     $(".close-btn").click(function(){
         modal.style.animationName = "animatebottom";
-    })
+    });
     document.onkeydown=function(event){
-        if(event.keyCode == 13)
-        {
+        if(event.keyCode == 13){
             enterName();
         }
-    }
+    };
+    return;
 }
 function showEnterMessage(){
     $("#pressEnter").css("opacity","1");
@@ -1186,7 +1191,7 @@ function enterName(){
     var userName = $("#userNameInput").val();
     if(userName == ""){
         $("#pressEnter").css("opacity","1");
-        $("#pressEnter").text("Please enter a name to submit")
+        $("#pressEnter").text("Please enter a name to submit");
     } else {
         score = `${userName} ${turnCount}`;
         saveScores();
@@ -1229,13 +1234,13 @@ function displayScores(){
         //Fill the scores table with the top 10 scores
         if(totalScores.length >= 10){
             for(i=0;i<10;i++){
-                var tableRow = i;
+                window.tableRow = i;
                 $(`#scores-table .row${tableRow} .userName`).html(totalScores[i][0]);
                 $(`#scores-table .row${tableRow} .userScore`).html(totalScores[i][1]);
             }
         } else { //If we have less than 10 scores, we only fill in the appropriate number of rows.
             for(i=0;i<totalScores.length;i++){
-                var tableRow = i;
+                tableRow = i;
                 $(`#scores-table .row${tableRow} .userName`).html(totalScores[i][0]);
                 $(`#scores-table .row${tableRow} .userScore`).html(totalScores[i][1]);
 
@@ -1244,7 +1249,7 @@ function displayScores(){
     }
 }
 function resetScores(){
-    var button = document.getElementById("scores-reset-btn")
+    var button = document.getElementById("scores-reset-btn");
     $("#scores-reset-btn").mouseenter(function(){
         button.style.animationName = "rotation";
         $("#scores-reset-label").fadeTo( "fast", 1 );
@@ -1292,8 +1297,7 @@ function openInstructions(){
             $("#modal-container").css("display","none");
             modal.style.display = "none";
         },1000);
-        
-    })
+    });
     
 }
 function openScores(){
@@ -1318,7 +1322,7 @@ function openScores(){
             modal.style.display = "none";
         },1000);
         
-    })
+    });
     displayScores();
     resetScores();
 }
@@ -1341,7 +1345,7 @@ function closeBanner(){
 }
 function arsenalModal(){
     var modal = document.getElementById("arsenal-modal");
-    modal.style.animationName = "animateleft"
+    modal.style.animationName = "animateleft";
 }
 function orientationModal(){
     var modal = document.getElementById("orientation-modal");
@@ -1350,17 +1354,13 @@ function orientationModal(){
         modal.style.animationName = "animateright";
     },3000);
 } 
-
-
-
 $(document).ready(function(){
     openWelcomePage();
-    window.verticalStatus = true
-    //sizeBoard();
+    window.verticalStatus = true;
     var screenWidth = window.innerWidth;
     window.totalScores = [];
     if (screenWidth < 1024){
-        $("#orientation-btn i").removeClass("fa-2x").addClass("fa-lg")  
+        $("#orientation-btn i").removeClass("fa-2x").addClass("fa-lg")  ;
     }
     $("#new-game-btn").click(newScreen);
     $("#orientation-btn").click(changeOrientation);
@@ -1369,43 +1369,33 @@ $(document).ready(function(){
     $(".game-square").mouseleave(unshowCoordinates);
     $("#ready-btn").click(beginGame);
     $("#new-game-btn").mouseenter(function(){
-        $("#new-game-btn .label-container p").fadeTo( "fast", 1 );
         $("#new-game-btn .fa").removeClass("fa-play-circle-o").addClass("fa-play-circle");
     });
     $("#new-game-btn").mouseleave(function(){
-        $("#new-game-btn .label-container p").fadeTo( "fast", 0 );
         $("#new-game-btn .fa").removeClass("fa-play-circle").addClass("fa-play-circle-o");
     });
     $("#ready-btn").mouseenter(function(){
-        $("#ready-btn .label-container p").fadeTo( "fast", 1 );
         $("#ready-btn .fa").removeClass("fa-check-circle-o").addClass("fa-check-circle");
     });
     $("#ready-btn").mouseleave(function(){
-        $("#ready-btn .label-container p").fadeTo( "fast", 0 );
         $("#ready-btn .fa").removeClass("fa-check-circle").addClass("fa-check-circle-o");
     });
     $("#orientation-btn").mouseenter(function(){
-        $("#orientation-label").fadeTo( "fast", 1 );
         $("#orientation-btn i").removeClass("far").addClass("fas");
     });
     $("#orientation-btn").mouseleave(function(){
-        $("#orientation-label").fadeTo( "fast", 0 );
         $("#orientation-btn i").removeClass("fas").addClass("far");
     });
     $("#instr-btn").mouseenter(function(){
-        $("#instr-btn .label-container p").fadeTo( "fast", 1 );
         $("#instr-btn i").removeClass("fa-book").addClass("fa-book-open");
     });
     $("#instr-btn").mouseleave(function(){
-        $("#instr-btn .label-container p").fadeTo( "fast", 0 );
         $("#instr-btn .i").removeClass("fa-book-open").addClass("fa-book");
     });
     $("#scores-btn").mouseenter(function(){
-        $("#scores-btn .label-container p").fadeTo( "fast", 1 );
         $("#scores-btn i").removeClass("fa-star-o").addClass("fa-star");
     });
     $("#scores-btn").mouseleave(function(){
-        $("#scores-btn .label-container p").fadeTo( "fast", 0 );
         $("#scores-btn i").removeClass("fa-star").addClass("fa-star-o");
     });
     $(".close-btn").mouseenter(function(){
