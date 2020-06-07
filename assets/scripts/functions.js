@@ -1061,14 +1061,14 @@ function openInstructions(){
         setTimeout(function(){
             $("#modal-container").css("display","none");
             modal.style.display = "none";
-        },1500);
+        },1000);
     });
     $(".close-btn").click(function(){
         modal.style.animationName = "animatebottom";
         setTimeout(function(){
             $("#modal-container").css("display","none");
             modal.style.display = "none";
-        },1500);
+        },1000);
         
     })
     
@@ -1085,7 +1085,7 @@ function openScores(){
             setTimeout(function(){
                 $("#modal-container").css("display","none");
                 modal.style.display = "none";
-            },1500);
+            },1000);
         }    
     });
     $(".close-btn").click(function(){
@@ -1093,7 +1093,7 @@ function openScores(){
         setTimeout(function(){
             $("#modal-container").css("display","none");
             modal.style.display = "none";
-        },1500);
+        },1000);
         
     })
     displayScores();
