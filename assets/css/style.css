@@ -471,7 +471,7 @@
 }
 @media (max-width:1500px){
     .welcome-modal-styling{
-        margin-left:108px;
+        margin-left:58px;
     }
     [id$="game-board"]{
         width:375px;
