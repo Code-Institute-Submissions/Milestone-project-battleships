@@ -406,23 +406,23 @@
             background-color: #080824;
             position: absolute;
             z-index: 1;
-            left: -450px;
+            right: -450px;
             animation-duration: 1.5s;
             animation-direction: alternate;
             animation-timing-function: ease;
             animation-fill-mode: forwards;
         }
         .banner-content-styling{
-            margin:5px 5px 5px 0;
+            margin:5px 0 5px 5px;
             background-color: #f9bd80;
             border-bottom: 2px solid #fff8e7;
-            border-right: 2px solid #fff8e7;
+            border-left: 2px solid #fff8e7;
             border-top: 2px solid #fff8e7;
         }
         .banner-body-styling{
-            margin:5px 5px 5px 0;
+            margin:5px 0px 5px 5px;
             background-color:#fff8e7;
-            padding: 20px 20px 20px 30px;
+            padding: 20px 30px;
         }
         #banner-modal{
             top: 110px;
@@ -444,20 +444,20 @@
             to {top: -630px; display:none}
         }
         @keyframes animateleft {
-            0%   {display:none; left:-450px; opacity: 0}
-            100% {display:block;left:0px; opacity: 1}
+            0%   {display:none; right:-450px; opacity: 0}
+            100% {display:block; right:0px; opacity: 1}
         }
         @keyframes animateright {
-            0%   {display:block; left:0px; opacity: 1}
-            100% {display:none; left:-450px; opacity: 0}
+            0%   {display:block; right:0px; opacity: 1}
+            100% {display:none; right:-450px; opacity: 0}
         }
         /*-- Credit belongs to https://codepen.io/vitoralberto/pen/OPYyYB for this rotation animation --*/
         @keyframes rotation {
             from {
-                    -webkit-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
             }
             to {
-                    -webkit-transform: rotate(359deg);
+                -webkit-transform: rotate(359deg);
             }
         }
 /*-- Media Queries --*/
