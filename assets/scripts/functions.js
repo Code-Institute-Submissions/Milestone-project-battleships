@@ -278,7 +278,6 @@ function beginGame(){
     if(checkReadyStatus() == false){
         return;
     } else {
-        $("#ready-btn .label-container p").css("opacity","0");
         var arsenal = document.getElementById("arsenal-modal");
         arsenal.style.animationName = "animateright";
         getOpponentCoordinates();
@@ -365,7 +364,7 @@ function userMakeGuess(){
     } else {
         $("#opp-game-board .game-square").click(findCoordinate);
         if($(`#opp-game-board .${sqCoor}`).hasClass("attempted")){
-            bannerModal(`${sqCoor} has already been selected.`,`Please select another square`);
+            bannerModal(`${sqCoor} has already been guessed.`,`Please select another square`);
         } else{
             var text1 = `You are checking ${sqCoor}`;
             checkOccupiedStatus(sqCoor);
@@ -509,8 +508,10 @@ function intelligentGuess(){
                 xCoor = xAxis[lastxIndex+1];
                 yCoor = lastyCoor;
                 if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                    getRandomCoordinate();
-                    console.log("Coordinates were undefined. I will make a random one.");
+                    do{
+                        getRandomCoordinate();
+                        console.log("Coordinates were undefined. I will make a random one.");
+                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                     return;
                 } else {
                     sqCoor = `${xCoor}${yCoor}`;
@@ -518,8 +519,10 @@ function intelligentGuess(){
                     return;
                 }
             } else{//No (493)
-                getRandomCoordinate();
-                console.log("This is my second guess. My first guess missed, so I will make a random one.");
+                do{
+                    getRandomCoordinate();
+                    console.log("Coordinates were undefined. I will make a random one.");
+                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                 return;
             }
         } else{
@@ -542,7 +545,10 @@ function intelligentGuess(){
                         }
                         if(checkSunk == 0){
                             console.log("The ship sunk, so I will make a randon guess next");
-                            getRandomCoordinate();
+                            do{
+                                getRandomCoordinate();
+                                console.log("Coordinates were undefined. I will make a random one.");
+                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                             return;
                         } else {
                             console.log("The ship didn't sink. So i will keep looking in this area");
@@ -557,8 +563,10 @@ function intelligentGuess(){
                                     yCoor = yAxis[lastyIndex-1];
                                     console.log("My last guess is above on the y-axis of the one before.");
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -571,8 +579,10 @@ function intelligentGuess(){
                                     yCoor = yAxis[lastyIndex+1];
                                     console.log("My last guess is below the one before.");
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -589,8 +599,10 @@ function intelligentGuess(){
                                     xCoor = xAxis[lastxIndex-1];
                                     yCoor = lastyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -603,8 +615,10 @@ function intelligentGuess(){
                                     xCoor = xAxis[lastxIndex+1];
                                     yCoor = lastyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
@@ -620,8 +634,10 @@ function intelligentGuess(){
                         xCoor = xAxis[lastxIndex+1];
                         yCoor = lastyCoor;
                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                            getRandomCoordinate();
-                            console.log("Coordinates were undefined. I will make a random one.");
+                            do{
+                                getRandomCoordinate();
+                                console.log("Coordinates were undefined. I will make a random one.");
+                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                             return;
                         } else {
                             sqCoor = `${xCoor}${yCoor}`;
@@ -637,8 +653,10 @@ function intelligentGuess(){
                         xCoor = xAxis[penxIndex-1];
                         yCoor = lastyIndex;
                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                            getRandomCoordinate();
-                            console.log("Coordinates were undefined. I will make a random one.");
+                            do{
+                                getRandomCoordinate();
+                                console.log("Coordinates were undefined. I will make a random one.");
+                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                             return;
                         } else {
                             sqCoor = `${xCoor}${yCoor}`;
@@ -647,7 +665,10 @@ function intelligentGuess(){
                         }
                     } else {
                         console.log("Both my previous guesses missed, so I'll be making a random guess");
-                        getRandomCoordinate(); 
+                        do{
+                            getRandomCoordinate();
+                            console.log("Coordinates were undefined. I will make a random one.");
+                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                         return;
                     }
                 }
@@ -668,7 +689,10 @@ function intelligentGuess(){
                     if(checkSunk == 0){//Yes (6)
                         //Random Number
                         console.log("My last guess sunk the ship. I will make a random guess.");
-                        getRandomCoordinate();
+                        do{
+                            getRandomCoordinate();
+                            console.log("Coordinates were undefined. I will make a random one.");
+                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                         return;
                     } else {//No (6)
                     //Did our pen guess hit?
@@ -687,14 +711,19 @@ function intelligentGuess(){
                                         xCoor = lastxCoor;
                                         yCoor = yAxis[lastyIndex-1];
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
                                             if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                 console.log("I already attempted this square, I will make a random guess");
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             }
                                             console.log(`Come find me ${sqCoor}`);
@@ -706,14 +735,19 @@ function intelligentGuess(){
                                         xCoor = lastxCoor;
                                         yCoor = yAxis[lastyIndex+1];
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
                                             if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                 console.log("I already attempted this square, I will make a random guess");
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             }
                                             console.log(`Come find me ${sqCoor}`);
@@ -729,14 +763,19 @@ function intelligentGuess(){
                                         xCoor = xAxis[lastxIndex-1];
                                         yCoor = lastyCoor;
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
                                             if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                 console.log("I already attempted this square, I will make a random guess");
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             }
                                             console.log(`Come find me ${sqCoor}`);
@@ -748,14 +787,19 @@ function intelligentGuess(){
                                         xCoor = xAxis[lastxIndex+1];
                                         yCoor = lastyCoor;
                                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
                                             if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                 console.log("I already attempted this square, I will make a random guess");
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             }
                                             console.log(`Come find me ${sqCoor}`);
@@ -767,8 +811,9 @@ function intelligentGuess(){
                                 console.log("My last guess hit a different than the guess before");
                                 //Did the penguess sink the ship?
                                 for(i=0;i<usersShips.length;i++){
-                                    if(usersShips[i][0]==attemptedGuesses[penIndex][2])
-                                    checkSunk = usersShips[i][1];
+                                    if(usersShips[i][0]==attemptedGuesses[penIndex][2]){
+                                        checkSunk = usersShips[i][1];
+                                    }
                                 }
                                 if(checkSunk == 0){//Yes (36)
                                     console.log("My penultimate guess hit a different ship, and it sunk.");
@@ -778,14 +823,19 @@ function intelligentGuess(){
                                     xCoor = xAxis[lastxIndex-1];
                                     yCoor = lastyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
                                         if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                             console.log("I already attempted this square, I will make a random guess");
-                                            getRandomCoordinate();
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         }
                                         console.log(`Come find me ${sqCoor}`);
@@ -794,7 +844,10 @@ function intelligentGuess(){
                                 } else {//No (36)
                                     //As far as I am aware, this can never happen, but I have left this here so that the function does not stall.
                                     console.log("I am the diagonal ship problem. My last two guesses hit two different ships.");
-                                    getRandomCoordinate();
+                                    do{
+                                        getRandomCoordinate();
+                                        console.log("Coordinates were undefined. I will make a random one.");
+                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                     return;
                                 }
                             }
@@ -817,14 +870,19 @@ function intelligentGuess(){
                                             xCoor = lastxCoor;
                                             yCoor = yAxis[lastyIndex-1];
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
-                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -836,14 +894,19 @@ function intelligentGuess(){
                                             xCoor = lastxCoor;
                                             yCoor = yAxis[lastyIndex+1];
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
-                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -860,14 +923,19 @@ function intelligentGuess(){
                                             xCoor = xAxis[lastxIndex-1];
                                             yCoor = lastyCoor;
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
-                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -879,14 +947,20 @@ function intelligentGuess(){
                                             xCoor = xAxis[lastxIndex+1];
                                             yCoor = lastyCoor;
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 console.log("Coordinates were undefined. I will make a random one.");
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -901,14 +975,19 @@ function intelligentGuess(){
                                     xCoor = xAxis[lastxIndex-1];
                                     yCoor = lastyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
-                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
                                         if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                             console.log("I already attempted this square, I will make a random guess");
-                                            getRandomCoordinate();
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         }
                                         console.log(`Come find me ${sqCoor}`);
@@ -917,8 +996,7 @@ function intelligentGuess(){
                                 }
                             } else {//No (47)
                                 console.log("My last guess hit, the two before that didn't.");
-                                //Previous two guesses were misses.
-                                if(attemptedGuesses[attemptedGuesses.length-4][1]==true){
+                                if(attemptedGuesses[attemptedGuesses.length-3][1]==true){
                                     console.log("My last guess hit, the two before that didn't. But the one before them did. So I am looking for a ship and missed left and right of my original guess ");
                                     if(penxCoor == proxCoor){//yes (79)
                                         console.log("My pro and penultimate guesses shared the same x coor");
@@ -931,14 +1009,19 @@ function intelligentGuess(){
                                             xCoor = xAxis[lastxIndex+1];
                                             yCoor = lastyCoor;
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
-                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -950,14 +1033,19 @@ function intelligentGuess(){
                                             xCoor = xAxis[lastxIndex-1];
                                             yCoor = lastyCoor;
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
-                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -974,14 +1062,20 @@ function intelligentGuess(){
                                             xCoor = lastxCoor;
                                             yCoor = yAxis[lastyIndex+1];
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 console.log("Coordinates were undefined. I will make a random one.");
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -993,14 +1087,20 @@ function intelligentGuess(){
                                             xCoor = lastxCoor;
                                             yCoor = yAxis[lastyIndex-1];
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 console.log("Coordinates were undefined. I will make a random one.");
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -1009,14 +1109,32 @@ function intelligentGuess(){
                                         }
                                     }
                                 } else {
-                                    console.log("My last guess hit, the three before that didn't. So I will make a random guess");
-                                    getRandomCoordinate();
+                                    console.log("My last guess hit, the three before that didn't. So I will search in the vicinity of my last guess");
+                                    xCoor = lastxCoor;
+                                    yCoor = yAxis[lastyIndex-1];
+                                    if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        return;
+                                    } else {
+                                        sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+                                        return;
+                                        }
+                                    console.log(`Come find me ${sqCoor}`);
                                     return;
+                                    }
                                 }
-                                //Check if penguess x coor share the same pen guess x coor
-                                
                             }
-                        }
+                        }    
                     }
                 } else { //No (4)
                     console.log("My last guess did not hit.");
@@ -1025,12 +1143,16 @@ function intelligentGuess(){
                         console.log("My last guess did not hit, but the one before did.");
                         //Did pen guess sink?
                         for(i=0;i<usersShips.length;i++){
-                            if(usersShips[i][0]==attemptedGuesses[penIndex][2])
-                            checkSunk = usersShips[i][1];
+                            if(usersShips[i][0]==attemptedGuesses[penIndex][2]){
+                                checkSunk = usersShips[i][1];
+                            }    
                         }
                         if(checkSunk == 0){//yes (104)
                             console.log("My penultimate guess sunk the ship, so I will make a random guess");
-                            getRandomCoordinate();
+                            do{
+                                getRandomCoordinate();
+                                console.log("Coordinates were undefined. I will make a random one.");
+                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                             return;
                         } else {//No (104)
                             console.log("My penultimate guess hit a ship, but it didn't sink");
@@ -1046,14 +1168,20 @@ function intelligentGuess(){
                                     xCoor = penxCoor;
                                     yCoor = yAxis[penyIndex+1];
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
                                         if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                             console.log("I already attempted this square, I will make a random guess");
-                                            getRandomCoordinate();
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         }
                                         console.log(`Come find me ${sqCoor}`);
@@ -1066,14 +1194,20 @@ function intelligentGuess(){
                                     xCoor = penxCoor;
                                     yCoor = yAxis[penyIndex-1];
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
                                         if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                             console.log("I already attempted this square, I will make a random guess");
-                                            getRandomCoordinate();
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         }
                                         console.log(`Come find me ${sqCoor}`);
@@ -1091,14 +1225,20 @@ function intelligentGuess(){
                                     xCoor = xAxis[penxIndex+1];
                                     yCoor = penyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
                                         if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                             console.log("I already attempted this square, I will make a random guess");
-                                            getRandomCoordinate();
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         }
                                         console.log(`Come find me ${sqCoor}`);
@@ -1111,14 +1251,20 @@ function intelligentGuess(){
                                     xCoor = xAxis[penxIndex-1];
                                     yCoor = penyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                        getRandomCoordinate();
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                         console.log("Coordinates were undefined. I will make a random one.");
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
                                         if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                             console.log("I already attempted this square, I will make a random guess");
-                                            getRandomCoordinate();
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                             return;
                                         }
                                         console.log(`Come find me ${sqCoor}`);
@@ -1132,36 +1278,47 @@ function intelligentGuess(){
                         //Check if pro guess hit
                         if(proStatus == true){//Yes (133)
                             console.log("My last 2 guess did not hit, but the one before did.");
-                            //Does last guess and pen guess share the same x coor?
-                            if(lastxCoor == penxCoor){//Yes (135)
-                                console.log("My last 2 guess share the same x coor.");
-                                //Then we know pro guess also shares the same x coor.
-                                //So we want to a higher or lower x coor, with pro guess y coor.
-                                xCoor = xAxis[lastxCoor+1];
-                                yCoor = proyCoor;
-                                if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                            for(i=0;i<usersShips.length;i++){
+                                if(usersShips[i][0]==attemptedGuesses[proIndex][2]){
+                                checkSunk = usersShips[i][1];
+                                }
+                            }
+                            if(checkSunk == 0){
+                                console.log("My propenultimate guess sunk the ship, so I will make a random guess");
+                                do{
                                     getRandomCoordinate();
                                     console.log("Coordinates were undefined. I will make a random one.");
-                                    return;
-                                } else {
-                                    sqCoor = `${xCoor}${yCoor}`;
-                                    if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
-                                        console.log("I already attempted this square, I will make a random guess");
-                                        getRandomCoordinate();
+                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+                                return;
+                            } else {
+                                console.log("My propenultimate guess did not sink the ship");
+                                //Does last guess and pen guess share the same x coor?
+                                if(lastxCoor == penxCoor){//Yes (135)
+                                    console.log("My last 2 guess share the same x coor.");
+                                    //Then we know pro guess also shares the same x coor.
+                                    //So we want to a higher or lower x coor, with pro guess y coor.
+                                    xCoor = xAxis[lastxCoor+1];
+                                    yCoor = proyCoor;
+                                    if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                        do{
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                        }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+                                        console.log("Coordinates were undefined. I will make a random one.");
+                                        return;
+                                    } else {
+                                        sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+                                            return;
+                                        }
+                                        console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }
-                                    console.log(`Come find me ${sqCoor}`);
-                                    return;
-                                }
-                            } else {//No (135)
-                                for(i=0;i<usersShips.length;i++){
-                                    if(usersShips[i][0]==attemptedGuesses[proIndex][2])
-                                    checkSunk = usersShips[i][1];
-                                }
-                                if(checkSunk == 0){
-                                    console.log("My penultimate guess sunk the ship, so I will make a random guess");
-                                    getRandomCoordinate();
-                                    return;
                                 } else {
                                     console.log("My last 2 guesses don't share the same x coor.");
                                     if(proStatus == true){
@@ -1175,15 +1332,30 @@ function intelligentGuess(){
                                             sqCoor = `${xCoor}${yCoor}`;
                                             if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                 console.log("I already attempted this square, I will make a random guess");
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             }
                                             console.log(`Come find me ${sqCoor}`);
                                             return;
+                                            }
+                                    } else{
+                                        sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            do{
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                            }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
+                                            return;
                                         }
+                                        console.log(`Come find me ${sqCoor}`);
+                                        return;
                                     }
                                 }
-                            }     
+                            }      
                         } else {//No (133)
                             console.log("My last 3 guesses did not hit");
                             //Check if any guesses have hit yet.
@@ -1197,14 +1369,20 @@ function intelligentGuess(){
                                             xCoor = xAxis[lastxIndex+2];
                                             yCoor = lastyCoor;
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 console.log("Coordinates were undefined. I will make a random one.");
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -1215,14 +1393,20 @@ function intelligentGuess(){
                                             xCoor = xAxis[lastxIndex-2];
                                             yCoor = lastyCoor;
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 console.log("Coordinates were undefined. I will make a random one.");
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -1236,14 +1420,19 @@ function intelligentGuess(){
                                             xCoor = lastxCoor;
                                             yCoor = yAxis[lastyIndex+2];
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
-                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -1254,14 +1443,20 @@ function intelligentGuess(){
                                             xCoor = lastxCoor;
                                             yCoor = yAxis[lastyIndex-2];
                                             if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                                getRandomCoordinate();
+                                                do{
+                                                    getRandomCoordinate();
+                                                    console.log("Coordinates were undefined. I will make a random one.");
+                                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                 console.log("Coordinates were undefined. I will make a random one.");
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
                                                 if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
                                                     console.log("I already attempted this square, I will make a random guess");
-                                                    getRandomCoordinate();
+                                                    do{
+                                                        getRandomCoordinate();
+                                                        console.log("Coordinates were undefined. I will make a random one.");
+                                                    }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                                     return;
                                                 }
                                                 console.log(`Come find me ${sqCoor}`);
@@ -1271,12 +1466,18 @@ function intelligentGuess(){
                                     }
                                 } else {
                                 console.log("My last 4 guesses did not hit, so I will make a random guess");
-                                getRandomCoordinate();
+                                do{
+                                    getRandomCoordinate();
+                                    console.log("Coordinates were undefined. I will make a random one.");
+                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                 return;
                                 }
                             } else {
                                 console.log("I only made 3 guess. None hit. I will make a random guess");
-                                getRandomCoordinate();
+                                do{
+                                    getRandomCoordinate();
+                                    console.log("Coordinates were undefined. I will make a random one.");
+                                }while($(`#user-game-board .${sqCoor}`).hasClass("attempted"));
                                 return;
                             }
                         }
