@@ -452,9 +452,7 @@ function getRandomCoordinate(){
 //This function will attempt to allow the opponent to make an intelligent guess based on their previous result.
 function getlastCoor (){
     window.guessesLength = attemptedGuesses.length;
-    console.log(guessesLength);
     window.lastIndex = (guessesLength-1);
-    console.log(lastIndex);
     window.lastsqCoor = attemptedGuesses[lastIndex][0];
     window.lastStatus = attemptedGuesses[lastIndex][1];
     window.lastxCoor = lastsqCoor[0];
@@ -468,9 +466,7 @@ function getlastCoor (){
 }
 function getpenCoor (){
     window.guessesLength = attemptedGuesses.length;
-    console.log(guessesLength);
     window.penIndex = (guessesLength-2);
-    console.log(penIndex);
     window.pensqCoor = attemptedGuesses[penIndex][0];
     window.penStatus = attemptedGuesses[penIndex][1];
     window.penxCoor = pensqCoor[0];
@@ -485,7 +481,6 @@ function getpenCoor (){
 function getproCoor (){
     window.guessesLength = attemptedGuesses.length;
     window.proIndex = (guessesLength-3);
-        console.log(proIndex);
     window.prosqCoor = attemptedGuesses[proIndex][0];
     window.proStatus = attemptedGuesses[proIndex][1];
     window.proxCoor = prosqCoor[0];
@@ -640,7 +635,7 @@ function intelligentGuess(){
                     if(penStatus == true){//Yes(571)
                         console.log("But my first one hit.");
                         xCoor = xAxis[penxIndex-1];
-                        yCoor = penyIndex;
+                        yCoor = lastyIndex;
                         if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                             getRandomCoordinate();
                             console.log("Coordinates were undefined. I will make a random one.");
@@ -651,7 +646,7 @@ function intelligentGuess(){
                             return;
                         }
                     } else {
-                        console.log("Both my previous guesses missed");
+                        console.log("Both my previous guesses missed, so I'll be making a random guess");
                         getRandomCoordinate(); 
                         return;
                     }
@@ -697,6 +692,11 @@ function intelligentGuess(){
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
+                                            if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                console.log("I already attempted this square, I will make a random guess");
+                                                getRandomCoordinate();
+                                                return;
+                                            }
                                             console.log(`Come find me ${sqCoor}`);
                                             return;
                                         }
@@ -711,6 +711,11 @@ function intelligentGuess(){
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
+                                            if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                console.log("I already attempted this square, I will make a random guess");
+                                                getRandomCoordinate();
+                                                return;
+                                            }
                                             console.log(`Come find me ${sqCoor}`);
                                             return;
                                         }
@@ -729,6 +734,11 @@ function intelligentGuess(){
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
+                                            if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                console.log("I already attempted this square, I will make a random guess");
+                                                getRandomCoordinate();
+                                                return;
+                                            }
                                             console.log(`Come find me ${sqCoor}`);
                                             return;
                                         }
@@ -743,9 +753,14 @@ function intelligentGuess(){
                                             return;
                                         } else {
                                             sqCoor = `${xCoor}${yCoor}`;
+                                            if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                console.log("I already attempted this square, I will make a random guess");
+                                                getRandomCoordinate();
+                                                return;
+                                            }
                                             console.log(`Come find me ${sqCoor}`);
                                             return;
-                                        }
+                                            }
                                     }
                                 }
                             } else {//No(12)
@@ -768,6 +783,11 @@ function intelligentGuess(){
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            getRandomCoordinate();
+                                            return;
+                                        }
                                         console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }
@@ -802,6 +822,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -816,6 +841,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -835,6 +865,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -849,6 +884,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -866,6 +906,11 @@ function intelligentGuess(){
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            getRandomCoordinate();
+                                            return;
+                                        }
                                         console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }
@@ -873,75 +918,103 @@ function intelligentGuess(){
                             } else {//No (47)
                                 console.log("My last guess hit, the two before that didn't.");
                                 //Previous two guesses were misses.
-                                //Check if penguess x coor share the same pen guess x coor
-                                if(penxCoor == proxCoor){//yes (79)
-                                    console.log("My pro and penultimate guesses shared the same x coor");
-                                    //I know that I have previously attempted the space inbetween with the same x coor. 
-                                    //So i want to check lastguessx, but away from pen/pro guess.
-                                    //I check if lastguessx is higher or lower
-                                    if(lastxCoor > penxCoor){//lgX is larger (83)
-                                        console.log("My last guess had a larger x coor than my penultimate. So I want to check the space between");
-                                        //So i want to keep the same y coor with a larger x coor.
-                                        xCoor = xAxis[lastxIndex+1];
-                                        yCoor = lastyCoor;
-                                        if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
-                                            return;
-                                        } else {
-                                            sqCoor = `${xCoor}${yCoor}`;
-                                            console.log(`Come find me ${sqCoor}`);
-                                            return;
+                                if(attemptedGuesses[attemptedGuesses.length-4][1]==true){
+                                    console.log("My last guess hit, the two before that didn't. But the one before them did. So I am looking for a ship and missed left and right of my original guess ");
+                                    if(penxCoor == proxCoor){//yes (79)
+                                        console.log("My pro and penultimate guesses shared the same x coor");
+                                        //I know that I have previously attempted the space inbetween with the same x coor. 
+                                        //So i want to check lastguessx, but away from pen/pro guess.
+                                        //I check if lastguessx is higher or lower
+                                        if(lastxCoor > penxCoor){//lgX is larger (83)
+                                            console.log("My last guess had a larger x coor than my penultimate. So I want to check the space between");
+                                            //So i want to keep the same y coor with a larger x coor.
+                                            xCoor = xAxis[lastxIndex+1];
+                                            yCoor = lastyCoor;
+                                            if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                return;
+                                            } else {
+                                                sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
+                                                console.log(`Come find me ${sqCoor}`);
+                                                return;
+                                            }
+                                        } else {//lgX is smaller (83)
+                                            console.log("My last guess had a smaller x coor than my penultimate. So I want to check the space between");
+                                            //I want to keep the same y coor but with a smaller x coor.
+                                            xCoor = xAxis[lastxIndex-1];
+                                            yCoor = lastyCoor;
+                                            if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                return;
+                                            } else {
+                                                sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
+                                                console.log(`Come find me ${sqCoor}`);
+                                                return;
+                                            }
                                         }
-                                    } else {//lgX is smaller (83)
-                                        console.log("My last guess had a smaller x coor than my penultimate. So I want to check the space between");
-                                        //I want to keep the same y coor but with a smaller x coor.
-                                        xCoor = xAxis[lastxIndex-1];
-                                        yCoor = lastyCoor;
-                                        if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
-                                            return;
-                                        } else {
-                                            sqCoor = `${xCoor}${yCoor}`;
-                                            console.log(`Come find me ${sqCoor}`);
-                                            return;
+                                    } else {//No (79)
+                                        console.log("My pro and penultimate guesses shared the same y coor");
+                                        //Then I keep the same x coor.
+                                        //I want to check if lastguessy is higher or lower
+                                        if(lastyCoor > penyCoor){//lgY is larger (91)
+                                            console.log("My last guess had a larger y coor than my penultimate. So I want to check the space between");
+                                            //Same x coor, larger y coor.
+                                            xCoor = lastxCoor;
+                                            yCoor = yAxis[lastyIndex+1];
+                                            if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                return;
+                                            } else {
+                                                sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
+                                                console.log(`Come find me ${sqCoor}`);
+                                                return;
+                                            }
+                                        } else {//Smaller (91)
+                                            console.log("My last guess had a smaller x coor than my penultimate. So I want to check the space between");
+                                            //Same x coor, smaller y coor.
+                                            xCoor = lastxCoor;
+                                            yCoor = yAxis[lastyIndex-1];
+                                            if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                                getRandomCoordinate();
+                                                console.log("Coordinates were undefined. I will make a random one.");
+                                                return;
+                                            } else {
+                                                sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
+                                                console.log(`Come find me ${sqCoor}`);
+                                                return;
+                                            }
                                         }
                                     }
-                                } else {//No (79)
-                                    console.log("My pro and penultimate guesses shared the same y coor");
-                                    //Then I keep the same x coor.
-                                    //I want to check if lastguessy is higher or lower
-                                    if(lastyCoor > penyCoor){//lgY is larger (91)
-                                        console.log("My last guess had a larger y coor than my penultimate. So I want to check the space between");
-                                        //Same x coor, larger y coor.
-                                        xCoor = lastxCoor;
-                                        yCoor = yAxis[lastyIndex+1];
-                                        if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
-                                            return;
-                                        } else {
-                                            sqCoor = `${xCoor}${yCoor}`;
-                                            console.log(`Come find me ${sqCoor}`);
-                                            return;
-                                        }
-                                    } else {//Smaller (91)
-                                        console.log("My last guess had a smaller x coor than my penultimate. So I want to check the space between");
-                                        //Same x coor, smaller y coor.
-                                        xCoor = lastxCoor;
-                                        yCoor = yAxis[lastyIndex-1];
-                                        if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
-                                            getRandomCoordinate();
-                                            console.log("Coordinates were undefined. I will make a random one.");
-                                            return;
-                                        } else {
-                                            sqCoor = `${xCoor}${yCoor}`;
-                                            console.log(`Come find me ${sqCoor}`);
-                                            return;
-                                        }
-                                    }
+                                } else {
+                                    console.log("My last guess hit, the three before that didn't. So I will make a random guess");
+                                    getRandomCoordinate();
+                                    return;
                                 }
+                                //Check if penguess x coor share the same pen guess x coor
+                                
                             }
                         }
                     }
@@ -978,6 +1051,11 @@ function intelligentGuess(){
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            getRandomCoordinate();
+                                            return;
+                                        }
                                         console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }                                    
@@ -993,6 +1071,11 @@ function intelligentGuess(){
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            getRandomCoordinate();
+                                            return;
+                                        }
                                         console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }
@@ -1013,6 +1096,11 @@ function intelligentGuess(){
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            getRandomCoordinate();
+                                            return;
+                                        }
                                         console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }
@@ -1028,6 +1116,11 @@ function intelligentGuess(){
                                         return;
                                     } else {
                                         sqCoor = `${xCoor}${yCoor}`;
+                                        if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                            console.log("I already attempted this square, I will make a random guess");
+                                            getRandomCoordinate();
+                                            return;
+                                        }
                                         console.log(`Come find me ${sqCoor}`);
                                         return;
                                     }
@@ -1052,25 +1145,45 @@ function intelligentGuess(){
                                     return;
                                 } else {
                                     sqCoor = `${xCoor}${yCoor}`;
+                                    if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                        console.log("I already attempted this square, I will make a random guess");
+                                        getRandomCoordinate();
+                                        return;
+                                    }
                                     console.log(`Come find me ${sqCoor}`);
                                     return;
                                 }
                             } else {//No (135)
-                                console.log("My last 2 guesses share the same y coor.");
-                                //Then we know pro guess also shares the same y coor.
-                                //So we want a higher or lower y coor, with pro guess x coor.
-                                xCoor = proxCoor;
-                                yCoor = yAxis[proyIndex+1];
-                                if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                for(i=0;i<usersShips.length;i++){
+                                    if(usersShips[i][0]==attemptedGuesses[proIndex][2])
+                                    checkSunk = usersShips[i][1];
+                                }
+                                if(checkSunk == 0){
+                                    console.log("My penultimate guess sunk the ship, so I will make a random guess");
                                     getRandomCoordinate();
-                                    console.log("Coordinates were undefined. I will make a random one.");
                                     return;
                                 } else {
-                                    sqCoor = `${xCoor}${yCoor}`;
-                                    console.log(`Come find me ${sqCoor}`);
-                                    return;
+                                    console.log("My last 2 guesses don't share the same x coor.");
+                                    if(proStatus == true){
+                                        xCoor = proxCoor;
+                                        yCoor = yAxis[proyIndex+1];
+                                        if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
+                                            getRandomCoordinate();
+                                            console.log("Coordinates were undefined. I will make a random one.");
+                                            return;
+                                        } else {
+                                            sqCoor = `${xCoor}${yCoor}`;
+                                            if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                console.log("I already attempted this square, I will make a random guess");
+                                                getRandomCoordinate();
+                                                return;
+                                            }
+                                            console.log(`Come find me ${sqCoor}`);
+                                            return;
+                                        }
+                                    }
                                 }
-                            }
+                            }     
                         } else {//No (133)
                             console.log("My last 3 guesses did not hit");
                             //Check if any guesses have hit yet.
@@ -1089,6 +1202,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -1102,6 +1220,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -1118,6 +1241,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -1131,6 +1259,11 @@ function intelligentGuess(){
                                                 return;
                                             } else {
                                                 sqCoor = `${xCoor}${yCoor}`;
+                                                if($(`#user-game-board .${sqCoor}`).hasClass("attempted")){
+                                                    console.log("I already attempted this square, I will make a random guess");
+                                                    getRandomCoordinate();
+                                                    return;
+                                                }
                                                 console.log(`Come find me ${sqCoor}`);
                                                 return;
                                             }
@@ -1153,7 +1286,7 @@ function intelligentGuess(){
         }   
     }
     return sqCoor;
-}    
+}  
 //This function will run after the game ends, if either user or the opponent destroys 5 ships.
 function finishGame(text1,text2){
     var modal = document.getElementById("endgame-modal");
