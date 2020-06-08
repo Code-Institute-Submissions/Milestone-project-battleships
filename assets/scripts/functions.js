@@ -280,6 +280,9 @@ function beginGame(){
     } else {
         var arsenal = document.getElementById("arsenal-modal");
         arsenal.style.animationName = "animateright";
+        setTimeout(function(){
+            arsenal.style.display = "none";
+        });
         getOpponentCoordinates();
         placementPhase = false;
         bannerModal("Your opponent is ready","Your turn. Play your first move.");
@@ -1297,7 +1300,7 @@ function intelligentGuess(){
                                     console.log("My last 2 guess share the same x coor.");
                                     //Then we know pro guess also shares the same x coor.
                                     //So we want to a higher or lower x coor, with pro guess y coor.
-                                    xCoor = xAxis[lastxCoor+1];
+                                    xCoor = xAxis[proxCoor+1];
                                     yCoor = proyCoor;
                                     if (typeof xCoor === "undefined" || typeof yCoor === "undefined"){
                                         do{
@@ -1500,9 +1503,6 @@ function finishGame(text1,text2){
     }
     $("#endgame-panel-1 p").text(text1);
     $("#endgame-panel-3 p").text(text2);
-    var width = window.innerWidth;
-    var modalLeft = (width - 500)/2;
-    $("#endgame-modal").css("left", modalLeft);
     modal.style.animationName = "animatetop";
     $(document).keyup(function(e) {
         if (e.keyCode === 27) modal.style.animationName = "animatebottom";
@@ -1556,6 +1556,7 @@ function displayScores(){
         }
         //Sort totalScores in order of turnCount
         totalScores.sort(compareUserScore);
+        // This compare function was created reading response in https://stackoverflow.com/, however I can't find the original post.
         function compareUserScore(a, b) {
             if (a[1] === b[1]) {
                 return 0;
@@ -1652,7 +1653,6 @@ function openScores(){
     $(".close-btn").click(function(){
         modal.style.animationName = "animatebottom";
         setTimeout(function(){
-            $("#modal-container").css("display","none");
             modal.style.display = "none";
         },1000);
         
@@ -1662,6 +1662,7 @@ function openScores(){
 }
 function bannerModal(text1,text2){
     var modal = document.getElementById("banner-modal");
+    modal.style.display = "block";
     modal.style.animationName = "animateleft";
     $("#modal-panel-1 p").text(text1);
     $("#modal-panel-2 p").text(text2);
@@ -1675,17 +1676,26 @@ function bannerModal(text1,text2){
 function closeBanner(){
     var modal = document.getElementById("banner-modal");
     modal.style.animationName = "animateright";
+    setTimeout(function(){
+        modal.style.display = "none";
+    },1500);
     
 }
 function arsenalModal(){
     var modal = document.getElementById("arsenal-modal");
     modal.style.animationName = "animateleft";
+    modal.style.display = "block";
 }
 function orientationModal(){
     var modal = document.getElementById("orientation-modal");
     modal.style.animationName = "animateleft";
+    modal.style.display = "block";
     setTimeout(function(){
         modal.style.animationName = "animateright";
+        setTimeout(function(){
+            modal.style.display = "none";
+        },1500);
+       
     },3000);
 } 
 $(document).ready(function(){

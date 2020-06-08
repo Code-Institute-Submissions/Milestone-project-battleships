@@ -112,6 +112,9 @@
             margin:10px;
         }
 /*-- Main Content Specifications --*/
+    #main-content{
+        min-height: 800px;
+    }
     /*-- Button Row Specifications --*/
         #button-row{
             height:60px;
@@ -293,7 +296,7 @@
             #scores-table{
                 margin:18px;
                 width:400px;
-                height:400px;
+                height:300px;
                 padding:0px;
             }
             #scores-table td{
@@ -391,6 +394,7 @@
         .banner-modal-styling{
             background-color: #080824;
             position: absolute;
+            display: none;
             z-index: 1;
             right: -450px;
             animation-duration: 1.5s;
@@ -423,10 +427,10 @@
     /*-- Modal Animations --*/
         @keyframes animatetop {
             from {display:none; top: -630px}
-            to {display:block; top: 120px; }
+            to {display:block; top: 100px; }
         }
         @keyframes animatebottom {
-            from {top: 120px; display:block}
+            from {top: 100px; display:block}
             to {top: -630px; display:none}
         }
         @keyframes animateleft {
@@ -477,7 +481,6 @@
     .modal-body-styling {
         width:300px;
         height:376px;
-        
     }
     .header{
         height:70px;
@@ -531,6 +534,12 @@
 
 }
 @media (max-width:600px){
+    .endgame-modal-body-styling{
+        width:276px;
+    }
+    .endgame-modal-styling{
+        width:300px;
+    }
     .welcome-modal-styling{
         width:300px;
         height:300px;
