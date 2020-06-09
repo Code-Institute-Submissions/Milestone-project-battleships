@@ -26,28 +26,42 @@ This section is also where you would share links to any wireframes, mockups, dia
 
 ##Features
 ###Existing Features
-* Scoresboard - When a user completes a game, they are able to enter a profile, a nickname, that is registered into a scoreboard. The scores are stored in local sotrage, so when a user returns, they are able to review their previous performances. It improves a competitive aspect to the game and encourages players to play repeated games to improve their scores.
-* Armory - Once the placement phase has begun, a modal window appears to aid the user in deploying their ships. The modal window lists all the available ships, their length and whether the ship has been deployed. This will increase the ease of use for the users during the deployment phase.
-* Orientation - During the placement phase, users are able to change the orientation of their ships. This feature is controlled with a button located underneath the armory. To further aid the user, the button itself is shows the direction that the ship is facing. 
-* Banners - Throughout all stages of the game, from the opening of the web page, a user is supplied information through a banner modal. The modal is located in such a position that it does not interfere with the gameplay, and provides information that prompts the user's next move, such as "All ships are deployed. Please press 'Ready' to begin the game".
-* Show Coordinates - Using a mouse-enter function, when the mouse is on top of the two game boards, a function registers which game square is being hovered over, highlighting that square, and then sends that coordinate to subsequent functions. Highlighting the square provides a user with clarity of which square will be selected, allowing greater ease of use for tablet and mobile users, so that selecting an incorrect square can be avoided.
-* Intelligent Guesses - After each of the opponent's turns, the guess made is recorded into an array. Using this knowledge, the JavaScript function 'intelligenceGuess' is able to make a more accurate guess for their next turn. For example, if the opponent's previous guess was a hit, and it was the first hit on that specific ship, then the opponent will make their next guess in the vicinity of their previous guess, searching for that ship. This has been implemented to increase the competitive edge of the opponent.
+* **Scoresboard** - When a user completes a game, they are able to enter a profile, a nickname, that is registered into a scoreboard. The scores are stored in local sotrage, so when a user returns, they are able to review their previous performances. It improves a competitive aspect to the game and encourages players to play repeated games to improve their scores.
+* **Armory** - Once the placement phase has begun, a modal window appears to aid the user in deploying their ships. The modal window lists all the available ships, their length and whether the ship has been deployed. This will increase the ease of use for the users during the deployment phase.
+* **Orientation** - During the placement phase, users are able to change the orientation of their ships. This feature is controlled with a button located underneath the armory. To further aid the user, the button itself is shows the direction that the ship is facing. 
+* **Banners** - Throughout all stages of the game, from the opening of the web page, a user is supplied information through a banner modal. The modal is located in such a position that it does not interfere with the gameplay, and provides information that prompts the user's next move, such as "All ships are deployed. Please press 'Ready' to begin the game".
+* **Show Coordinates** - Using a mouse-enter function, when the mouse is on top of the two game boards, a function registers which game square is being hovered over, highlighting that square, and then sends that coordinate to subsequent functions. Highlighting the square provides a user with clarity of which square will be selected, allowing greater ease of use for tablet and mobile users, so that selecting an incorrect square can be avoided.
+* **Intelligent Guesses** - After each of the opponent's turns, the guess made is recorded into an array. Using this knowledge, the JavaScript function 'intelligenceGuess' is able to make a more accurate guess for their next turn. For example, if the opponent's previous guess was a hit, and it was the first hit on that specific ship, then the opponent will make their next guess in the vicinity of their previous guess, searching for that ship. This has been implemented to increase the competitive edge of the opponent.
 
 ###Future Features
-* Mobile Devices - While the web page and all its components are responsive to window size, 'clickability' is temperamental without the use of a mouse. In future versions, I hope to make a mobile user's experience streamlined and without issue.
-* Adjacent Placement - Currently, the only restrictions during the placement phase are that the user must place their ships within the boundaries of the grid, and that users are unable place ships on top of each other. In future, I would like to integrate a restriction that prohibits users placing their ships adjacently.
-* Difficulty Settings - To adapt for the experience or skill of the user, I hope to implement the feature that allows users to choose their preferred grid size(8x8,12x12,16x16) and the strength of the opponent. This will open the appeal of the web page to a wider audience.
+* **Mobile Devices** - While the web page and all its components are responsive to window size, 'clickability' is temperamental without the use of a mouse. In future versions, I hope to make a mobile user's experience streamlined and without issue.
+* **Adjacent Placement** - Currently, the only restrictions during the placement phase are that the user must place their ships within the boundaries of the grid, and that users are unable place ships on top of each other. In future, I would like to integrate a restriction that prohibits users placing their ships adjacently.
+* **Difficulty Settings** - To adapt for the experience or skill of the user, I hope to implement the feature that allows users to choose their preferred grid size(8x8,12x12,16x16) and the strength of the opponent. This will open the appeal of the web page to a wider audience.
 
 
 ##Technologies Used
-* 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
+* **Bootstrap** - Bootstrap was used to implement the layout and structure of the entire website.
+    https://getbootstrap.com/
+* **FontAwesome** - All of the icons used in the navigation bar were provided by FontAwesome.
+    https://fontawesome.com/start
+* **jQuery** - Throughout the JavaScript functions, jQuery was integral to help manipulate the DOM.
+    https://jquery.com/download/
+* **Canva** - All graphics were created in Canva's design software.
+    https://www.canva.com/
+* **W3School** - Although not providing any libraries, w3School was used to troubleshoot any issues in producing this website.
+    https://www.w3schools.com/
 
-JQuery
-The project uses JQuery to simplify DOM manipulation.
-Testing
+##Testing
+A lot of testing, throughout the creation of this website could be done manually. A lot of the functions are called by "onclick" functions, and because of this a majority of the testing can be accomplished manually.
+This manual testing included such actions as placing ships, clicking a square to check if it was occupied, loading of scores and instruction modals, and so on.
+Any testing that could be accomplished automatedly can be found in file 'functionsSpec.js'. This  was tested using Jasmine framework which can be found here: https://jasmine.github.io/. I have subsequently removed the framework from 'index.html' so that it was not visible to any visitors to the site.
+The automated testing was used to ensure that the correct coordinates were recorded and returned by various functions, that the game-scripts were able to load, however as each game would upload a random script, it was impossible to predict which game-script was loaded. Further more, I used automated testing to predict which square would be guessed by 'intelligenceGuesses' when provided with a number of variables.
+
+As a third, more thorough level of testing, I also sent the web page to my parents. This can be classified as 'defensive testing' as they are notoriously inept with computers, and have a knack for finding any weak points of a web page. They were useful in finding any obstacles that would prevent a future user from playing the game of battleships. They were able to ensure that the user interface was easy enough to use, that any user would be able to play a game from beginning to end.
+My parents were asked to load the web page, place/deploy all of their ships, begin a game, and play it all the way through to completetion. After that, they were able to save their score, and if so desired, start a new game.
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
 
+Furthermore, I tested the web page across a number of devices. 
 Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
 
 For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
