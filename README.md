@@ -1,6 +1,6 @@
 # Battleships
 ## Milestone Project 2 - Interactive Front-End Development
-## Created by Lindsay Kerr
+### Created by Lindsay Kerr
 
 Battleships is an web-based gaming application, based on the pencil and paper, turn-based strategy game of the same name. 
 Users are invited to set out their tokens in a unique arrangment, and then take turns to guess the locations of an opponent's tokens on a 10x10 grid.
@@ -62,7 +62,7 @@ All wireframes and mockups for this project can be found at: https://wireframepr
 
 ## Testing
 A lot of testing, throughout the creation of this website could be done manually. A lot of the functions are called by "onclick" functions, and because of this a majority of the testing can be accomplished manually.
-This manual testing included such actions as placing ships, clicking a square to check if it was occupied, loading of scores and instruction modals, and so on.
+This manual testing included such actions as placing ships, clicking a square to check if it was occupied, loading of scores and instruction modals, and so on. All of the manual testing was undertaken after an implementation of a major feature to ensure it was correctly implemented into the rest of the code, and that it ran without error.
 
 Any testing that could be accomplished automatedly can be found in file 'functionsSpec.js'. This  was tested using Jasmine framework which can be found here: https://jasmine.github.io/. I have subsequently removed the framework from 'index.html' so that it was not visible to any visitors to the site.
 The automated testing was used to ensure that the correct coordinates were recorded and returned by various functions, that the game-scripts were able to load, however as each game would upload a random script, it was impossible to predict which game-script was loaded. Further more, I used automated testing to predict which square would be guessed by 'intelligenceGuesses' when provided with a number of variables.

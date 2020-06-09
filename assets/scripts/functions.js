@@ -1682,12 +1682,7 @@ function bannerModal(text1,text2){
     modal.style.animationName = "animateleft";
     $("#modal-panel-1 p").text(text1);
     $("#modal-panel-2 p").text(text2);
-    /*window.onclick = function(event) {
-        if (event.target == modal) {
-            console.log("Clicked it");
-            modal.style.display = "none";
-        }
-    }*/
+
 }
 function closeBanner(){
     var modal = document.getElementById("banner-modal");
