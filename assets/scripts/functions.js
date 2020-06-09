@@ -9,6 +9,14 @@ var attemptedGuesses = [];
 function newScreen(){
     //This clears the squares, providing a new board to play upon
     $(".game-square").removeClass("occupied").removeClass("hit").removeClass("sunk").removeClass("miss");
+    shipList = [["aircc","Aircraft Carrier",5],["btsp","Battleship",4],["sub","Submarine",3],["dest","Destroyer",3],["pboat","Patrol Boat",2]];
+    deployedList = [];
+    oppsShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]];
+    usersShips = [["aircc",5],["btsp",4],["sub",3],["dest",3],["pboat",2]];
+    xAxis = ["A","B","C","D","E","F","G","H","I","J"];
+    yAxis = ["1","2","3","4","5","6","7","8","9","10"];
+    attemptedGuesses = [];
+    renewArsenal();
     for(i=0;i<shipList.length;i++){
         $(".game-square").removeClass(`${shipList[i][0]}`);
     }
@@ -1697,7 +1705,14 @@ function orientationModal(){
         },1500);
        
     },3000);
-} 
+}
+function renewArsenal(){
+    $(`#arsenal #aircc td:nth-child(2)`).text(`5 Spaces`);
+    $(`#arsenal #btsp td:nth-child(2)`).text(`4 Spaces`);
+    $(`#arsenal #sub td:nth-child(2)`).text(`3 Spaces`);
+    $(`#arsenal #dest td:nth-child(2)`).text(`3 Spaces`);
+    $(`#arsenal #pboat td:nth-child(2)`).text(`2 Spaces`);
+}
 $(document).ready(function(){
     openWelcomePage();
     window.verticalStatus = true;
