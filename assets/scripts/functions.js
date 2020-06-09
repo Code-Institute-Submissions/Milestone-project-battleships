@@ -308,10 +308,16 @@ function beginGame(){
     return;
 }
 //Retrieving Opponent's Coordinates
+//This function will retrieve a random set of coordinates from a possibility of 10 different sets of coordinates
+function getScriptNo(){
+    var scriptNo = Math.ceil(Math.random() * 10);
+    return scriptNo;
+}
 // This function retrieves a new set of coordinates, and places ships in the opponent's grid
-function getOpponentCoordinates(){
+function getOpponentCoordinates(scriptNo){
+    var scriptNo = getScriptNo();
     var opponentShipsPlaced = false;
-    $.get("assets/coordinates/board-1.txt",function(rawCoor){
+    $.get(`assets/coordinates/board-${scriptNo}.txt`,function(rawCoor){
             var oppCoor = rawCoor.split(/\n/g);
             var ACCoor = oppCoor[0].split(",");
             for(i=0;i<ACCoor.length;i++){
@@ -343,8 +349,9 @@ function getOpponentCoordinates(){
     return opponentShipsPlaced;
 }
 //This function checks if all of the user's ships has been placed, and then returns a true or false statement.
-function checkReadyStatus(){
-    if(deployedList.length == 5){
+function checkReadyStatus(listLength){
+    var listLength = deployedList.length;
+    if(listLength == 5){
         readyStatus = true;
     } else {
         var yetToBeDeployed = [];

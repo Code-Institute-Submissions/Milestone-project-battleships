@@ -19,10 +19,15 @@ To remain engaging, each new game provides a new layout of opponent's ships, whi
 
 ###User Stories
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
+"As a person who to entertain myself without computers as a child, I want to find my childhood games, so that I can revisit all my nostalgia.
+-William Broadhurst
+"As a regular computer user, I rely on the internet for any entertainment. I want to find a game that doesn't require a great time commitment, so that I can play whenever I want or my work-breaks."
+-Benjamin Saw
+"As a competitive person, I want to find a game that challenges me, so that I can fullfill my need."
+"Mark Colk"
 
-As a user type, I want to perform an action, so that I can achieve a goal.
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
+###Wireframes & Mockups
+All wireframes and mockups for this project can be found at: https://wireframepro.mockflow.com/view/M6932f00f4ea11f3c10e5326cb9f349181591701065890#/page/72453818d0484c72821d90e4e0fe1ae5
 
 ##Features
 ###Existing Features
@@ -50,10 +55,15 @@ This section is also where you would share links to any wireframes, mockups, dia
     https://www.canva.com/
 * **W3School** - Although not providing any libraries, w3School was used to troubleshoot any issues in producing this website. In production of the modal windows found throughout the web page, this resource was very helpful.
     https://www.w3schools.com/
+* **MockFlow** - This free service was used to help construct the wireframes for this project.
+    https://mockflow.com/
+* **Jasmine** - I used the Jasmine framework to test my code and functions throughout constructing this web page.
+    https://jasmine.github.io/
 
 ##Testing
 A lot of testing, throughout the creation of this website could be done manually. A lot of the functions are called by "onclick" functions, and because of this a majority of the testing can be accomplished manually.
 This manual testing included such actions as placing ships, clicking a square to check if it was occupied, loading of scores and instruction modals, and so on.
+
 Any testing that could be accomplished automatedly can be found in file 'functionsSpec.js'. This  was tested using Jasmine framework which can be found here: https://jasmine.github.io/. I have subsequently removed the framework from 'index.html' so that it was not visible to any visitors to the site.
 The automated testing was used to ensure that the correct coordinates were recorded and returned by various functions, that the game-scripts were able to load, however as each game would upload a random script, it was impossible to predict which game-script was loaded. Further more, I used automated testing to predict which square would be guessed by 'intelligenceGuesses' when provided with a number of variables.
 
@@ -63,12 +73,20 @@ In this section, you need to convince the assessor that you have conducted enoug
 
 Furthermore, I tested the web page across a number of devices such as laptops, tablets and mobiles. While there are some issues with devices that operate with a touch-screen, the web page was responsive to the window width. On a desktop unit, the website ran without errors. 
 
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
+Finally, I my code through a validator appropriate to each language used: HTML,CSS and JavaScript. For each validation, I was able to fix any incorrect code, and validate the code to a suitable degree.
+For JavaScript, I did experience some undeclared variables, particularly with 'while' loops, telling me that I would need to declare each variable 'i', and after doing so, I would be informed that variable 'i' was already declared.
+For CSS, the validator returned "parse errors". I believe that these are caused from the use of Bootstrap. For example: "Parse Error ;--success:#28a745;". This value is supplied by Bootstrap and not a style rule created during this project.
+
+List of validators:
+HTML - https://validator.w3.org/
+CSS - https://jigsaw.w3.org/css-validator/
+JS - https://jshint.com/
 
 ##Deployment
 This website has been deployed through GitHub's hosting service, with the page being found at:
-https://lindsaykerr1994.github.io/Milestone-project-battleships/
-Due to short-sightedness while making Git Commits, the commit messages were very lengthy. For clarity, I have complied a log of my commit messages throughout the production of the web page. This can be found in the root directory under the name "commit-log.txt"
+    https://lindsaykerr1994.github.io/Milestone-project-battleships/
+Due to short-sightedness while making Git Commits, the commit messages were very lengthy and therefore some sections of the commit messages are ineligble. This will be remedied in future projects.
+A compliation of all commit messages can be found in the file named 'commit-log.txt'.
 
 ##Credits
 ###Content
