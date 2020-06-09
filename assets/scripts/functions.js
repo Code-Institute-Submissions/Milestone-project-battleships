@@ -16,6 +16,7 @@ function newScreen(){
     xAxis = ["A","B","C","D","E","F","G","H","I","J"];
     yAxis = ["1","2","3","4","5","6","7","8","9","10"];
     attemptedGuesses = [];
+    turnCount = 0;
     renewArsenal();
     for(i=0;i<shipList.length;i++){
         $(".game-square").removeClass(`${shipList[i][0]}`);
@@ -237,7 +238,7 @@ function unshowCoordinates(){
 //This function takes all the coordinates (provided by ship length) and fills the according squares
 function placeShip(){
     if(placementPhase == true){
-        if(checkDuplicateStatus()==true){
+        while(checkDuplicateStatus()==true){
             $(`#user-game-board .${shipId}`).removeClass(`occupied ${shipId}`);
             $(`#${shipId}`).removeClass("placed");
             bannerModal(`${shipSelected} Removed`,`Please select where to redeploy ship`);
@@ -248,7 +249,7 @@ function placeShip(){
                 deployedList.splice(removeIndex, 1);
             }
             
-        } else {
+        } 
             //This finds the square that's been clicked.
             var startingCoor = sqCoor;
             //This breaks the coordinates into an x and y value.
@@ -274,7 +275,7 @@ function placeShip(){
                     shipLength = 1;
                     return;
                 }
-        }
+        
     } else {
         return;
     }

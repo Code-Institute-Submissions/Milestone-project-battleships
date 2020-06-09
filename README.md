@@ -48,7 +48,7 @@ This section is also where you would share links to any wireframes, mockups, dia
     https://jquery.com/download/
 * **Canva** - All graphics were created in Canva's design software.
     https://www.canva.com/
-* **W3School** - Although not providing any libraries, w3School was used to troubleshoot any issues in producing this website.
+* **W3School** - Although not providing any libraries, w3School was used to troubleshoot any issues in producing this website. In production of the modal windows found throughout the web page, this resource was very helpful.
     https://www.w3schools.com/
 
 ##Testing
@@ -61,36 +61,19 @@ As a third, more thorough level of testing, I also sent the web page to my paren
 My parents were asked to load the web page, place/deploy all of their ships, begin a game, and play it all the way through to completetion. After that, they were able to save their score, and if so desired, start a new game.
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
 
-Furthermore, I tested the web page across a number of devices. 
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
-
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
-
-Contact form:
-Go to the "Contact Us" page
-Try to submit the empty form and verify that an error message about the required fields appears
-Try to submit the form with an invalid email address and verify that a relevant error message appears
-Try to submit the form with all inputs valid and verify that a success message appears.
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
+Furthermore, I tested the web page across a number of devices such as laptops, tablets and mobiles. While there are some issues with devices that operate with a touch-screen, the web page was responsive to the window width. On a desktop unit, the website ran without errors. 
 
 You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
 
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
+##Deployment
+This website has been deployed through GitHub's hosting service, with the page being found at:
+https://lindsaykerr1994.github.io/Milestone-project-battleships/
+Due to short-sightedness while making Git Commits, the commit messages were very lengthy. For clarity, I have complied a log of my commit messages throughout the production of the web page. This can be found in the root directory under the name "commit-log.txt"
 
-Deployment
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
+##Credits
+###Content
+Throughout the construction of this web page, I relied heavily upon advice from a number of forum websites such as: **W3School**, **StackOverflow** and **Mozilla Development Web Docs**.  The advice and solutions provided by this website were very helpful throughout.
 
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-
-Different values for environment variables (Heroku Config Vars)?
-Different configuration files?
-Separate git branch?
-In addition, if it is not obvious, you should also describe how to run your code locally.
-
-Credits
-Content
-The text for section Y was copied from the Wikipedia article Z
-Media
-The photos used in this site were obtained from ...
-Acknowledgements
-I received inspiration for this project from X
+###Acknowledgements
+Firstly, I would like to acknowledge the game of battleships. While there are several versions of the game, the original pencil and paper game was instrumental in the inspiration of this web page.
+I want to thank everyone that possessed a huge amount of patience while I constructed this web page, through all of my confusion and ramblings of 'if' functions.
