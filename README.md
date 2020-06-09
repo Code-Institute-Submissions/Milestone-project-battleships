@@ -1,12 +1,12 @@
-#Battleships
-##Milestone Project 2 - Interactive Front-End Development
-##Created by Lindsay Kerr
+# Battleships
+## Milestone Project 2 - Interactive Front-End Development
+## Created by Lindsay Kerr
 
 Battleships is an web-based gaming application, based on the pencil and paper, turn-based strategy game of the same name. 
 Users are invited to set out their tokens in a unique arrangment, and then take turns to guess the locations of an opponent's tokens on a 10x10 grid.
 The opponent's role is taken by JavaScript functions that have been programmed to make accurate guesses depending on the success of their previous guesses. This is done to simulate the environment of playing against an opponent in real time.
 
-##UX
+## UX
 Growing up with flash-powered online games, I wanted to create an environment in which players are able to start a game, play for as long and they wish. 
 With this in mind, Battleships must be a game that must entertain a user for as long as they wish to be engaged. The game must not require a long time commitment to establish a profile, and if a user wishes to leave, they must be able to do so without requiring a checkpoint to save their progress.
 To remain competitive, scores must be quantifiable. A user is able to track progress, see previous attempts and compare their successes with other players or friends.
@@ -17,7 +17,7 @@ Simply put, the website is designed for anyone searching for entertainment, or a
 
 To remain engaging, each new game provides a new layout of opponent's ships, while collecting a running 'turn count' for each game, so that user's are experiencing a new challenge each game, while being  able to compare to previous attempts. Furthermore, the opponent's guesses are determined by a JavaScript function that helps simulate a skilled opponent.
 
-###User Stories
+### User Stories
 
 "As a person who to entertain myself without computers as a child, I want to find my childhood games, so that I can revisit all my nostalgia.
 -William Broadhurst
@@ -26,11 +26,11 @@ To remain engaging, each new game provides a new layout of opponent's ships, whi
 "As a competitive person, I want to find a game that challenges me, so that I can fullfill my need."
 "Mark Colk"
 
-###Wireframes & Mockups
+### Wireframes & Mockups
 All wireframes and mockups for this project can be found at: https://wireframepro.mockflow.com/view/M6932f00f4ea11f3c10e5326cb9f349181591701065890#/page/72453818d0484c72821d90e4e0fe1ae5
 
-##Features
-###Existing Features
+## Features
+### Existing Features
 * **Scoresboard** - When a user completes a game, they are able to enter a profile, a nickname, that is registered into a scoreboard. The scores are stored in local sotrage, so when a user returns, they are able to review their previous performances. It improves a competitive aspect to the game and encourages players to play repeated games to improve their scores.
 * **Armory** - Once the placement phase has begun, a modal window appears to aid the user in deploying their ships. The modal window lists all the available ships, their length and whether the ship has been deployed. This will increase the ease of use for the users during the deployment phase.
 * **Orientation** - During the placement phase, users are able to change the orientation of their ships. This feature is controlled with a button located underneath the armory. To further aid the user, the button itself is shows the direction that the ship is facing. 
@@ -38,13 +38,13 @@ All wireframes and mockups for this project can be found at: https://wireframepr
 * **Show Coordinates** - Using a mouse-enter function, when the mouse is on top of the two game boards, a function registers which game square is being hovered over, highlighting that square, and then sends that coordinate to subsequent functions. Highlighting the square provides a user with clarity of which square will be selected, allowing greater ease of use for tablet and mobile users, so that selecting an incorrect square can be avoided.
 * **Intelligent Guesses** - After each of the opponent's turns, the guess made is recorded into an array. Using this knowledge, the JavaScript function 'intelligenceGuess' is able to make a more accurate guess for their next turn. For example, if the opponent's previous guess was a hit, and it was the first hit on that specific ship, then the opponent will make their next guess in the vicinity of their previous guess, searching for that ship. This has been implemented to increase the competitive edge of the opponent.
 
-###Future Features
+### Future Features
 * **Mobile Devices** - While the web page and all its components are responsive to window size, 'clickability' is temperamental without the use of a mouse. In future versions, I hope to make a mobile user's experience streamlined and without issue.
 * **Adjacent Placement** - Currently, the only restrictions during the placement phase are that the user must place their ships within the boundaries of the grid, and that users are unable place ships on top of each other. In future, I would like to integrate a restriction that prohibits users placing their ships adjacently.
 * **Difficulty Settings** - To adapt for the experience or skill of the user, I hope to implement the feature that allows users to choose their preferred grid size(8x8,12x12,16x16) and the strength of the opponent. This will open the appeal of the web page to a wider audience.
 
 
-##Technologies Used
+## Technologies Used
 * **Bootstrap** - Bootstrap was used to implement the layout and structure of the entire website.
     https://getbootstrap.com/
 * **FontAwesome** - All of the icons used in the navigation bar were provided by FontAwesome.
@@ -60,7 +60,7 @@ All wireframes and mockups for this project can be found at: https://wireframepr
 * **Jasmine** - I used the Jasmine framework to test my code and functions throughout constructing this web page.
     https://jasmine.github.io/
 
-##Testing
+## Testing
 A lot of testing, throughout the creation of this website could be done manually. A lot of the functions are called by "onclick" functions, and because of this a majority of the testing can be accomplished manually.
 This manual testing included such actions as placing ships, clicking a square to check if it was occupied, loading of scores and instruction modals, and so on.
 
@@ -82,16 +82,16 @@ HTML - https://validator.w3.org/
 CSS - https://jigsaw.w3.org/css-validator/
 JS - https://jshint.com/
 
-##Deployment
+## Deployment
 This website has been deployed through GitHub's hosting service, with the page being found at:
     https://lindsaykerr1994.github.io/Milestone-project-battleships/
 Due to short-sightedness while making Git Commits, the commit messages were very lengthy and therefore some sections of the commit messages are ineligble. This will be remedied in future projects.
 A compliation of all commit messages can be found in the file named 'commit-log.txt'.
 
-##Credits
-###Content
+## Credits
+### Content
 Throughout the construction of this web page, I relied heavily upon advice from a number of forum websites such as: **W3School**, **StackOverflow** and **Mozilla Development Web Docs**.  The advice and solutions provided by this website were very helpful throughout.
 
-###Acknowledgements
+### Acknowledgements
 Firstly, I would like to acknowledge the game of battleships. While there are several versions of the game, the original pencil and paper game was instrumental in the inspiration of this web page.
 I want to thank everyone that possessed a huge amount of patience while I constructed this web page, through all of my confusion and ramblings of 'if' functions.
